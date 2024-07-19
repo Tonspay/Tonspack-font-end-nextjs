@@ -7,7 +7,7 @@ export const Logo: React.FC<IconSvgProps> = ({
   height,
   ...props
 }) => (
-  <img src="https://www.tonspack.com/favicon.ico" style={{width:"20%"}}>
+  <img src="https://www.tonspack.com/favicon.ico" style={{width:"15%"}}>
 
   </img>
 );

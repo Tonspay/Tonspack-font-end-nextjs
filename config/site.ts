@@ -1,24 +1,20 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "Next.js + NextUI",
-  description: "Make beautiful websites regardless of your design experience.",
+  name: "Tonspack wallet",
+  description: "Mobile web3 wallet in one tap",
   navItems: [
     {
       label: "Home",
       href: "/",
     },
     {
-      label: "Docs",
-      href: "/docs",
+      label: "Wallet",
+      href: "/wallet",
     },
     {
-      label: "Pricing",
-      href: "/pricing",
-    },
-    {
-      label: "Blog",
-      href: "/blog",
+      label: "Setting",
+      href: "/Setting",
     },
     {
       label: "About",
@@ -27,36 +23,24 @@ export const siteConfig = {
   ],
   navMenuItems: [
     {
-      label: "Profile",
-      href: "/profile",
+      label: "Home",
+      href: "/",
     },
     {
-      label: "Dashboard",
-      href: "/dashboard",
+      label: "Wallet",
+      href: "/wallet",
     },
     {
-      label: "Projects",
-      href: "/projects",
+      label: "Setting",
+      href: "/Setting",
     },
     {
-      label: "Team",
-      href: "/team",
+      label: "About",
+      href: "/about",
     },
     {
-      label: "Calendar",
-      href: "/calendar",
-    },
-    {
-      label: "Settings",
-      href: "/settings",
-    },
-    {
-      label: "Help & Feedback",
-      href: "/help-feedback",
-    },
-    {
-      label: "Logout",
-      href: "/logout",
+      label: "Action",
+      href: "/action",
     },
   ],
   links: {
