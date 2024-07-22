@@ -49,6 +49,11 @@ export default function DocsPage() {
   const onload =async ()=>{
       const init = await miniapp_init();
       console.log("🚧 miniapp",init)
+      if(init.isTelegram)
+      {
+        const auth = await api_auth(init.initData)
+        console.log("🔥 Auth ",auth)
+      }
     
     list.push(
       {

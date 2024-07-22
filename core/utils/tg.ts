@@ -1,32 +1,52 @@
 
 
 import {useRouter} from 'next/router';
-
+import { useInitData, useLaunchParams, type User } from '@telegram-apps/sdk-react';
 async function miniapp_init() {
-    
+    let decodeData = {
+        isTelegram :false,
+        initData:{},
+        hasStarData:false,
+        starData:""
+    }
     try{
-        // const WebApp = useWebApp();
-        // await WebApp.ready();
-        // if (WebApp.initData) {
-        //     return WebApp
-        // }
         const r = useRouter();
         const path = r.asPath;
 
         const tmp0 = path.split("#");
-        console.log("🚧 Decode path",tmp0)
+
         if(tmp0.length>1)
         {
-            console.log(
-                decodeURIComponent(tmp0[0]),decodeURIComponent(tmp0[1])
-            )
+            const temp1 = tmp0[1]// decodeURIComponent(decodeURIComponent(tmp0[1]))
+            
+            const temp2 = temp1.split("tgWebAppData=");
+
+            if(temp2.length>1)
+            {
+                decodeData.initData ={initData:temp2[1]}
+                decodeData.isTelegram=true;
+
+            }
+            
+        
+            const initData = useInitData();
+            console.log("🔥initData",initData)
+            decodeData.initData ={initData:initData}
         }
+        if(tmp0.length>0)
+        {
+            const temp3 = tmp0[0].split("tgWebAppStartParam=")
+            decodeData.starData = temp3[1];
+            decodeData.hasStarData=true;
+        }
+        
 
     }catch(e)
     {
         console.log(e)
-        return false
+       
     }
+    return decodeData
 
     
 }

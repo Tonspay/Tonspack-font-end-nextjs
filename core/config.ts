@@ -1,5 +1,5 @@
 const config = {
-    siteBaseUrl : 'https://app.tonspack.com'
+    siteBaseUrl : 'https://pack.tons.ink/'
 }
 
 export default config;
