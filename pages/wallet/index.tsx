@@ -8,12 +8,22 @@ import {Image }from "@nextui-org/image";
 import {Chip} from "@nextui-org/chip"
 import {Divider} from"@nextui-org/divider"
 
+import { useState, useEffect } from 'react';
+import {useRouter} from 'next/router';
+
+import {api_auth} from "../../core/request/index"
+
+import {miniapp_init} from "../../core/utils/tg"
+
+
 
 export default function DocsPage() {
-  const list = [
+  const router = useRouter()
+  let list = [
     {
       title: "TON",
       address:"EQCZBjHI...NNt_yPIP",
+      scan:"https://tonviewer.com/EQCZBjHIQsKYDo4xob7C3IbHL8X4hUz1Q4A7BgzXNNt_yPIP",
       img: "/images/chains/ton.svg",
       name:"TON",
       bal:"1.32 TON"
@@ -21,6 +31,7 @@ export default function DocsPage() {
     {
       title: "ETH",
       address:"0xF1a4db...ACF951f9",
+      scan:"https://etherscan.io/address/0xF1a4db7963afB51ef0465BaA805914A2ACF951f9",
       img: "/images/chains/ethereum.svg",
       name:"Etherum",
       bal:"0.311 ETH"
@@ -28,11 +39,30 @@ export default function DocsPage() {
     {
       title: "Solana",
       address:"1YF4hSrq...2EKYXzXS",
+      scan:"https://solscan.io/address/1YF4hSrqRqSKwnLDwkR1df5chDEnAV67aBL2EKYXzXS",
       img: "/images/chains/solana.svg",
       name:"Solana",
       bal:"28.1 SOL"
     },
   ];
+
+  const onload =async ()=>{
+      const init = await miniapp_init();
+      console.log("🚧 miniapp",init)
+    
+    list.push(
+      {
+        title: "TON",
+        address:"EQCZBjHI...NNt_yPIP",
+        scan:"https://tonviewer.com/EQCZBjHIQsKYDo4xob7C3IbHL8X4hUz1Q4A7BgzXNNt_yPIP",
+        img: "/images/chains/ton.svg",
+        name:"TON",
+        bal:"1.32 TON"
+      }
+    )
+
+  }
+  onload()
 
   return (
     <DefaultLayout>
@@ -48,7 +78,7 @@ export default function DocsPage() {
           <CardHeader className="justify-between">
             <div className="flex gap-5">
               <Image
-                    alt="nextui logo"
+                    alt="chain logo"
                     height={40}
                     radius="sm"
                     src={item.img}
@@ -58,12 +88,9 @@ export default function DocsPage() {
                 <h4 className="text-small font-semibold leading-none text-default-600">{item.address}</h4>
               </div>
             </div>
-            <a>
-
-            </a>
             <Link
             isExternal
-            href="https://tonspack.com/"
+            href={item.scan}
             >
             <Chip className="text-tiny text-white" variant="flat" color="default" radius="lg" size="sm" >Copy</Chip>
             </Link>
@@ -101,6 +128,10 @@ export default function DocsPage() {
       <br/>
       <Button color="primary" variant="bordered">
         Export privateKey
+      </Button>  
+      <br/>
+      <Button color="secondary" variant="bordered">
+        Share to friend
       </Button>  
       <br/>
       <Button color="danger" variant="bordered">
