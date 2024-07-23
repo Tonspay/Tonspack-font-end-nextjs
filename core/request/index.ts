@@ -151,17 +151,22 @@ async function api_preconnect(actionId:string) {
 //Price fetch
 async function api_balance_ton(data:string) {
     try{
-        return await requester(
+        const ret = await requester(
             request_router.scan.tonapi.balance+data,
             request_get_unauth()
         )
+        if(!Number(ret))
+        {
+            return 0 ;
+        }
+        return ret;
     }catch(e)
     {
         return 0;
     }
 }
 
-async function api_balance_sol(data:PublicKey) {
+async function api_balance_sol(data:string) {
     try{
         const connection = new Connection(config.solanaConnection);
         return await connection.getBalance(new PublicKey(data));
@@ -196,12 +201,37 @@ async function api_balance_evm(data:string,chain:any) {
     }
 }
 
+async function api_balance(data:string,chain:any) {
+    try{
+        var web3;
+        switch (chain){
+            case "sol":
+                return (await api_balance_sol(data)/Math.pow(10,9)).toFixed(3)
+            case "sol":
+                return (await api_balance_ton(data)/Math.pow(10,8)).toFixed(3)
+            case "bsc":case 56:
+            web3 = new Web3(new Web3.providers.HttpProvider(config.evmProviders.bsc))
+                return await web3.eth.getBalance(data);
+            default : 
+            web3 = new Web3(new Web3.providers.HttpProvider(config.evmProviders.arb));
+                return await web3.eth.getBalance(data);
+        }
+        
+
+    }catch(e)
+    {
+        return 0;
+    }
+}
+
+
 export {
     api_auth,
     api_connect,
     api_preconnect,
-    api_balance_ton,
-    api_balance_sol,
-    api_balance_arb,
-    api_balance_evm
+    // api_balance_ton,
+    // api_balance_sol,
+    // api_balance_arb,
+    // api_balance_evm,
+    api_balance
 }

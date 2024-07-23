@@ -4,10 +4,23 @@
  * Control cookies * local storage
  */
 
+// type telegram_init_data_type = {
+//     isTelegram :boolean,
+//     initData:any,
+//     hasStarData:boolean,
+//     starData:string
+// }
+
 const router_storage = {
     authkey: "user_authkey",
     uid: "user_uid",
-    user_data_tg: "user_data_telegram"
+    user_data_tg: "user_data_telegram",
+    raw_init_data:{
+        isTelegram :false,
+        initData:{},
+        hasStarData:false,
+        starData:""
+    }
 }
 
 function storage_get_authkey() {
@@ -21,6 +34,20 @@ function storage_get_authkey() {
 function storage_set_authkey(key:string) {
     router_storage.authkey = key
 }
+
+function storage_get_raw_init_data() {
+    var key = router_storage.raw_init_data
+    if (key) {
+        return key
+    }
+    return false;
+}
+
+function storage_set_raw_init_data(raw_init_data:any) {
+    router_storage.raw_init_data=raw_init_data
+}
+
+
 
 function storage_get_uid() {
     var key = router_storage.uid
@@ -51,5 +78,7 @@ export {
     storage_set_authkey,
     storage_get_uid,
     storage_set_uid,
-    storage_get_user_tg_data
+    storage_get_user_tg_data,
+    storage_get_raw_init_data,
+    storage_set_raw_init_data
 };

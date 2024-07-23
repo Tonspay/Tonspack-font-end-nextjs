@@ -2,7 +2,7 @@
 
 import {useRouter} from 'next/router';
 import { useInitData, useLaunchParams, type User } from '@telegram-apps/sdk-react';
-async function miniapp_init() {
+function miniapp_init() {
     let decodeData = {
         isTelegram :false,
         initData:{},
@@ -13,8 +13,8 @@ async function miniapp_init() {
 
         const r = useRouter();
 
-        console.log("🚧 r",r)
-        console.log("🚧 useRouter()",r.asPath)
+        // console.log("🚧 r",r)
+        // console.log("🚧 useRouter()",r.asPath)
         const path = r.asPath;
 
         const tmp0 = path.split("#");

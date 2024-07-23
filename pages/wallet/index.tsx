@@ -8,10 +8,9 @@ import {Image }from "@nextui-org/image";
 import {Chip} from "@nextui-org/chip"
 import {Divider} from"@nextui-org/divider"
 
-import {wallet_connect,wallet_list_generate} from "../../core/wallet/index";
+import {wallet_connect,wallet_list_generate,wallet_init_data_set} from "../../core/wallet/index";
 
-import type { InferGetStaticPropsType, GetStaticProps } from 'next'
-
+import { useState, useEffect } from 'react'
 
 type walletCard = {
   title: string,
@@ -21,47 +20,40 @@ type walletCard = {
   name:string,
   bal:string,
 }
-  export const getStaticProps = async () => {
-    let ret = []
-    const connect = await wallet_connect();
-    console.log("🚧 connect :: ",connect)
-    if(connect)
+
+
+export default function DocsPage() {
+  //init
+  wallet_init_data_set()
+
+  // let list : walletCard[];
+  let list : walletCard[];
+  list = [];
+  const [data, setData] = useState([
     {
-      const ws = await wallet_list_generate(connect.wallets)
-      console.log("🚧 Wallets :: ",ws)
-      ret.push(
-        ws[0]
-      )
+      title: "pending",
+      address:"",
+      scan:"",
+      img: "",
+      name:"",
+      bal:"",
     }
+  ])
+  useEffect(() => {
+    const onload =async ()=>{
 
-    ret.push(
-        {
-          title: "TON",
-          address:"EQCZBjHI...NNt_yPIP",
-          scan:"https://tonviewer.com/EQCZBjHIQsKYDo4xob7C3IbHL8X4hUz1Q4A7BgzXNNt_yPIP",
-          img: "/images/chains/ton.svg",
-          name:"TON",
-          bal:"1.32 TON"
-        },
-    )
-    return { props: { ret } }
-};
-
-
-
-  export default function GetStaticProps({ ret }: { ret: walletCard[] }) {
-  let list = ret;
-  let temp = [
-    {
-      title: "TON",
-      address:"EQCZBjHI...NNt_yPIP",
-      scan:"https://tonviewer.com/EQCZBjHIQsKYDo4xob7C3IbHL8X4hUz1Q4A7BgzXNNt_yPIP",
-      img: "/images/chains/ton.svg",
-      name:"TON",
-      bal:"1.32 TON"
-    },
-  ];
-  
+      const connect = await wallet_connect();
+      // console.log("🚧 connect :: ",connect)
+      if(connect)
+      {
+        const ws = await wallet_list_generate(connect.wallets)
+        // console.log("🚧 Wallets :: ",ws)
+        setData(ws)
+      }
+      // console.log("🚧 hook test")
+    }
+    onload().catch(console.error);;
+  }, [])
   // return returnFont()
   return (
     <DefaultLayout>
@@ -70,7 +62,7 @@ type walletCard = {
           <h1 className={title()}>Wallets</h1>
         </div>
 
-    {list.map((item, index) => (
+    {data.map((item, index) => (
         <Card style={{maxWidth:"400px",width:"100%"}} key={index} shadow="sm" radius="lg"
           isPressable onPress={() => console.log("Card details")}
           >
