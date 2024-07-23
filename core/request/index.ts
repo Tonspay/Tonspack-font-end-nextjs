@@ -150,33 +150,50 @@ async function api_preconnect(actionId:string) {
 
 //Price fetch
 async function api_balance_ton(data:string) {
-    return await requester(
-        request_router.scan.tonapi.balance+data,
-        request_get_unauth()
-    )
+    try{
+        return await requester(
+            request_router.scan.tonapi.balance+data,
+            request_get_unauth()
+        )
+    }catch(e)
+    {
+        return 0;
+    }
 }
 
 async function api_balance_sol(data:PublicKey) {
-    const connection = new Connection('https://solana-mainnet.g.alchemy.com/v2/FBe0x24tZfDGyFcdLwBtD2IOtqsgf07d');
-    return await connection.getBalance(new PublicKey(data));
+    try{
+        const connection = new Connection(config.solanaConnection);
+        return await connection.getBalance(new PublicKey(data));
+    }catch(e)
+    {
+        return 0;
+    }
+    
 }
 
 async function api_balance_arb(data:string) {
-    const web3 = new Web3(new Web3.providers.HttpProvider('https://arbitrum.llamarpc.com'));
+    const web3 = new Web3(new Web3.providers.HttpProvider(config.evmProviders.arb));
     return web3.eth.getBalance(data);
 }
 
 async function api_balance_evm(data:string,chain:any) {
-    var web3;
-    switch (chain){
-        case "bsc":case 56:
-        web3 = new Web3(new Web3.providers.HttpProvider('https://binance.llamarpc.com'))
-            break
-        default : 
-        web3 = new Web3(new Web3.providers.HttpProvider('https://arbitrum.llamarpc.com'));
-        break;
+    try{
+        var web3;
+        switch (chain){
+            case "bsc":case 56:
+            web3 = new Web3(new Web3.providers.HttpProvider(config.evmProviders.bsc))
+                break
+            default : 
+            web3 = new Web3(new Web3.providers.HttpProvider(config.evmProviders.arb));
+            break;
+        }
+        return await web3.eth.getBalance(data);
+
+    }catch(e)
+    {
+        return 0;
     }
-    return web3.eth.getBalance(data);
 }
 
 export {

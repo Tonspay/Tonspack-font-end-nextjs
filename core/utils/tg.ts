@@ -27,10 +27,7 @@ async function miniapp_init() {
                 decodeData.isTelegram=true;
 
             }
-            
-        
-            const initData = useInitData();
-            console.log("🔥initData",initData)
+            const initData = useLaunchParams().initDataRaw;
             decodeData.initData ={initData:initData}
         }
         if(tmp0.length>0)
