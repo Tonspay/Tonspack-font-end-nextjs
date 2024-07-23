@@ -10,7 +10,11 @@ async function miniapp_init() {
         starData:""
     }
     try{
+
         const r = useRouter();
+
+        console.log("🚧 r",r)
+        console.log("🚧 useRouter()",r.asPath)
         const path = r.asPath;
 
         const tmp0 = path.split("#");

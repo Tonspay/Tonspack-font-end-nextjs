@@ -8,11 +8,11 @@ import {address_readable} from "../utils/utils"
 
 async function wallet_connect() {
     const init = await miniapp_init();
-    // console.log("🚧 miniapp",init)
+    console.log("🚧 miniapp",init)
     if(init.isTelegram)
     {
       const auth = await api_connect(init.initData)
-    //   console.log("🚧 auth",auth)
+      console.log("🚧 auth",auth)
       if(auth.code == 200)
       {
         if(auth?.token)
