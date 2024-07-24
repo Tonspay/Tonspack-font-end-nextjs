@@ -12,14 +12,6 @@ export const siteConfig = {
       label: "Wallet",
       href: "/wallet",
     },
-    {
-      label: "Setting",
-      href: "/Setting",
-    },
-    {
-      label: "About",
-      href: "/about",
-    },
   ],
   navMenuItems: [
     {
@@ -33,14 +25,6 @@ export const siteConfig = {
     {
       label: "WalletDetails",
       href: "/wallet_details",
-    },
-    {
-      label: "Setting",
-      href: "/Setting",
-    },
-    {
-      label: "About",
-      href: "/about",
     },
     {
       label: "Action",

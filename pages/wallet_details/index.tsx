@@ -22,8 +22,6 @@ type walletCard = {
   name:string,
   bal:string,
 }
-
-
 export default function DocsPage() {
   const router = useRouter()
   const query = router.query
@@ -59,7 +57,7 @@ export default function DocsPage() {
                     width={40}
                   />
               <div className="flex flex-col gap-1 items-start justify-center">
-                <h4 className="text-small font-semibold leading-none text-default-600">{item.full_address}</h4>
+                <h4 className="text-small font-semibold leading-none text-default-600">{item.address}</h4>
               </div>
             </div>
             <Link
