@@ -6,10 +6,13 @@ import {storage_set_authkey,storage_get_raw_init_data,storage_set_raw_init_data}
 
 import {address_readable} from "../utils/utils"
 
+import bs58 from "bs58";
+
 function wallet_init_data_set() {
     // console.log("🚧 This is  wallet_init_data_set")
     const init = miniapp_init();
     storage_set_raw_init_data(init)
+    return init;
 }
 
 async function wallet_connect() {
@@ -57,8 +60,19 @@ async function wallet_list_generate(ws:any) {
     return ret;
 }
 
+async function wallet_list_generate_action(ws:any,action:any) {
+    const evm = ws?.evm;
+    const sol = ws?.sol;
+    const ton = ws?.ton;
+    let ret ;
+    if(action&&action.c)
+    {
+        return wallet_list_peer_generate(action.c.t,evm)
+    }
+    return await wallet_list_peer_generate(0,evm)
+}
+
 async function wallet_list_peer_generate(type:number,w:any) {
-    console.log("🚧 address",w)
     if(type==0)
     {
             return {
@@ -100,8 +114,26 @@ async function wallet_list_peer_generate(type:number,w:any) {
     // }
 }
 
+function wallet_action_decode(data:string)
+{
+    try{
+        const action = JSON.parse(
+            Buffer.from(
+                bs58.decode(data)
+            ).toString()
+        )
+        return action;
+    }catch(e)
+    {
+        console.error(e)
+    }
+    return false
+}
+
 export {
     wallet_connect,
     wallet_list_generate,
-    wallet_init_data_set
+    wallet_list_generate_action,
+    wallet_init_data_set,
+    wallet_action_decode
 }
