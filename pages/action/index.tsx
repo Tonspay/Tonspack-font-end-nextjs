@@ -13,6 +13,8 @@ import {parseZonedDateTime, parseAbsoluteToLocal,parseAbsolute} from "@internati
 
 import {wallet_connect,wallet_list_generate_action,wallet_init_data_set , wallet_action_decode} from "../../core/wallet/index";
 
+import {address_readable} from "../../core/utils/utils"
+
 import { useState, useEffect } from 'react'
 
 
@@ -32,14 +34,37 @@ type colorType = "default" | "primary" | "secondary" | "success" | "warning" | "
 
 export default function DocsPage() {
   const init = wallet_init_data_set()
-  // console.log("🚧 The init : ",init)
 
-
-  
-  let list : walletCard[];
-  list = [];
-
-  
+  const permissionsList = [
+    {
+      color:"warning" as colorType,
+      title:"Bal",
+      data:"Access to address balance"
+    },
+    {
+      color:"secondary" as colorType,
+      title:"Txns",
+      data:"Access to address history transactions"
+    },
+    {
+      color:"danger" as colorType,
+      title:"Activies",
+      data:"Access to address history activites"
+    },
+    {
+      color:"success" as colorType,
+      title:"Signature",
+      data:"Aable to sign message"
+    },
+    {
+      color:"primary" as colorType,
+      title:"Send",
+      data:"Able to send transaction"
+    },
+  ]
+  const [permissions, setPermissions] = useState(
+    [permissionsList[0]]
+  )
   const [data, setData] = useState(
     {
       title: "pending",
@@ -71,7 +96,9 @@ export default function DocsPage() {
       const connect = await wallet_connect();
       if(init && init?.isTelegram)
       {
-        setAction (wallet_action_decode(init.starData)) 
+        const a = wallet_action_decode(init.starData)
+        setAction(a)
+        console.log("🚧 a",a)
       }
       console.log("🚧 Final action & connect",action,connect)
       if(action && connect)
@@ -80,33 +107,34 @@ export default function DocsPage() {
         setData(ws)
         setIsLoading(false)
       }
+
+      if(action.t == 0 )
+      {
+        setPermissions([
+          permissionsList[0],permissionsList[1],permissionsList[2]
+        ])
+      }
+      if(action.t == 1 )
+      {
+        setPermissions([
+          permissionsList[0],permissionsList[3]
+        ])
+      }
+
+      if(action.t == 2 )
+      {
+        setPermissions([
+          permissionsList[0],permissionsList[4]
+        ])
+      }
     }
     onload().catch(console.error);;
   }, [])
 
     async function button_confirm() {
-      
+        console.log("🚧 confirm button")
     }
   //Permission part 
-
-  const permissions = [
-    {
-      color:"warning" as colorType,
-      title:"Bal",
-      data:"Access to address balance"
-    },
-    {
-      color:"secondary" as colorType,
-      title:"Txns",
-      data:"Access to address history transactions"
-    },
-    {
-      color:"danger" as colorType,
-      title:"Activies",
-      data:"Access to address history activites"
-    },
-    
-  ]
 
   const permission = (
     <PopoverContent>
@@ -181,7 +209,7 @@ export default function DocsPage() {
 
       <div style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}}>
       <Button radius="full" onClick={
-        button_confirm()
+        button_confirm
       } className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg" style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}}>
       {
             (action && action?.t == 0)?"Connect ":null
@@ -204,11 +232,12 @@ export default function DocsPage() {
       </CardHeader>
       <Divider  style={{maxWidth:"400px",width:"100%"}} />
 
+      <div>
+                <CardBody>
 
       {
             (action && action?.t == 0)?
-            <div>
-                <CardBody>
+
                   <div style={{width:"100%",lineHeight:"350%"}}>
                       <div style={{display:"flex" ,width:"100%", gap:"3%"}}>
                         <div style={{width:"20%"}}>
@@ -228,8 +257,8 @@ export default function DocsPage() {
                           </div>
                             
                             :
-                          <div style={{fontSize:"1px",maxWidth:"70%"}} >
-                            {data.address}
+                          <div style={{maxWidth:"70%"}} >
+                            {address_readable(8,8,data.full_address)}
                           </div>
                       </div>
                       <Divider/>
@@ -371,31 +400,350 @@ export default function DocsPage() {
                       </div>
                       <Divider/>
                   </div>
-                </CardBody>
-            </div>
+
             :null
             }
             {
             (action && action?.t == 1)?
-            <div>
-              
-            </div>
+                  <div style={{width:"100%",lineHeight:"350%"}}>
+                  <div style={{display:"flex" ,width:"100%", gap:"3%"}}>
+                    <div style={{width:"20%"}}>
+                      <Popover showArrow key='permission' placement="top" color='default' >
+                          <PopoverTrigger style={{width:"100%"}}>
+                            <Button color="default" className="capitalize">
+                            Wallet
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent>
+                            <div className="px-1 py-2">
+                              <div className="text-small font-bold">Wallet</div>
+                              <div className="text-tiny">Which wallet you use ?</div>
+                            </div>
+                          </PopoverContent>
+                      </Popover>
+                      </div>
+                        
+                        :
+                      <div style={{maxWidth:"70%"}} >
+                        {address_readable(8,8,data.full_address)}
+                      </div>
+                  </div>
+                  <Divider/>
+
+                  <div style={{display:"flex" ,width:"100%", gap:"3%"}}>
+                    <div style={{width:"20%"}}>
+                      <Popover showArrow key='permission' placement="top" color='default' >
+                          <PopoverTrigger style={{width:"100%"}}>
+                            <Button color="default" className="capitalize">
+                            Chain
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent>
+                            <div className="px-1 py-2">
+                              <div className="text-small font-bold">Chain</div>
+                              <div className="text-tiny">What chain you act with ?</div>
+                            </div>
+                          </PopoverContent>
+                      </Popover>
+                      </div>
+                        
+                        :
+                      <h3>
+                      {data.name}
+                      </h3>
+                  </div>
+                  <Divider/>
+
+
+                  <div style={{display:"flex" ,width:"100%" , gap:"3%"}}>
+                    <div style={{width:"20%"}}>
+                    <Popover showArrow key='permission' placement="top" color='default' >
+                        <PopoverTrigger style={{width:"100%"}}>
+                          <Button color="default" className="capitalize">
+                            Active
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent>
+                          <div className="px-1 py-2">
+                            <div className="text-small font-bold">Active</div>
+                            <div className="text-tiny">What kind of action it is ?</div>
+                          </div>
+                        </PopoverContent>
+                    </Popover>
+                    </div>
+                    :
+                    <div>
+                    Connect to 
+                    <Popover showArrow key='permission' placement="top" color='success' >
+                          <PopoverTrigger>
+                            <Button color="success" className="capitalize">
+                            Dapp
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent>
+                            <div className="px-1 py-2">
+                              <div className="text-small font-bold">Connect to Dapp</div>
+                              <div className="text-tiny">Connect wallet to Dapp : <a href={action.d}>{action.d}</a></div>
+                            </div>
+                          </PopoverContent>
+                      </Popover>
+                    </div>
+                  </div>
+                  <Divider/>
+
+
+                  <div style={{display:"flex" ,width:"100%", gap:"3%"}}>
+                    <div style={{width:"20%"}}>
+                    <Popover showArrow key='permission' placement="top" color='default'>
+                        <PopoverTrigger style={{width:"100%"}}>
+                          <Button color="default" className="capitalize">
+                            Permission
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent>
+                          <div className="px-1 py-2">
+                            <div className="text-small font-bold">Permission</div>
+                            <div className="text-tiny">The active permissions for Dapp</div>
+                          </div>
+                        </PopoverContent>
+                    </Popover>
+                    </div>
+                    :
+                      
+                    <div>
+                      {permissions.map((d)=>(
+                      <Popover showArrow key={d.title} placement="top" color={d.color}>
+                        <PopoverTrigger>
+                          <Button color={d.color?d.color:"default"} className="capitalize">
+                            {d.title}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent>
+                          <div className="px-1 py-2">
+                            <div className="text-small font-bold">{d.title}</div>
+                            <div className="text-tiny">{d.data}</div>
+                          </div>
+                        </PopoverContent>
+                      </Popover>
+                      ))}
+
+                  
+                    </div>
+                  </div>
+                  <Divider/>
+
+
+                  <div style={{display:"flex" ,width:"100%", gap:"3%"}}>
+                    <div style={{width:"20%"}}>
+                      <Popover showArrow key='permission' placement="top" color='default' >
+                          <PopoverTrigger style={{width:"100%"}}>
+                            <Button color="default" className="capitalize">
+                            CreateTime
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent>
+                            <div className="px-1 py-2">
+                              <div className="text-small font-bold">CreateTime</div>
+                              <div className="text-tiny">When this active created</div>
+                            </div>
+                          </PopoverContent>
+                      </Popover>
+                      </div>
+                        
+                        :
+                      <div>
+                      <DatePicker
+                        label={"This active create at"} 
+                        labelPlacement={"inside"}
+                        className="max-w-xs"
+                        isDisabled={true}
+                        defaultValue={
+                          parseAbsolute(
+                            ((new Date(action.t)).toISOString()),"UTC"
+                            )
+                        }
+                      />
+                      </div>
+                  </div>
+                  <Divider/>
+                  </div>
             :null
             }
             {
             (action && action?.t == 2)?
-            <div>
-              
-            </div>
+                  <div style={{width:"100%",lineHeight:"350%"}}>
+                  <div style={{display:"flex" ,width:"100%", gap:"3%"}}>
+                    <div style={{width:"20%"}}>
+                      <Popover showArrow key='permission' placement="top" color='default' >
+                          <PopoverTrigger style={{width:"100%"}}>
+                            <Button color="default" className="capitalize">
+                            Wallet
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent>
+                            <div className="px-1 py-2">
+                              <div className="text-small font-bold">Wallet</div>
+                              <div className="text-tiny">Which wallet you use ?</div>
+                            </div>
+                          </PopoverContent>
+                      </Popover>
+                      </div>
+                        
+                        :
+                      <div style={{maxWidth:"70%"}} >
+                        {address_readable(8,8,data.full_address)}
+                      </div>
+                  </div>
+                  <Divider/>
+
+                  <div style={{display:"flex" ,width:"100%", gap:"3%"}}>
+                    <div style={{width:"20%"}}>
+                      <Popover showArrow key='permission' placement="top" color='default' >
+                          <PopoverTrigger style={{width:"100%"}}>
+                            <Button color="default" className="capitalize">
+                            Chain
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent>
+                            <div className="px-1 py-2">
+                              <div className="text-small font-bold">Chain</div>
+                              <div className="text-tiny">What chain you act with ?</div>
+                            </div>
+                          </PopoverContent>
+                      </Popover>
+                      </div>
+                        
+                        :
+                      <h3>
+                      {data.name}
+                      </h3>
+                  </div>
+                  <Divider/>
+
+
+                  <div style={{display:"flex" ,width:"100%" , gap:"3%"}}>
+                    <div style={{width:"20%"}}>
+                    <Popover showArrow key='permission' placement="top" color='default' >
+                        <PopoverTrigger style={{width:"100%"}}>
+                          <Button color="default" className="capitalize">
+                            Active
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent>
+                          <div className="px-1 py-2">
+                            <div className="text-small font-bold">Active</div>
+                            <div className="text-tiny">What kind of action it is ?</div>
+                          </div>
+                        </PopoverContent>
+                    </Popover>
+                    </div>
+                    :
+                    <div>
+                    Connect to 
+                    <Popover showArrow key='permission' placement="top" color='success' >
+                          <PopoverTrigger>
+                            <Button color="success" className="capitalize">
+                            Dapp
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent>
+                            <div className="px-1 py-2">
+                              <div className="text-small font-bold">Connect to Dapp</div>
+                              <div className="text-tiny">Connect wallet to Dapp : <a href={action.d}>{action.d}</a></div>
+                            </div>
+                          </PopoverContent>
+                      </Popover>
+                    </div>
+                  </div>
+                  <Divider/>
+
+
+                  <div style={{display:"flex" ,width:"100%", gap:"3%"}}>
+                    <div style={{width:"20%"}}>
+                    <Popover showArrow key='permission' placement="top" color='default'>
+                        <PopoverTrigger style={{width:"100%"}}>
+                          <Button color="default" className="capitalize">
+                            Permission
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent>
+                          <div className="px-1 py-2">
+                            <div className="text-small font-bold">Permission</div>
+                            <div className="text-tiny">The active permissions for Dapp</div>
+                          </div>
+                        </PopoverContent>
+                    </Popover>
+                    </div>
+                    :
+                      
+                    <div>
+                      {permissions.map((d)=>(
+                      <Popover showArrow key={d.title} placement="top" color={d.color}>
+                        <PopoverTrigger>
+                          <Button color={d.color?d.color:"default"} className="capitalize">
+                            {d.title}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent>
+                          <div className="px-1 py-2">
+                            <div className="text-small font-bold">{d.title}</div>
+                            <div className="text-tiny">{d.data}</div>
+                          </div>
+                        </PopoverContent>
+                      </Popover>
+                      ))}
+
+                  
+                    </div>
+                  </div>
+                  <Divider/>
+
+
+                  <div style={{display:"flex" ,width:"100%", gap:"3%"}}>
+                    <div style={{width:"20%"}}>
+                      <Popover showArrow key='permission' placement="top" color='default' >
+                          <PopoverTrigger style={{width:"100%"}}>
+                            <Button color="default" className="capitalize">
+                            CreateTime
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent>
+                            <div className="px-1 py-2">
+                              <div className="text-small font-bold">CreateTime</div>
+                              <div className="text-tiny">When this active created</div>
+                            </div>
+                          </PopoverContent>
+                      </Popover>
+                      </div>
+                        
+                        :
+                      <div>
+                      <DatePicker
+                        label={"This active create at"} 
+                        labelPlacement={"inside"}
+                        className="max-w-xs"
+                        isDisabled={true}
+                        defaultValue={
+                          parseAbsolute(
+                            ((new Date(action.t)).toISOString()),"UTC"
+                            )
+                        }
+                      />
+                      </div>
+                  </div>
+                  <Divider/>
+                  </div>
             :null
       }
+            </CardBody>
+      </div>
       <CardFooter>
         <Link
           isExternal
           showAnchorIcon
           href="https://t.me/Tonspackdev"
         >
-          Join tonspack community for support.
+          Meet any issues ?
         </Link>
       </CardFooter>
     </Card>

@@ -9,6 +9,10 @@ function generateQr(data:string)
 }
 function address_readable(font:number,back:number,raw:string)
 {
+    if(!raw || raw.length<font || raw.length < back)
+    {
+        return ''
+    }
     let f = ""
     for(let i = 0 ; i < font ; i++)
     {
