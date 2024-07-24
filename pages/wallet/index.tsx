@@ -12,6 +12,8 @@ import {wallet_connect,wallet_list_generate,wallet_init_data_set} from "../../co
 
 import { useState, useEffect } from 'react'
 
+import {Spinner} from "@nextui-org/spinner"
+
 type walletCard = {
   title: string,
   address:string,
@@ -39,9 +41,12 @@ export default function DocsPage() {
       bal:"",
     }
   ])
+
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     const onload =async ()=>{
-
+      setIsLoading(true);
       const connect = await wallet_connect();
       // console.log("🚧 connect :: ",connect)
       if(connect)
@@ -49,6 +54,7 @@ export default function DocsPage() {
         const ws = await wallet_list_generate(connect.wallets)
         // console.log("🚧 Wallets :: ",ws)
         setData(ws)
+        setIsLoading(false)
       }
       // console.log("🚧 hook test")
     }
@@ -62,7 +68,9 @@ export default function DocsPage() {
           <h1 className={title()}>Wallets</h1>
         </div>
 
-    {data.map((item, index) => (
+    { isLoading ? 
+        null 
+    : data.map((item, index) => (
         <Card style={{maxWidth:"400px",width:"100%"}} key={index} shadow="sm" radius="lg"
           isPressable onPress={() => console.log("Card details")}
           >
@@ -98,7 +106,9 @@ export default function DocsPage() {
             </div>
           </CardFooter>
         </Card>
-      ))}
+      ))
+      
+    }
 
       <div style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}}>
       <Button radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg" style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}}>
