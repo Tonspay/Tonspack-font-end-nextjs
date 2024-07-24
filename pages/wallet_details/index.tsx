@@ -8,16 +8,14 @@ import {Image }from "@nextui-org/image";
 import {Chip} from "@nextui-org/chip"
 import {Divider} from"@nextui-org/divider"
 
-import {wallet_connect,wallet_list_generate,wallet_init_data_set} from "../../core/wallet/index";
+import {generateQr} from "../../core/utils/utils"
 
 import { useState, useEffect } from 'react'
-
-import {Spinner} from "@nextui-org/spinner"
-
-import Router from "next/router"
+import { useRouter } from 'next/router'
 
 type walletCard = {
   title: string,
+  full_address:string,
   address:string,
   scan:string,
   img: string,
@@ -27,38 +25,15 @@ type walletCard = {
 
 
 export default function DocsPage() {
-  //init
-  wallet_init_data_set()
+  const router = useRouter()
+  const query = router.query
 
-  // let list : walletCard[];
   let list : walletCard[];
   list = [];
-  const [data, setData] = useState([
-    {
-      title: "pending",
-      address:"",
-      scan:"",
-      img: "",
-      name:"",
-      bal:"",
-    }
-  ])
-
-  const [isLoading, setIsLoading] = useState(false);
+  list.push(router.query as walletCard)
 
   useEffect(() => {
     const onload =async ()=>{
-      setIsLoading(true);
-      const connect = await wallet_connect();
-      // console.log("🚧 connect :: ",connect)
-      if(connect)
-      {
-        const ws = await wallet_list_generate(connect.wallets)
-        // console.log("🚧 Wallets :: ",ws)
-        setData(ws)
-        setIsLoading(false)
-      }
-      // console.log("🚧 hook test")
     }
     onload().catch(console.error);;
   }, [])
@@ -67,17 +42,12 @@ export default function DocsPage() {
     <DefaultLayout>
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
         <div className="inline-block max-w-lg text-center justify-center">
-          <h1 className={title()}>Wallets</h1>
+          <h1 className={title()}>{query.name} Wallet </h1>
         </div>
 
-    { isLoading ? 
-        null 
-    : data.map((item, index) => (
+    { list.map((item, index) => (
         <Card style={{maxWidth:"400px",width:"100%"}} key={index} shadow="sm" radius="lg"
-          isPressable onPress={() => {
-            console.log("Card details router");
-            Router.push({pathname: '/wallet_details', query: item})
-          }}
+          isPressable onPress={() => console.log("Card details")}
           >
           <CardHeader className="justify-between">
             <div className="flex gap-5">
@@ -89,7 +59,7 @@ export default function DocsPage() {
                     width={40}
                   />
               <div className="flex flex-col gap-1 items-start justify-center">
-                <h4 className="text-small font-semibold leading-none text-default-600">{item.address}</h4>
+                <h4 className="text-small font-semibold leading-none text-default-600">{item.full_address}</h4>
               </div>
             </div>
             <Link
@@ -115,44 +85,42 @@ export default function DocsPage() {
       
     }
 
-      <div style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}}>
-      <Button radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg" style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}}>
-        Manage
-      </Button>
-      </div>
-
       <div style={{maxWidth:"400px",width:"100%"}}>
       <Card className="max-w-[400px]">
       <CardHeader className="flex gap-3" style={{textAlign:"center",maxWidth:"400px",width:"100%"}}>
         <div style={{textAlign:"center",width:"100%"}}>
           <p className="text-md" >Setting</p>
-          
         </div>
       </CardHeader>
       <Divider  style={{maxWidth:"400px",width:"100%"}} />
       <CardBody>
+      <div style={{display:"flex",justifyContent:"center"}}>
+        <Button color="primary" variant="bordered" style={{width:"50%"}}>
+          Send
+        </Button>  
+      
+        <Button color="secondary" variant="bordered" style={{width:"50%"}}>
+          Recive
+        </Button> 
+      </div>
+      
+ 
       <br/>
-      <Button color="primary" variant="bordered">
-        Export privateKey
-      </Button>  
-      <br/>
-      <Button color="secondary" variant="bordered">
-        Share to friend
-      </Button>  
-      <br/>
-      <Button color="danger" variant="bordered">
-        Delete account
+      <Button color="success">
+        Buy/Sell
       </Button>
+      <br/>
+      <Button radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg">
+        Swap
+      </Button>
+      <br/>
+      <Button color="danger">
+        Scan QR
+      </Button>
+
       </CardBody>
       <Divider/>
       <CardFooter>
-        <Link
-          isExternal
-          showAnchorIcon
-          href="https://t.me/Tonspackdev"
-        >
-          Join tonspack community for support.
-        </Link>
       </CardFooter>
     </Card>
       </div>

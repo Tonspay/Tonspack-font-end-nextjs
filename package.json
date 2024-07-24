@@ -38,6 +38,8 @@
 		"next": "14.2.4",
 		"next-themes": "^0.2.1",
 		"nprogress": "^0.2.0",
+		"qrcode": "^1.5.3",
+		"qrcode-generator-ts": "^0.0.4",
 		"react": "18.3.1",
 		"react-dom": "18.3.1",
 		"web3": "^4.11.0"

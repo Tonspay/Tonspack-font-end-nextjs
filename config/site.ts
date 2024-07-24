@@ -31,6 +31,10 @@ export const siteConfig = {
       href: "/wallet",
     },
     {
+      label: "WalletDetails",
+      href: "/wallet_details",
+    },
+    {
       label: "Setting",
       href: "/Setting",
     },

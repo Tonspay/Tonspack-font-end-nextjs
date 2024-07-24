@@ -1,3 +1,12 @@
+import { QRCode } from "qrcode-generator-ts"
+
+function generateQr(data:string)
+{
+    const qr =  new QRCode()
+    qr.addData(data);
+    return qr.toDataURL(100,100)
+
+}
 function address_readable(font:number,back:number,raw:string)
 {
     let f = ""
@@ -17,4 +26,5 @@ function address_readable(font:number,back:number,raw:string)
 
 export {
     address_readable,
+    generateQr
 }

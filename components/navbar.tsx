@@ -63,9 +63,6 @@ export const Navbar = () => {
           <Link isExternal href={siteConfig.links.twitter}>
             <TwitterIcon className="text-default-500" />
           </Link>
-          <Link isExternal href={siteConfig.links.discord}>
-            <DiscordIcon className="text-default-500" />
-          </Link>
           <Link isExternal href={siteConfig.links.github}>
             <GithubIcon className="text-default-500" />
           </Link>
@@ -78,7 +75,7 @@ export const Navbar = () => {
           <GithubIcon className="text-default-500" />
         </Link>
         <ThemeSwitch />
-        <NavbarMenuToggle />
+        {/* <NavbarMenuToggle /> */}
       </NavbarContent>
 
     </NextUINavbar>
