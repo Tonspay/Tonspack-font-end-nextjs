@@ -1,5 +1,6 @@
 import { title } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
+import {Loading} from "@/components/loading";
 import { Link } from "@nextui-org/link";
 import { Button } from "@nextui-org/button";
 import {Card, CardHeader, CardBody, CardFooter} from "@nextui-org/card";
@@ -29,15 +30,20 @@ export default function DocsPage() {
   let list : walletCard[];
   list = [];
   list.push(router.query as walletCard)
-
+  const [isMainPageLoading, setIsMainPageLoading] = useState(true);
   useEffect(() => {
     const onload =async ()=>{
+      setIsMainPageLoading(false)
     }
     onload().catch(console.error);;
   }, [])
   // return returnFont()
   return (
     <DefaultLayout>
+      
+      {
+        isMainPageLoading ? <Loading /> : null
+      }
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
         <div className="inline-block max-w-lg text-center justify-center">
           <h1 className={title()}>{query.name} Wallet </h1>

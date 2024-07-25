@@ -8,6 +8,8 @@ import {Image }from "@nextui-org/image";
 import {Chip} from "@nextui-org/chip"
 import {Divider} from"@nextui-org/divider"
 
+import {Loading} from "@/components/loading";
+
 import {wallet_connect,wallet_list_generate,wallet_init_data_set} from "../../core/wallet/index";
 
 import { useState, useEffect } from 'react'
@@ -44,6 +46,7 @@ export default function DocsPage() {
     }
   ])
 
+  const [isMainPageLoading, setIsMainPageLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -57,6 +60,7 @@ export default function DocsPage() {
         // console.log("🚧 Wallets :: ",ws)
         setData(ws)
         setIsLoading(false)
+        setIsMainPageLoading(false)
       }
       // console.log("🚧 hook test")
     }
@@ -65,6 +69,9 @@ export default function DocsPage() {
   // return returnFont()
   return (
     <DefaultLayout>
+      {
+        isMainPageLoading ? <Loading /> : null
+      }
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
         <div className="inline-block max-w-lg text-center justify-center">
           <h1 className={title()}>Wallets</h1>

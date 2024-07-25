@@ -35,6 +35,7 @@ export const siteConfig = {
     github: "https://github.com/tonspay",
     twitter: "https://twitter.com/tonsprotocol",
     docs: "https://docs.tonspack.com/",
+    app:'https://t.me/tonspack_bot/app',
     discord: "#",
     sponsor: "#",
   },

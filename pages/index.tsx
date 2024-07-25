@@ -13,7 +13,7 @@ export default function IndexPage() {
     <DefaultLayout>
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
         <div className="inline-block max-w-lg text-center justify-center">
-          <h1 className={title()}>Welcome to &nbsp;</h1>
+          <h1 className={title()}>This is &nbsp;</h1>
           <h1 className={title({ color: "violet" })}>Tonspack&nbsp;</h1>
           <br />
         </div>
@@ -28,7 +28,7 @@ export default function IndexPage() {
             })}
             href={siteConfig.links.docs}
           >
-            Documentation
+            Wallet
           </Link>
           <Link
             isExternal

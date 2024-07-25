@@ -1,5 +1,8 @@
 import { title } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
+
+import {Loading} from "@/components/loading";
+
 import { Link } from "@nextui-org/link";
 import { Button } from "@nextui-org/button";
 import {Card, CardHeader, CardBody, CardFooter} from "@nextui-org/card";
@@ -77,6 +80,8 @@ export default function DocsPage() {
     }
   )
 
+  const [isMainPageLoading, setIsMainPageLoading] = useState(true);
+
   const [isLoading, setIsLoading] = useState(false);
 
   const [action, setAction] = useState({
@@ -91,6 +96,8 @@ export default function DocsPage() {
 });
 
   useEffect(() => {
+
+    
     const onload =async ()=>{
       setIsLoading(true);
       const connect = await wallet_connect();
@@ -100,14 +107,14 @@ export default function DocsPage() {
           wallet_action_decode(init.starData)
           )
         setAction(a)
-        console.log("🚧 a",a)
       }
-      console.log("🚧 Final action & connect",action,connect)
       if(action && connect)
       {
         const ws = await wallet_list_generate_action(connect.wallets,action)
         setData(ws)
         setIsLoading(false)
+        setIsMainPageLoading(false)
+        console.log("🚧 Disable setIsMainPageLoading(false)")
       }
 
       if(action.t == 0 )
@@ -129,6 +136,7 @@ export default function DocsPage() {
           permissionsList[0],permissionsList[4]
         ])
       }
+
     }
     onload().catch(console.error);;
   }, [])
@@ -149,7 +157,15 @@ export default function DocsPage() {
 
   return (
     <DefaultLayout>
-      <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
+      
+      
+      {
+        isMainPageLoading ? <Loading /> : null
+
+      }
+
+<section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
+        
         <div className="inline-block max-w-lg text-center justify-center">
           <div className={title()}>
             {
@@ -750,7 +766,8 @@ export default function DocsPage() {
       </CardFooter>
     </Card>
       </div>
-      </section>
+        </section>
+
     </DefaultLayout>
   );
 }
