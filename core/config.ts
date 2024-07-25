@@ -4,7 +4,10 @@ const config = {
     evmProviders:{
         arb:'https://arbitrum.llamarpc.com',
         bsc:'https://binance.llamarpc.com'
-    }
+    },
+    botUrl:"https://t.me/tonspack_bot",
+    appUrl:"https://t.me/tonspack_bot/app",
+    websiteUrl:"https://tonspack.com/"
 }
 
 export default config;

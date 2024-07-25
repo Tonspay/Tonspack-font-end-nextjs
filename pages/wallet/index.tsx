@@ -14,7 +14,10 @@ import {wallet_connect,wallet_list_generate,wallet_init_data_set} from "../../co
 
 import { useState, useEffect } from 'react'
 
-import {Spinner} from "@nextui-org/spinner"
+import  { Toaster } from 'react-hot-toast';
+import { deving , exportPrivateKey} from "../../core/utils/utils"
+
+import {telegramShareApp} from "../../core/utils/tg"
 
 import Router from "next/router"
 
@@ -26,7 +29,6 @@ type walletCard = {
   name:string,
   bal:string,
 }
-
 
 export default function DocsPage() {
   //init
@@ -73,6 +75,7 @@ export default function DocsPage() {
         isMainPageLoading ? <Loading /> : null
       }
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
+      <Toaster />
         <div className="inline-block max-w-lg text-center justify-center">
           <h1 className={title()}>Wallets</h1>
         </div>
@@ -123,7 +126,7 @@ export default function DocsPage() {
     }
 
       <div style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}}>
-      <Button radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg" style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}}>
+      <Button radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg" style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}} onClick={deving}>
         Manage
       </Button>
       </div>
@@ -139,15 +142,15 @@ export default function DocsPage() {
       <Divider  style={{maxWidth:"400px",width:"100%"}} />
       <CardBody>
       <br/>
-      <Button color="primary" variant="bordered">
+      <Button color="primary" variant="bordered" onClick={exportPrivateKey}>
         Export privateKey
       </Button>  
       <br/>
-      <Button color="secondary" variant="bordered">
+      <Button color="secondary" variant="bordered" onClick={telegramShareApp}>
         Share to friend
       </Button>  
       <br/>
-      <Button color="danger" variant="bordered">
+      <Button color="danger" variant="bordered" onClick={deving}>
         Delete account
       </Button>
       </CardBody>

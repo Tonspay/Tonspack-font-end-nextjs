@@ -8,11 +8,11 @@ import {Avatar} from "@nextui-org/avatar"
 import {Image }from "@nextui-org/image";
 import {Chip} from "@nextui-org/chip"
 import {Divider} from"@nextui-org/divider"
-
-import {generateQr} from "../../core/utils/utils"
-
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+
+import  { Toaster } from 'react-hot-toast';
+import { deving , exportPrivateKey} from "../../core/utils/utils"
 
 type walletCard = {
   title: string,
@@ -45,6 +45,7 @@ export default function DocsPage() {
         isMainPageLoading ? <Loading /> : null
       }
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
+        <Toaster />
         <div className="inline-block max-w-lg text-center justify-center">
           <h1 className={title()}>{query.name} Wallet </h1>
         </div>
@@ -99,26 +100,26 @@ export default function DocsPage() {
       <Divider  style={{maxWidth:"400px",width:"100%"}} />
       <CardBody>
       <div style={{display:"flex",justifyContent:"center"}}>
-        <Button color="primary" variant="bordered" style={{width:"50%"}}>
+        <Button color="primary" variant="bordered" style={{width:"50%"}}  onClick={deving}>
           Send
         </Button>  
       
-        <Button color="secondary" variant="bordered" style={{width:"50%"}}>
+        <Button color="secondary" variant="bordered" style={{width:"50%"}}  onClick={deving}>
           Recive
         </Button> 
       </div>
       
  
       <br/>
-      <Button color="success">
+      <Button color="success"  onClick={deving}>
         Buy/Sell
       </Button>
       <br/>
-      <Button radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg">
+      <Button radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg"  onClick={deving}>
         Swap
       </Button>
       <br/>
-      <Button color="danger">
+      <Button color="danger"  onClick={deving}>
         Scan QR
       </Button>
 

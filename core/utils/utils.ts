@@ -1,5 +1,7 @@
 import { QRCode } from "qrcode-generator-ts"
-
+import toast, { Toaster } from 'react-hot-toast';
+import config from "../config"
+import Router,{useRouter} from 'next/router';
 function generateQr(data:string)
 {
     const qr =  new QRCode()
@@ -28,7 +30,19 @@ function address_readable(font:number,back:number,raw:string)
     return f+"..."+b
 }
 
+
+function deving()
+{
+  toast('🚧 This function still deving 🚧')
+}
+
+function exportPrivateKey()
+{
+    Router.push(`${config.botUrl}?start=0export`)
+}
 export {
     address_readable,
-    generateQr
+    generateQr,
+    exportPrivateKey,
+    deving
 }

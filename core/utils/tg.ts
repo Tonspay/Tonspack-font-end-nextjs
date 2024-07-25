@@ -1,6 +1,7 @@
 
 
-import {useRouter} from 'next/router';
+import config from "../config"
+import Router,{useRouter} from 'next/router';
 import { useInitData, useLaunchParams, type User , initMiniApp } from '@telegram-apps/sdk-react';
 function miniapp_init() {
     let decodeData = {
@@ -65,7 +66,21 @@ function tryCloseWebappWindows()
     }
 }
 
+function telegramShare(words:string,path:string)
+{
+    Router.push(
+        encodeURI(`https://t.me/share/url?url=${path}&text=${words}`)
+    )
+}
+
+function telegramShareApp()
+{
+    telegramShare(config.appUrl,"🍬 Use your multiChain assert here ! 🍬")
+}
+
 export {
     miniapp_init,
-    tryCloseWebappWindows
+    tryCloseWebappWindows,
+    telegramShareApp,
+    telegramShare
 }
