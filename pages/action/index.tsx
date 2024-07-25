@@ -33,27 +33,27 @@ export default function DocsPage() {
 
   const permissionsList = [
     {
-      color:"warning" as colorType,
+      color:"default" as colorType,
       title:"Bal",
       data:"Access to address balance"
     },
     {
-      color:"secondary" as colorType,
+      color:"default" as colorType,
       title:"Txns",
       data:"Access to address history transactions"
     },
     {
-      color:"danger" as colorType,
+      color:"default" as colorType,
       title:"Activies",
       data:"Access to address history activites"
     },
     {
-      color:"success" as colorType,
+      color:"default" as colorType,
       title:"Signature",
       data:"Aable to sign message"
     },
     {
-      color:"primary" as colorType,
+      color:"default" as colorType,
       title:"Send",
       data:"Able to send transaction"
     },
@@ -113,7 +113,7 @@ export default function DocsPage() {
       if(action.t == 0 )
       {
         setPermissions([
-          permissionsList[0],permissionsList[1],permissionsList[2]
+          permissionsList[0],permissionsList[2]
         ])
       }
       if(action.t == 1 )
@@ -231,7 +231,7 @@ export default function DocsPage() {
       <div style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}}>
       <Button radius="full" onClick={
         button_confirm
-      } className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg" style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}}>
+      }  color="success" style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}}>
       {
             (action && action?.t == 0)?"Connect ":null
             }

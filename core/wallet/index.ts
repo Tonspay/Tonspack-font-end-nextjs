@@ -67,7 +67,19 @@ async function wallet_list_generate_action(ws:any,action:any) {
     let ret ;
     if(action&&action.c)
     {
-        return wallet_list_peer_generate(action.c.t,evm)
+        switch(action.c.t)
+        {
+            case 0:
+                return wallet_list_peer_generate(action.c.t,evm)
+                break;
+            case 1:
+                return wallet_list_peer_generate(action.c.t,sol)
+                break;
+            case 2:
+                return wallet_list_peer_generate(action.c.t,ton)
+                break;
+        }
+        
     }
     return await wallet_list_peer_generate(0,evm)
 }
