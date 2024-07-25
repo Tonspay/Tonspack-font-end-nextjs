@@ -11,7 +11,7 @@ import {DatePicker } from"@nextui-org/date-picker"
 
 import {parseZonedDateTime, parseAbsoluteToLocal,parseAbsolute} from "@internationalized/date";
 
-import {wallet_connect,wallet_list_generate_action,wallet_init_data_set , wallet_action_decode} from "../../core/wallet/index";
+import {wallet_connect,wallet_list_generate_action,wallet_init_data_set , wallet_action_decode,wallet_action_details} from "../../core/wallet/index";
 
 import {address_readable} from "../../core/utils/utils"
 
@@ -96,7 +96,9 @@ export default function DocsPage() {
       const connect = await wallet_connect();
       if(init && init?.isTelegram)
       {
-        const a = wallet_action_decode(init.starData)
+        const a = await wallet_action_details(
+          wallet_action_decode(init.starData)
+          )
         setAction(a)
         console.log("🚧 a",a)
       }
@@ -473,17 +475,17 @@ export default function DocsPage() {
                     </div>
                     :
                     <div>
-                    Connect to 
+                    Sign 
                     <Popover showArrow key='permission' placement="top" color='success' >
                           <PopoverTrigger>
                             <Button color="success" className="capitalize">
-                            Dapp
+                            Message
                             </Button>
                           </PopoverTrigger>
                           <PopoverContent>
                             <div className="px-1 py-2">
-                              <div className="text-small font-bold">Connect to Dapp</div>
-                              <div className="text-tiny">Connect wallet to Dapp : <a href={action.d}>{action.d}</a></div>
+                              <div className="text-small font-bold">Sign Message</div>
+                              <div className="text-tiny">Sign : <a >{action.d}</a></div>
                             </div>
                           </PopoverContent>
                       </Popover>
@@ -639,7 +641,7 @@ export default function DocsPage() {
                     </div>
                     :
                     <div>
-                    Connect to 
+                    Send Transaction
                     <Popover showArrow key='permission' placement="top" color='success' >
                           <PopoverTrigger>
                             <Button color="success" className="capitalize">
@@ -648,8 +650,8 @@ export default function DocsPage() {
                           </PopoverTrigger>
                           <PopoverContent>
                             <div className="px-1 py-2">
-                              <div className="text-small font-bold">Connect to Dapp</div>
-                              <div className="text-tiny">Connect wallet to Dapp : <a href={action.d}>{action.d}</a></div>
+                              <div className="text-small font-bold">Send Transaction</div>
+                              <div className="text-tiny">Send : <a>{Buffer.from(action.d).toString("base64")}</a></div>
                             </div>
                           </PopoverContent>
                       </Popover>

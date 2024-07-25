@@ -1,4 +1,4 @@
-import {api_connect,api_balance} from "../request/index"
+import {api_connect,api_balance,api_preconnect} from "../request/index"
 
 import {miniapp_init} from "../utils/tg"
 
@@ -130,10 +130,30 @@ function wallet_action_decode(data:string)
     return false
 }
 
+async function wallet_action_details(data:any)
+{
+    try{
+        if(data.t == 0)
+        {
+            return data
+        }else{
+            //Require to do api requset 
+            const details = await api_preconnect(data.i);
+            console.log("🚧 Preconnect ",details)
+            return details?.data;
+        }
+    }catch(e)
+    {
+        console.error(e)
+    }
+    return false
+}
+
 export {
     wallet_connect,
     wallet_list_generate,
     wallet_list_generate_action,
     wallet_init_data_set,
-    wallet_action_decode
+    wallet_action_decode,
+    wallet_action_details
 }
