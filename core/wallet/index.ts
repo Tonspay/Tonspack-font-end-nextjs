@@ -17,11 +17,11 @@ function wallet_init_data_set() {
 
 async function wallet_connect() {
     const init = storage_get_raw_init_data();
-    console.log("🚧 miniapp",init)
+    // console.log("🚧 miniapp",init)
     if(init && init?.isTelegram)
     {
       const auth = await api_connect(init.initData)
-      console.log("🚧 auth",auth)
+    //   console.log("🚧 auth",auth)
       if(auth.code == 200)
       {
         if(auth?.token)
@@ -139,7 +139,7 @@ async function wallet_action_details(data:any)
         }else{
             //Require to do api requset 
             const details = await api_preconnect(data.i);
-            console.log("🚧 Preconnect ",details)
+            // console.log("🚧 Preconnect ",details)
             return details?.data;
         }
     }catch(e)

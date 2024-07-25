@@ -107,7 +107,7 @@ export default function DocsPage() {
         setData(ws)
         setIsLoading(false)
         setIsMainPageLoading(false)
-        console.log("🚧 Disable setIsMainPageLoading(false)")
+        // console.log("🚧 Disable setIsMainPageLoading(false)")
       }
 
       if(action.t == 0 )
@@ -135,9 +135,9 @@ export default function DocsPage() {
   }, [])
 
     async function button_confirm() {
-        console.log("🚧 confirm button")
+        // console.log("🚧 confirm button")
         const ret = await api_action(action);
-        console.log("🚧 submit action ret",ret)    
+        // console.log("🚧 submit action ret",ret)    
         if(action.r && action.r.length>5)
             {
                 Router.push(
