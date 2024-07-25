@@ -16,23 +16,16 @@ import {parseZonedDateTime, parseAbsoluteToLocal,parseAbsolute} from "@internati
 
 import {wallet_connect,wallet_list_generate_action,wallet_init_data_set , wallet_action_decode,wallet_action_details} from "../../core/wallet/index";
 
+import {api_action} from "../../core/request/index"
+
 import {address_readable} from "../../core/utils/utils"
+import {tryCloseWebappWindows} from "../../core/utils/tg"
 
 import { useState, useEffect } from 'react'
 
 
 
 import Router from "next/router"
-
-type walletCard = {
-  title: string,
-  address:string,
-  scan:string,
-  img: string,
-  name:string,
-  bal:string,
-}
-
 type colorType = "default" | "primary" | "secondary" | "success" | "warning" | "danger" | undefined;
 
 export default function DocsPage() {
@@ -92,7 +85,7 @@ export default function DocsPage() {
         "t": 0,
         "i": 0
     },
-    "r": null
+    "r": ""
 });
 
   useEffect(() => {
@@ -143,6 +136,16 @@ export default function DocsPage() {
 
     async function button_confirm() {
         console.log("🚧 confirm button")
+        const ret = await api_action(action);
+        console.log("🚧 submit action ret",ret)    
+        if(action.r && action.r.length>5)
+            {
+                Router.push(
+                  action.r
+                )
+            }else{
+              tryCloseWebappWindows()
+            }
     }
   //Permission part 
 
@@ -501,7 +504,7 @@ export default function DocsPage() {
                           <PopoverContent>
                             <div className="px-1 py-2">
                               <div className="text-small font-bold">Sign Message</div>
-                              <div className="text-tiny">Sign : <a >{action.d}</a></div>
+                              <div className="text-tiny">Sign : {action.d}</div>
                             </div>
                           </PopoverContent>
                       </Popover>
@@ -667,7 +670,7 @@ export default function DocsPage() {
                           <PopoverContent>
                             <div className="px-1 py-2">
                               <div className="text-small font-bold">Send Transaction</div>
-                              <div className="text-tiny">Send : <a>{Buffer.from(action.d).toString("base64")}</a></div>
+                              <div className="text-tiny">Send : {Buffer.from(action.d).toString("base64")}</div>
                             </div>
                           </PopoverContent>
                       </Popover>

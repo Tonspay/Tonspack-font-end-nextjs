@@ -1,7 +1,7 @@
 
 
 import {useRouter} from 'next/router';
-import { useInitData, useLaunchParams, type User } from '@telegram-apps/sdk-react';
+import { useInitData, useLaunchParams, type User , initMiniApp } from '@telegram-apps/sdk-react';
 function miniapp_init() {
     let decodeData = {
         isTelegram :false,
@@ -53,6 +53,19 @@ function miniapp_init() {
 }
 
 
+function tryCloseWebappWindows()
+{
+    try{
+
+        const [miniApp] = initMiniApp();
+        miniApp.close();
+    }catch(e)
+    {
+        console.error(e)
+    }
+}
+
 export {
     miniapp_init,
+    tryCloseWebappWindows
 }

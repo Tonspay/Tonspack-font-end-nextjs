@@ -229,6 +229,7 @@ export {
     api_auth,
     api_connect,
     api_preconnect,
+    api_action,
     // api_balance_ton,
     // api_balance_sol,
     // api_balance_arb,

@@ -1,5 +1,5 @@
   
-import "@/styles/loading.css";
+import "../styles/loading.module.css";
 export const Loading = () => {
   
 return (
