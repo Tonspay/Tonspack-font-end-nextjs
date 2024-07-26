@@ -6,6 +6,8 @@ import {storage_set_authkey,storage_get_raw_init_data,storage_set_raw_init_data}
 
 import {address_readable} from "../utils/utils"
 
+import config from "../config"
+
 import bs58 from "bs58";
 
 function wallet_init_data_set() {
@@ -40,91 +42,87 @@ async function wallet_connect() {
 }
 
 async function wallet_list_generate(ws:any) {
-    const evm = ws?.evm;
-    const sol = ws?.sol;
-    const ton = ws?.ton;
-
     const ret = [];
-    ret.push(
-        await wallet_list_peer_generate(0,evm)
-    )
-
-    ret.push(
-        await wallet_list_peer_generate(1,sol)
-    )
-
-    ret.push(
-        await wallet_list_peer_generate(2,ton)
-    )
+    for(let i = 0 ; i<config.defaultChains.length;i++)
+    {
+        let item = config.defaultChains[i]
+        ret.push( await wallet_list_peer_generate(item.t,item.c ,ws))
+    }
 
     return ret;
 }
 
 async function wallet_list_generate_action(ws:any,action:any) {
-    const evm = ws?.evm;
-    const sol = ws?.sol;
-    const ton = ws?.ton;
-    let ret ;
     if(action&&action.c)
     {
-        // console.log("🚧 parseInt(action.c.t)" ,action)
-        switch(parseInt(action.c.t))
-        {
-            case 0:
-                return wallet_list_peer_generate(parseInt(action.c.t),evm)
-                break;
-            case 1:
-                return wallet_list_peer_generate(parseInt(action.c.t),sol)
-                break;
-            case 2:
-                return wallet_list_peer_generate(parseInt(action.c.t),ton)
-                break;
-        }
-        
+        return wallet_list_peer_generate(parseInt(action.c.t),action.c.i,ws)
     }
-    return await wallet_list_peer_generate(0,evm)
+    return await wallet_list_peer_generate(0,1,ws)
 }
 
-async function wallet_list_peer_generate(type:number,w:any) {
-    if(type==0)
+function wallet_get_chain_details(type:number,chains:any,w:any)
+{
+    switch(type)
     {
+        case 0:
+            //EVM
+            let chain  = config.evmsChains.default;
+            for(const e in config.evmsChains){
+                const c =  parseInt(chains, 10).toFixed(0)
+                const hex = parseInt(chains, 16).toFixed(0)
+                if(e == c || e ==hex)
+                {
+                    chain = config.evmsChains[e]
+                }
+            }; 
             return {
-            title: "Binance Smart Chain",
-            address:address_readable(4,4,w),
-            full_address:w,
-            scan:"https://bscscan.com/address/"+w,
-            img: "/images/chains/bnb.svg",
-            name:"Binance Smart Chain",
-            bal:`${await api_balance(w,'bsc')} BNB`
-          }
+                chain : chain,
+                address : w.evm
+            }
+        break;
+        case 1:
+            //Solana
+            return {
+                chain : config.chains.solana,
+                address : w.sol
+            }
+        break;
+        case 2:
+            //Ton
+            return {
+                chain : config.chains.ton,
+                address : w.ton
+            }
+        break;
+        case 3:
+            //Bitcoin
+            return {
+                chain : config.chains.btc,
+                address : w.btc
+            }
+        break;
+        default:
+            //SOL
+            return {
+                chain : config.chains.solana,
+                address : w.sol
+            }
+            break;
     }
+}
 
-    if(type==1)
-    {
-            return {
-            title: "Solana",
-            address:address_readable(4,4,w),
-            full_address:w,
-            scan:"https://solscan.io/address/"+w,
-            img: "/images/chains/sol.svg",
-            name:"Solana",
-            bal:`${await api_balance(w,"sol")} SOL`
-          }
-    }
-
-
-    // if(type==2)
-    // {
-            return {
-            title: "TON",
-            address:address_readable(4,4,w),
-            full_address:w,
-            scan:"https://tonviewer.com/"+w,
-            img: "/images/chains/ton.svg",
-            name:"TON",
-            bal:`${await api_balance(w,"ton")} TON`
-          }
-    // }
+async function wallet_list_peer_generate(type:number,chains:any,w:any) {
+    const data = wallet_get_chain_details(type,chains,w);
+    console.log("🚧 Predraw data: ",data)
+    return{
+        title: data.chain.name,
+        address:address_readable(4,4,data.address),
+        full_address:data.address,
+        scan:data.chain.scan+data.address,
+        img: data.chain.icon,
+        name:data.chain.name,
+        bal:`${await api_balance(w,data.chain.symbol,data.chain.decimal)} ${data.chain.symbol}`
+      }
 }
 
 function wallet_action_decode(data:string)

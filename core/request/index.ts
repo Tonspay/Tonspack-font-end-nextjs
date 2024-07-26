@@ -201,14 +201,14 @@ async function api_balance_evm(data:string,chain:any) {
     }
 }
 
-async function api_balance(data:string,chain:any) {
+async function api_balance(data:string,chain:any,decimail:number) {
     try{
         var web3;
         switch (chain){
             case "sol":
-                return (await api_balance_sol(data)/Math.pow(10,9)).toFixed(3)
+                return (await api_balance_sol(data)/Math.pow(10,decimail)).toFixed(3)
             case "sol":
-                return (await api_balance_ton(data)/Math.pow(10,8)).toFixed(3)
+                return (await api_balance_ton(data)/Math.pow(10,decimail)).toFixed(3)
             case "bsc":case 56:
             web3 = new Web3(new Web3.providers.HttpProvider(config.evmProviders.bsc))
                 return await web3.eth.getBalance(data);
