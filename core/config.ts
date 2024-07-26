@@ -92,7 +92,7 @@ const config:ObjConfig = {
             icon:"/images/chains/btc.svg",
             name:"Bitcoin Chain",
             symbol:"BTC",
-            decimal:18,
+            decimal:8,
             scan:{
                 address:"https://mempool.space/address/",
                 tx:"https://mempool.space/tx/"
@@ -183,8 +183,8 @@ const config:ObjConfig = {
     },
     defaultChains:[
         {
-            t:0,
-            c:1,
+            t:3,
+            c:0,
         },
         {
             t:0,

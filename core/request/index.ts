@@ -44,6 +44,9 @@ const request_router = {
         },
         arbscan : {
             balance  : ""
+        },
+        blockchainInfo:{
+            balance:"https://blockchain.info/q/addressbalance/"
         }
     },
     bridge : {
@@ -177,24 +180,17 @@ async function api_balance_sol(data:string) {
     
 }
 
-async function api_balance_arb(data:string) {
-    const web3 = new Web3(new Web3.providers.HttpProvider(config.evmProviders.arb));
-    return web3.eth.getBalance(data);
-}
-
-async function api_balance_evm(data:string,chain:any) {
+async function api_balance_btc(data:string) {
     try{
-        var web3;
-        switch (chain){
-            case "bsc":case 56:
-            web3 = new Web3(new Web3.providers.HttpProvider(config.evmProviders.bsc))
-                break
-            default : 
-            web3 = new Web3(new Web3.providers.HttpProvider(config.evmProviders.arb));
-            break;
+        const ret = await requester(
+            request_router.scan.blockchainInfo.balance+data,
+            request_get_unauth()
+        )
+        if(!Number(ret))
+        {
+            return 0 ;
         }
-        return await web3.eth.getBalance(data);
-
+        return ret;
     }catch(e)
     {
         return 0;
@@ -207,8 +203,10 @@ async function api_balance(data:string,chain:any,decimail:number) {
         switch (chain){
             case "sol":
                 return (await api_balance_sol(data)/Math.pow(10,decimail)).toFixed(3)
-            case "sol":
+            case "ton":
                 return (await api_balance_ton(data)/Math.pow(10,decimail)).toFixed(3)
+            case "btc":
+                return (await api_balance_btc(data)/Math.pow(10,decimail)).toFixed(3)
             case "bsc":case 56:
             web3 = new Web3(new Web3.providers.HttpProvider(config.evmProviders.bsc))
                 return await web3.eth.getBalance(data);
