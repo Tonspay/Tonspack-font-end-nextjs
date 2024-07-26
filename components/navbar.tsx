@@ -34,10 +34,10 @@ export const Navbar = () => {
         <NavbarBrand className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
             <Logo />
-            <p className="font-bold text-inherit">Tonspack</p>
+            {/* <p className="font-bold text-inherit">Tonspack</p> */}
           </NextLink>
         </NavbarBrand>
-        <div className="hidden lg:flex gap-4 justify-start ml-2">
+        {/* <div className="hidden lg:flex gap-4 justify-start ml-2">
           {siteConfig.navItems.map((item) => (
             <NavbarItem key={item.href}>
               <NextLink
@@ -52,7 +52,7 @@ export const Navbar = () => {
               </NextLink>
             </NavbarItem>
           ))}
-        </div>
+        </div> */}
       </NavbarContent>
 
       <NavbarContent
@@ -66,7 +66,7 @@ export const Navbar = () => {
           <Link isExternal href={siteConfig.links.github}>
             <GithubIcon className="text-default-500" />
           </Link>
-          <ThemeSwitch />
+          {/* <ThemeSwitch /> */}
         </NavbarItem>
       </NavbarContent>
 
@@ -74,7 +74,7 @@ export const Navbar = () => {
         <Link isExternal href={siteConfig.links.github}>
           <GithubIcon className="text-default-500" />
         </Link>
-        <ThemeSwitch />
+        {/* <ThemeSwitch /> */}
         {/* <NavbarMenuToggle /> */}
       </NavbarContent>
 

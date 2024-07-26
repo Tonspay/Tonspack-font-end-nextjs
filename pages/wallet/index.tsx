@@ -76,9 +76,9 @@ export default function DocsPage() {
       }
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
       <Toaster />
-        <div className="inline-block max-w-lg text-center justify-center">
+        {/* <div className="inline-block max-w-lg text-center justify-center">
           <h1 className={title()}>Wallets</h1>
-        </div>
+        </div> */}
 
     { isLoading ? 
         null 

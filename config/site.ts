@@ -10,7 +10,7 @@ export const siteConfig = {
     },
     {
       label: "Wallet",
-      href: "/wallet",
+      href: "https://t.me/tonspack_bot/app",
     },
   ],
   navMenuItems: [

@@ -47,7 +47,7 @@ export default function DocsPage() {
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
         <Toaster />
         <div className="inline-block max-w-lg text-center justify-center">
-          <h1 className={title()}>{query.name} Wallet </h1>
+          <h1 className={title()}>{query.name}</h1>
         </div>
 
     { list.map((item, index) => (
