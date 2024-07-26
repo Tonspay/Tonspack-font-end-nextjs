@@ -67,16 +67,17 @@ async function wallet_list_generate_action(ws:any,action:any) {
     let ret ;
     if(action&&action.c)
     {
-        switch(action.c.t)
+        // console.log("🚧 parseInt(action.c.t)" ,action)
+        switch(parseInt(action.c.t))
         {
             case 0:
-                return wallet_list_peer_generate(action.c.t,evm)
+                return wallet_list_peer_generate(parseInt(action.c.t),evm)
                 break;
             case 1:
-                return wallet_list_peer_generate(action.c.t,sol)
+                return wallet_list_peer_generate(parseInt(action.c.t),sol)
                 break;
             case 2:
-                return wallet_list_peer_generate(action.c.t,ton)
+                return wallet_list_peer_generate(parseInt(action.c.t),ton)
                 break;
         }
         

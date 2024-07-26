@@ -100,36 +100,36 @@ export default function DocsPage() {
           wallet_action_decode(init.starData)
           )
         setAction(a)
-      }
-      if(action && connect)
-      {
-        const ws = await wallet_list_generate_action(connect.wallets,action)
-        setData(ws)
-        setIsLoading(false)
-        setIsMainPageLoading(false)
-        // console.log("🚧 Disable setIsMainPageLoading(false)")
-      }
+      
+        if(a && connect)
+        {
+          const ws = await wallet_list_generate_action(connect.wallets,a)
+          setData(ws)
+          setIsLoading(false)
+          setIsMainPageLoading(false)
+          // console.log("🚧 Disable setIsMainPageLoading(false)")
+        }
 
-      if(action.t == 0 )
-      {
-        setPermissions([
-          permissionsList[0],permissionsList[2]
-        ])
-      }
-      if(action.t == 1 )
-      {
-        setPermissions([
-          permissionsList[0],permissionsList[3]
-        ])
-      }
+        if(action.t == 0 )
+        {
+          setPermissions([
+            permissionsList[0],permissionsList[2]
+          ])
+        }
+        if(action.t == 1 )
+        {
+          setPermissions([
+            permissionsList[0],permissionsList[3]
+          ])
+        }
 
-      if(action.t == 2 )
-      {
-        setPermissions([
-          permissionsList[0],permissionsList[4]
-        ])
+        if(action.t == 2 )
+        {
+          setPermissions([
+            permissionsList[0],permissionsList[4]
+          ])
+        }
       }
-
     }
     onload().catch(console.error);;
   }, [])
@@ -327,10 +327,10 @@ export default function DocsPage() {
                         </div>
                         :
                         <div>
-                        Connect to 
-                        <Popover showArrow key='permission' placement="top" color='success' >
+                        Connect to  
+                        <Popover showArrow key='permission' placement="top" color='default' >
                               <PopoverTrigger>
-                                <Button color="success" className="capitalize">
+                                <Button color="default" className="capitalize">
                                 Dapp
                                 </Button>
                               </PopoverTrigger>
@@ -495,9 +495,9 @@ export default function DocsPage() {
                     :
                     <div>
                     Sign 
-                    <Popover showArrow key='permission' placement="top" color='success' >
+                    <Popover showArrow key='permission' placement="top" color='default' >
                           <PopoverTrigger>
-                            <Button color="success" className="capitalize">
+                            <Button color="default" className="capitalize">
                             Message
                             </Button>
                           </PopoverTrigger>
@@ -661,9 +661,9 @@ export default function DocsPage() {
                     :
                     <div>
                     Send Transaction
-                    <Popover showArrow key='permission' placement="top" color='success' >
+                    <Popover showArrow key='permission' placement="top" color='default' >
                           <PopoverTrigger>
-                            <Button color="success" className="capitalize">
+                            <Button color="default" className="capitalize">
                             Dapp
                             </Button>
                           </PopoverTrigger>
