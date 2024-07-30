@@ -39,7 +39,7 @@ export default function DocsPage() {
   }, [])
   // return returnFont()
   return (
-    <DefaultLayout>
+    <DefaultLayout name="">
       
       {
         isMainPageLoading ? <Loading /> : null

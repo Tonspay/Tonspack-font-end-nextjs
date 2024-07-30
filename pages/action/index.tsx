@@ -159,7 +159,7 @@ export default function DocsPage() {
   );
 
   return (
-    <DefaultLayout>
+    <DefaultLayout name="">
       
       
       {

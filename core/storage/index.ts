@@ -40,7 +40,7 @@ function storage_get_raw_init_data() {
     if (key) {
         return key
     }
-    return false;
+    return key;
 }
 
 function storage_set_raw_init_data(raw_init_data:any) {

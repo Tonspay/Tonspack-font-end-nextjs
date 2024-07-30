@@ -31,9 +31,6 @@ type walletCard = {
 }
 
 export default function DocsPage() {
-  //init
-  wallet_init_data_set()
-
   // let list : walletCard[];
   let list : walletCard[];
   list = [];
@@ -49,11 +46,11 @@ export default function DocsPage() {
   ])
 
   const [isMainPageLoading, setIsMainPageLoading] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
 
+  const [isNav, setIsNav] = useState("");
   useEffect(() => {
     const onload =async ()=>{
-      setIsLoading(true);
+      // const connect = true;
       const connect = await wallet_connect();
       // console.log("🚧 connect :: ",connect)
       if(connect)
@@ -61,8 +58,9 @@ export default function DocsPage() {
         const ws = await wallet_list_generate(connect.wallets)
         // console.log("🚧 Wallets :: ",ws)
         setData(ws)
-        setIsLoading(false)
+        // setData([])
         setIsMainPageLoading(false)
+        setIsNav('wallet')
       }
       // console.log("🚧 hook test")
     }
@@ -70,7 +68,7 @@ export default function DocsPage() {
   }, [])
   // return returnFont()
   return (
-    <DefaultLayout>
+    <DefaultLayout name={isNav}>
       {
         isMainPageLoading ? <Loading /> : null
       }
@@ -80,49 +78,47 @@ export default function DocsPage() {
           <h1 className={title()}>Wallets</h1>
         </div> */}
 
-    { isLoading ? 
-        null 
-    : data.map((item, index) => (
-        <Card style={{maxWidth:"400px",width:"100%"}} key={index} shadow="sm" radius="lg"
-          isPressable onPress={() => {
-            console.log("Card details router");
-            Router.push({pathname: '/wallet_details', query: item})
-          }}
+    { 
+    data.map((item, index) => (
+      <Card style={{maxWidth:"400px",width:"100%"}} key={index} shadow="sm" radius="lg"
+        isPressable onPress={() => {
+          console.log("Card details router");
+          Router.push({pathname: '/wallet_details', query: item})
+        }}
+        >
+        <CardHeader className="justify-between">
+          <div className="flex gap-5">
+            <Image
+                  alt="chain logo"
+                  height={40}
+                  radius="sm"
+                  src={item.img}
+                  width={40}
+                />
+            <div className="flex flex-col gap-1 items-start justify-center">
+              <h4 className="text-small font-semibold leading-none text-default-600">{item.address}</h4>
+            </div>
+          </div>
+          <Link
+          isExternal
+          href={item.scan}
           >
-          <CardHeader className="justify-between">
-            <div className="flex gap-5">
-              <Image
-                    alt="chain logo"
-                    height={40}
-                    radius="sm"
-                    src={item.img}
-                    width={40}
-                  />
-              <div className="flex flex-col gap-1 items-start justify-center">
-                <h4 className="text-small font-semibold leading-none text-default-600">{item.address}</h4>
-              </div>
-            </div>
-            <Link
-            isExternal
-            href={item.scan}
-            >
-            <Chip className="text-tiny text-white" variant="flat" color="default" radius="lg" size="sm" >Copy</Chip>
-            </Link>
-            
-          </CardHeader>
-          <CardFooter className="gap-3" style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}}>
+          <Chip className="text-tiny text-white" variant="flat" color="default" radius="lg" size="sm" >Copy</Chip>
+          </Link>
+          
+        </CardHeader>
+        <CardFooter className="gap-3" style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}}>
+        <div className="flex gap-1">
+            <div className="font-semibold text-default-400 text-small">Chain : </div>
+            <div className=" text-default-400 text-small">{item.name}</div>
+          </div>
           <div className="flex gap-1">
-              <div className="font-semibold text-default-400 text-small">Chain : </div>
-              <div className=" text-default-400 text-small">{item.name}</div>
-            </div>
-            <div className="flex gap-1">
-              <div className="font-semibold text-default-400 text-small">Balance : </div>
-              <div className=" text-default-400 text-small">{item.bal}</div>
-            </div>
-          </CardFooter>
-        </Card>
-      ))
-      
+            <div className="font-semibold text-default-400 text-small">Balance : </div>
+            <div className=" text-default-400 text-small">{item.bal}</div>
+          </div>
+        </CardFooter>
+      </Card>
+    ))
     }
 
       <div style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}}>
@@ -131,7 +127,7 @@ export default function DocsPage() {
       </Button>
       </div>
 
-      <div style={{maxWidth:"400px",width:"100%"}}>
+      {/* <div style={{maxWidth:"400px",width:"100%"}}>
       <Card className="max-w-[400px]">
       <CardHeader className="flex gap-3" style={{textAlign:"center",maxWidth:"400px",width:"100%"}}>
         <div style={{textAlign:"center",width:"100%"}}>
@@ -165,7 +161,7 @@ export default function DocsPage() {
         </Link>
       </CardFooter>
     </Card>
-      </div>
+      </div> */}
       </section>
     </DefaultLayout>
   );

@@ -2,8 +2,17 @@ import React from "react";
 import NextHead from "next/head";
 
 import { siteConfig } from "@/config/site";
+import {wallet_connect,wallet_list_generate,wallet_init_data_set} from "../core/wallet/index";
 
 export const Head = () => {
+    //init
+    try{
+      wallet_init_data_set()
+    }catch(e){
+      console.log("🚧 init error",e)
+    }
+
+    
   return (
     <NextHead>
       <title>{siteConfig.name}</title>
