@@ -47,7 +47,6 @@ export default function DocsPage() {
 
   const [isMainPageLoading, setIsMainPageLoading] = useState(true);
 
-  const [isNav, setIsNav] = useState("");
   useEffect(() => {
     const onload =async ()=>{
       // const connect = true;
@@ -60,7 +59,6 @@ export default function DocsPage() {
         setData(ws)
         // setData([])
         setIsMainPageLoading(false)
-        setIsNav('wallet')
       }
       // console.log("🚧 hook test")
     }
@@ -68,15 +66,15 @@ export default function DocsPage() {
   }, [])
   // return returnFont()
   return (
-    <DefaultLayout name={isNav}>
+    <DefaultLayout name="">
       {
         isMainPageLoading ? <Loading /> : null
       }
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
       <Toaster />
-        {/* <div className="inline-block max-w-lg text-center justify-center">
-          <h1 className={title()}>Wallets</h1>
-        </div> */}
+        <div className="inline-block max-w-lg text-center justify-center">
+          <h1 className={title()}>Profite</h1>
+        </div>
 
     { 
     data.map((item, index) => (
@@ -122,10 +120,9 @@ export default function DocsPage() {
     }
 
       <div style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}}>
-      <Button color="primary" onClick={deving} style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}}>
-        Managment
+      <Button radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg" style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}} onClick={deving}>
+        Manage
       </Button>
-
       </div>
 
       {/* <div style={{maxWidth:"400px",width:"100%"}}>

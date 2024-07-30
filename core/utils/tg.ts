@@ -38,8 +38,11 @@ function miniapp_init() {
         if(tmp0.length>0)
         {
             const temp3 = tmp0[0].split("tgWebAppStartParam=")
-            decodeData.starData = temp3[1];
-            decodeData.hasStarData=true;
+            if(temp3.length>1)
+            {
+                decodeData.starData = temp3[1];
+                decodeData.hasStarData=true;
+            }
         }
         
 

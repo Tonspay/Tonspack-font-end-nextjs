@@ -64,11 +64,15 @@ export default function DocsPage() {
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
       <Toaster />
 
+      <div className="inline-block max-w-lg text-center justify-center">
+          <h1 className={title()}>Setting</h1>
+        </div>
+
       <div style={{maxWidth:"400px",width:"100%"}}>
       <Card className="max-w-[400px]">
       <CardHeader className="flex gap-3" style={{textAlign:"center",maxWidth:"400px",width:"100%"}}>
         <div style={{textAlign:"center",width:"100%"}}>
-          <p className="text-md" >Setting</p>
+          <p className="text-md" >Config</p>
           
         </div>
       </CardHeader>
@@ -82,6 +86,10 @@ export default function DocsPage() {
       <Button color="secondary" variant="bordered" onClick={telegramShareApp}>
         Share Tonspack
       </Button>  
+      <br/>
+      <Button color="warning" variant="bordered" onClick={deving}>
+        Share Profite
+      </Button>
       <br/>
       <Button color="danger" variant="bordered" onClick={deving}>
         Close
