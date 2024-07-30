@@ -26,12 +26,36 @@ import {
   Logo,
 } from "@/components/icons";
 
-export const Navbar = () => {
+import { RiArrowGoBackFill} from 'react-icons/ri'
 
+import Router,{useRouter} from "next/router"
+
+export const Navbar = (props:any) => {
+
+  let isBackAble = true;
+
+  const r = useRouter();
+
+  if(props?.name == "wallet" || props?.name == "app" || props?.name == "setting")
+  {
+    isBackAble=false;
+  }
+
+  function goBack()
+  {
+    r.back()
+  }
   return (
     <NextUINavbar maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand className="gap-3 max-w-fit">
+        {
+          isBackAble?<RiArrowGoBackFill
+          size='75'
+          color='white'
+          onClick={() => goBack()}
+        />:null
+        }
           <NextLink className="flex justify-start items-center gap-1" href="/">
             <Logo />
             {/* <p className="font-bold text-inherit">Tonspack</p> */}

@@ -37,7 +37,7 @@ export const ButtomNav = (props:any) => {
         <div className={`${Styles.bottomNav}`}>
 
             <div className={`${Styles.bnTab}`}>
-                {activeTabs === 'app ' ?
+                {name == 'app' ?
                     <RiMenu2Fill
                         size='35'
                         color='white'
@@ -50,7 +50,7 @@ export const ButtomNav = (props:any) => {
                     />}
             </div>
             <div className={`${Styles.bnTab}`}>
-                {activeTabs === 'wallet' ?
+                {name == 'wallet' ?
                     <RiWallet3Fill
                         size='35'
                         color='white'
@@ -64,7 +64,7 @@ export const ButtomNav = (props:any) => {
             </div>
 
             <div className={`${Styles.bnTab}`}>
-                {activeTabs === 'setting' ?
+                {name == 'setting' ?
                     <RiSettings5Fill
                         size='35'
                         color='white'
