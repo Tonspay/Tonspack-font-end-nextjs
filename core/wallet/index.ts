@@ -13,7 +13,7 @@ import bs58 from "bs58";
 function wallet_init_data_set() {
     // console.log("🚧 This is  wallet_init_data_set")
     let init;
-    console.log("🚧 This is  storage_get_raw_init_data",storage_get_raw_init_data())
+    // console.log("🚧 This is  storage_get_raw_init_data",storage_get_raw_init_data())
     if(!(storage_get_raw_init_data()) || !(storage_get_raw_init_data())?.isTelegram)
     {
         init = miniapp_init();

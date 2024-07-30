@@ -60,7 +60,7 @@ const config:ObjConfig = {
         },
         solana:{
             icon:"/images/chains/sol.svg",
-            name:"Solana Chain",
+            name:"Solana",
             symbol:"SOL",
             decimal:9,
             scan:{
@@ -70,7 +70,7 @@ const config:ObjConfig = {
         },
         ton:{
             icon:"/images/chains/ton.svg",
-            name:"Ton Chain",
+            name:"Ton",
             symbol:"TON",
             decimal:8,
             scan:{
@@ -80,7 +80,7 @@ const config:ObjConfig = {
         },
         tron:{
             icon:"/images/chains/tron.svg",
-            name:"Tron Chain",
+            name:"Tron",
             symbol:"TRX",
             decimal:6,
             scan:{
@@ -90,7 +90,7 @@ const config:ObjConfig = {
         },
         btc:{
             icon:"/images/chains/btc.svg",
-            name:"Bitcoin Chain",
+            name:"Bitcoin",
             symbol:"BTC",
             decimal:8,
             scan:{
@@ -112,7 +112,7 @@ const config:ObjConfig = {
         },
         "1":{
             icon:"/images/chains/eth.svg",
-            name:"Ethereum Chain",
+            name:"Ethereum",
             symbol:"ETH",
             decimal:18,
             scan:{
@@ -132,7 +132,7 @@ const config:ObjConfig = {
         },
         "42161":{
             icon:"/images/chains/arb.svg",
-            name:"Arbitrum One Chain",
+            name:"Arbitrum One",
             symbol:"ETH",
             decimal:18,
             scan:{
@@ -142,7 +142,7 @@ const config:ObjConfig = {
         },
         "8453":{
             icon:"/images/chains/base.svg",
-            name:"Base Chain",
+            name:"Base",
             symbol:"ETH",
             decimal:18,
             scan:{
@@ -152,7 +152,7 @@ const config:ObjConfig = {
         },
         "43114":{
             icon:"/images/chains/avax.svg",
-            name:"Aavalance Chain",
+            name:"Aavalance",
             symbol:"AVAX",
             decimal:18,
             scan:{
@@ -162,7 +162,7 @@ const config:ObjConfig = {
         },
         "137":{
             icon:"/images/chains/polygon.svg",
-            name:"Polygon Chain",
+            name:"Polygon",
             symbol:"matic",
             decimal:18,
             scan:{
@@ -172,7 +172,7 @@ const config:ObjConfig = {
         },
         "10":{
             icon:"/images/chains/op.svg",
-            name:"OP Mainnet Chain",
+            name:"OP Mainnet",
             symbol:"ETH",
             decimal:18,
             scan:{

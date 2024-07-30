@@ -21,6 +21,8 @@ import {telegramShareApp} from "../../core/utils/tg"
 
 import Router from "next/router"
 
+import { RiArrowDownDoubleFill } from 'react-icons/ri'
+
 type walletCard = {
   title: string,
   address:string,
@@ -38,6 +40,7 @@ export default function DocsPage() {
     {
       title: "pending",
       address:"",
+      full_address:"",
       scan:"",
       img: "",
       name:"",
@@ -50,19 +53,47 @@ export default function DocsPage() {
   const [isNav, setIsNav] = useState("");
   useEffect(() => {
     const onload =async ()=>{
-      // const connect = true;
-      const connect = await wallet_connect();
-      // console.log("🚧 connect :: ",connect)
-      if(connect)
-      {
-        const ws = await wallet_list_generate(connect.wallets)
-        console.log("🚧 Wallets :: ",ws)
-        setData(ws)
-        // setData([])
-        setIsMainPageLoading(false)
-        setIsNav('wallet')
-      }
-      // console.log("🚧 hook test")
+      const ws = [
+        {
+            "title": "Bitcoin Chain",
+            "address": "159t...9yQr6",
+            "full_address": "159trGW9CKjt6pxcP5BwXJQPyd8Dx9yQr6",
+            "scan": "https://mempool.space/address/159trGW9CKjt6pxcP5BwXJQPyd8Dx9yQr6",
+            "img": "/images/chains/btc.svg",
+            "name": "Bitcoin Chain",
+            "bal": "0 BTC"
+        },
+        {
+            "title": "Binance Smart Chain",
+            "address": "0x9e...f90a1",
+            "full_address": "0x9e5ec001f7939772dd3e0fce6d667ebcae2f90a1",
+            "scan": "https://bscscan.io/address/0x9e5ec001f7939772dd3e0fce6d667ebcae2f90a1",
+            "img": "/images/chains/bnb.svg",
+            "name": "Binance Smart Chain",
+            "bal": "0 BNB"
+        },
+        {
+            "title": "Solana Chain",
+            "address": "FZDT...fS6qt",
+            "full_address": "FZDTLUxb1SjNwxDLkwC6LgpBHbRFcceVaHcZuyefS6qt",
+            "scan": "https://solscan.io/account/FZDTLUxb1SjNwxDLkwC6LgpBHbRFcceVaHcZuyefS6qt",
+            "img": "/images/chains/sol.svg",
+            "name": "Solana Chain",
+            "bal": "0 SOL"
+        },
+        {
+            "title": "Ton Chain",
+            "address": "EQDc...tA8m-",
+            "full_address": "EQDcVhCbf5r0r8VkHK4ZxbuWj-r39h1AB0aVQquIbnitA8m-",
+            "scan": "https://tonviewer.com/EQDcVhCbf5r0r8VkHK4ZxbuWj-r39h1AB0aVQquIbnitA8m-",
+            "img": "/images/chains/ton.svg",
+            "name": "Ton Chain",
+            "bal": "0 TON"
+        }
+    ]
+    setData(ws)
+    setIsMainPageLoading(false)
+    setIsNav('wallet')
     }
     onload().catch(console.error);;
   }, [])
@@ -123,46 +154,8 @@ export default function DocsPage() {
       <Button color="primary" onClick={deving} style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}}>
         Managment
       </Button>
-      <Button color="primary" onClick={()=>{Router.push("test")}} style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}}>
-        Test
-      </Button>
-      </div>
 
-      {/* <div style={{maxWidth:"400px",width:"100%"}}>
-      <Card className="max-w-[400px]">
-      <CardHeader className="flex gap-3" style={{textAlign:"center",maxWidth:"400px",width:"100%"}}>
-        <div style={{textAlign:"center",width:"100%"}}>
-          <p className="text-md" >Setting</p>
-          
-        </div>
-      </CardHeader>
-      <Divider  style={{maxWidth:"400px",width:"100%"}} />
-      <CardBody>
-      <br/>
-      <Button color="primary" variant="bordered" onClick={exportPrivateKey}>
-        Export privateKey
-      </Button>  
-      <br/>
-      <Button color="secondary" variant="bordered" onClick={telegramShareApp}>
-        Share to friend
-      </Button>  
-      <br/>
-      <Button color="danger" variant="bordered" onClick={deving}>
-        Delete account
-      </Button>
-      </CardBody>
-      <Divider/>
-      <CardFooter>
-        <Link
-          isExternal
-          showAnchorIcon
-          href="https://t.me/Tonspackdev"
-        >
-          Join tonspack community for support.
-        </Link>
-      </CardFooter>
-    </Card>
-      </div> */}
+      </div>
       </section>
     </DefaultLayout>
   );

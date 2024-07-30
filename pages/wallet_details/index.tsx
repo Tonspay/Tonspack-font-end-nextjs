@@ -12,7 +12,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 import  { Toaster } from 'react-hot-toast';
-import { deving , exportPrivateKey} from "../../core/utils/utils"
+import { deving , address_readable} from "../../core/utils/utils"
 
 type walletCard = {
   title: string,
@@ -51,41 +51,42 @@ export default function DocsPage() {
         </div>
 
     { list.map((item, index) => (
-        <Card style={{maxWidth:"400px",width:"100%"}} key={index} shadow="sm" radius="lg"
-          isPressable onPress={() => console.log("Card details")}
-          >
-          <CardHeader className="justify-between">
-            <div className="flex gap-5">
-              <Image
-                    alt="chain logo"
-                    height={40}
-                    radius="sm"
-                    src={item.img}
-                    width={40}
-                  />
-              <div className="flex flex-col gap-1 items-start justify-center">
-                <h4 className="text-small font-semibold leading-none text-default-600">{item.address}</h4>
-              </div>
-            </div>
-            <Link
-            isExternal
-            href={item.scan}
-            >
-            <Chip className="text-tiny text-white" variant="flat" color="default" radius="lg" size="sm" >Copy</Chip>
-            </Link>
-            
-          </CardHeader>
-          <CardFooter className="gap-3" style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}}>
-          <div className="flex gap-1">
-              <div className="font-semibold text-default-400 text-small">Chain : </div>
-              <div className=" text-default-400 text-small">{item.name}</div>
-            </div>
-            <div className="flex gap-1">
-              <div className="font-semibold text-default-400 text-small">Balance : </div>
-              <div className=" text-default-400 text-small">{item.bal}</div>
-            </div>
-          </CardFooter>
-        </Card>
+      <Card style={{maxWidth:"400px",width:"100%"}} key={index} shadow="sm" radius="lg"
+      isPressable onPress={() => {
+        console.log("Card details router");
+        Router.push({pathname: '/wallet_details', query: item})
+      }}
+      >
+      <CardHeader className="justify-between">
+        <div className="flex gap-5">
+          <Image
+                alt="chain logo"
+                height={40}
+                radius="sm"
+                src={item.img}
+                width={40}
+              />
+          <div className="flex flex-col gap-1 items-start justify-center">
+            <h4 className="text-small font-semibold leading-none text-default-600">{item.name}</h4>
+          </div>
+        </div>
+        <Link
+        isExternal
+        href={item.scan}
+        >
+        <Chip className="text-tiny text-white" variant="flat" color="default" radius="lg" size="sm" >Copy</Chip>
+        </Link>
+        
+      </CardHeader>
+      <CardBody style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}}>
+        <div className="flex gap-1">
+          <div className=" text-default-400 text-small" style={{textAlign:"center" ,width:'100%'}}>{address_readable(12,12,item.full_address)}</div>
+        </div>
+        <div className="flex gap-1">
+          <div className="text-big" style={{textAlign:"center" ,width:'100%'}}>{item.bal}</div>
+        </div>
+      </CardBody>
+    </Card>
       ))
       
     }
