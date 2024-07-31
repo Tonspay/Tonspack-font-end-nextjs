@@ -36,7 +36,7 @@ export const Navbar = (props:any) => {
 
   const r = useRouter();
 
-  if(props?.name == "wallet" || props?.name == "app" || props?.name == "setting" ||  props?.name == "action"||  props?.name == "index")
+  if(props?.name == "wallet" || props?.name == "dapp" || props?.name == "setting" ||  props?.name == "action"||  props?.name == "index")
   {
     isBackAble=false;
   }
