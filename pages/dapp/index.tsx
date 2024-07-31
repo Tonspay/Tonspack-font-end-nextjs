@@ -163,14 +163,14 @@ export default function DocsPage() {
       </DropdownTrigger>
       <DropdownMenu aria-label="Dynamic Actions" items={chainDropdown}
         onAction={(key) => {
-          dappListGenerate(allDappList,chainDropdown[Number(key)].id)
+          dappListGenerate(allDappList,chainDropdown[Number(key)]['id'])
         }}>
         {
         chainDropdown.map((item, index) => (
           <DropdownItem
           key={index}
         >
-          {item.name}
+          {("name" in item)?"null":item['name']}
         </DropdownItem>
         ))
         }
@@ -180,19 +180,21 @@ export default function DocsPage() {
 
     <div className="gap-1 grid grid-cols-3 sm:grid-cols-4">
       {dappList.map((item, index) => (
-        <Card shadow="sm" key={index} isPressable onPress={() => Router.push(item.url)}>
+        <Card shadow="sm" key={index} isPressable onPress={() => Router.push(
+          (item['url'])
+        )}>
           <CardBody className="overflow-visible p-0">
             <Image
               shadow="sm"
               radius="lg"
               width="100%"
-              alt={item.name}
+              alt={item['name']}
               className="w-full object-cover h-[100px]"
-              src={item.icon}
+              src={item['icon']}
             />
           </CardBody>
           <CardFooter className="text-small justify-between">
-            <b>{item.name}</b>
+            <b>{item['name']}</b>
           </CardFooter>
         </Card>
       ))}
