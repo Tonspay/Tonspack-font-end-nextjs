@@ -24,13 +24,12 @@ import {tryCloseWebappWindows} from "../../core/utils/tg"
 import { useState, useEffect } from 'react'
 
 
+import {storage_set_authkey,storage_get_raw_init_data,storage_set_raw_init_data} from "@/core/storage/index"
 
 import Router from "next/router"
 type colorType = "default" | "primary" | "secondary" | "success" | "warning" | "danger" | undefined;
 
 export default function DocsPage() {
-  const init = wallet_init_data_set()
-
   const permissionsList = [
     {
       color:"default" as colorType,
@@ -75,7 +74,7 @@ export default function DocsPage() {
 
   const [isMainPageLoading, setIsMainPageLoading] = useState(true);
 
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
 
   const [action, setAction] = useState({
     "t": 0,
@@ -92,20 +91,21 @@ export default function DocsPage() {
 
     
     const onload =async ()=>{
-      setIsLoading(true);
       const connect = await wallet_connect();
+      const init = await storage_get_raw_init_data()
+      // console.log("🚧 connect",connect,init)
       if(init && init?.isTelegram)
       {
         const a = await wallet_action_details(
-          wallet_action_decode(init.starData)
+            wallet_action_decode(init.starData)
           )
         setAction(a)
       
+        // console.log("🚧 a connect",a,connect)
         if(a && connect)
         {
           const ws = await wallet_list_generate_action(connect.wallets,a)
           setData(ws)
-          setIsLoading(false)
           setIsMainPageLoading(false)
           // console.log("🚧 Disable setIsMainPageLoading(false)")
         }
@@ -183,9 +183,7 @@ export default function DocsPage() {
           </div>
         </div>
 
-    { isLoading ? 
-        null 
-    : 
+    {
         <Card style={{maxWidth:"400px",width:"100%"}} shadow="sm" radius="lg"
           isPressable onPress={() => {
             console.log("Card details router");

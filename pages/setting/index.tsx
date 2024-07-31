@@ -72,7 +72,7 @@ export default function DocsPage() {
       <Card className="max-w-[400px]">
       <CardHeader className="flex gap-3" style={{textAlign:"center",maxWidth:"400px",width:"100%"}}>
         <div style={{textAlign:"center",width:"100%"}}>
-          <p className="text-md" >Config</p>
+          <p className="text-md" >Set up your wallet</p>
           
         </div>
       </CardHeader>
