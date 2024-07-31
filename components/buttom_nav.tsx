@@ -28,7 +28,7 @@ export const ButtomNav = (props:any) => {
                 break;
         }
     }, [switchRouter, router])
-    if(name === "" || name == "index")
+    if(name === "" || name == "index"|| name == "action")
     {
         return (null)
     }
