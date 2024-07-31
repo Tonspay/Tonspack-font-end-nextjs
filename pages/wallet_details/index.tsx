@@ -53,8 +53,8 @@ export default function DocsPage() {
     { list.map((item, index) => (
       <Card style={{maxWidth:"400px",width:"100%"}} key={index} shadow="sm" radius="lg"
       isPressable onPress={() => {
-        console.log("Card details router");
-        Router.push({pathname: '/wallet_details', query: item})
+        // console.log("Card details router");
+        // Router.push({pathname: '/wallet_details', query: item})
       }}
       >
       <CardHeader className="justify-between">

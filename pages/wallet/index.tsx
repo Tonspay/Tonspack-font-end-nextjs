@@ -23,6 +23,7 @@ import Router from "next/router"
 
 type walletCard = {
   title: string,
+  full_address:string,
   address:string,
   scan:string,
   img: string,
@@ -38,6 +39,7 @@ export default function DocsPage() {
     {
       title: "pending",
       address:"",
+      full_address:"",
       scan:"",
       img: "",
       name:"",
@@ -123,46 +125,9 @@ export default function DocsPage() {
       <Button color="primary" onClick={deving} style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}}>
         Managment
       </Button>
-      <Button color="primary" onClick={()=>{Router.push("test")}} style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}}>
-        Test
-      </Button>
-      </div>
 
-      {/* <div style={{maxWidth:"400px",width:"100%"}}>
-      <Card className="max-w-[400px]">
-      <CardHeader className="flex gap-3" style={{textAlign:"center",maxWidth:"400px",width:"100%"}}>
-        <div style={{textAlign:"center",width:"100%"}}>
-          <p className="text-md" >Setting</p>
-          
-        </div>
-      </CardHeader>
-      <Divider  style={{maxWidth:"400px",width:"100%"}} />
-      <CardBody>
-      <br/>
-      <Button color="primary" variant="bordered" onClick={exportPrivateKey}>
-        Export privateKey
-      </Button>  
-      <br/>
-      <Button color="secondary" variant="bordered" onClick={telegramShareApp}>
-        Share to friend
-      </Button>  
-      <br/>
-      <Button color="danger" variant="bordered" onClick={deving}>
-        Delete account
-      </Button>
-      </CardBody>
-      <Divider/>
-      <CardFooter>
-        <Link
-          isExternal
-          showAnchorIcon
-          href="https://t.me/Tonspackdev"
-        >
-          Join tonspack community for support.
-        </Link>
-      </CardFooter>
-    </Card>
-      </div> */}
+      {/* <Button color="primary" onClick={()=>{Router.push("test")}} style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}}>Test</Button> */}
+      </div>
       </section>
     </DefaultLayout>
   );

@@ -19,6 +19,7 @@ const siteBaseUrl = config.siteBaseUrl
 const request_baseurl = `${siteBaseUrl}api/`
 const tonapi_baseurl = "https://tonapi.io/"
 const tonsbrige_baseurl = `${siteBaseUrl}/bridge/`
+const dapp_indexer_baseurl = `https://tonspay.github.io/Tonspack-dapp-indexer/`
 const request_router = {
     ping: request_baseurl + "ping",
     debug: request_baseurl + "debug",
@@ -30,11 +31,6 @@ const request_router = {
         metamask: request_baseurl + "preconnect/metamask",
     },
     connect: request_baseurl + "connect",
-    info: {
-        connection: request_baseurl + "info/connection",
-        invoices: request_baseurl + "info/invoices",
-        invoice: request_baseurl + "info/invoice",
-    },
     scan  :{
         tonapi :{
             balance  : tonapi_baseurl+"v2/blockchain/accounts/",
@@ -52,6 +48,11 @@ const request_router = {
     bridge : {
         quote: tonsbrige_baseurl+"quote",
         swap: tonsbrige_baseurl+"swap"
+    },
+    app_indexer : {
+        index : dapp_indexer_baseurl+"index.json",
+        chians : dapp_indexer_baseurl+"chains.json",
+        dapp : dapp_indexer_baseurl+"dapp.json",
     }
 }
 
@@ -222,15 +223,44 @@ async function api_balance(data:string,chain:any,decimail:number) {
     }
 }
 
+/**
+ * Dapp indexer request router 
+ */
+
+async function api_dapp_indexer_chains() {
+    try{
+        return await requester(
+            request_router.app_indexer.chians,
+            request_get_unauth()
+        ) 
+    }catch(e)
+    {
+        console.error(e)
+        return 0;
+    }
+}
+
+async function api_dapp_indexer_dapp() {
+    try{
+        return await requester(
+            request_router.app_indexer.dapp,
+            request_get_unauth()
+        ) 
+    }catch(e)
+    {
+        console.error(e)
+        return 0;
+    }
+}
+
 
 export {
     api_auth,
     api_connect,
     api_preconnect,
     api_action,
-    // api_balance_ton,
-    // api_balance_sol,
-    // api_balance_arb,
-    // api_balance_evm,
-    api_balance
+    api_balance,
+    api_dapp_indexer_chains,
+    api_dapp_indexer_dapp,
+    dapp_indexer_baseurl as api_dapp_indexer_baseurl
 }

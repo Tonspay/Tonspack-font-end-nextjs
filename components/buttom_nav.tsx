@@ -20,8 +20,8 @@ export const ButtomNav = (props:any) => {
             case 'setting':
                 router.push('/setting')
                 break;
-            case 'app':
-                router.push('/')
+            case 'dapp':
+                router.push('/dapp')
                 break;
             default:
                 // router.push('/')
@@ -37,16 +37,16 @@ export const ButtomNav = (props:any) => {
         <div className={`${Styles.bottomNav}`}>
 
             <div className={`${Styles.bnTab}`}>
-                {name == 'app' ?
+                {name == 'dapp' ?
                     <RiMenu2Fill
                         size='35'
                         color='white'
-                        onClick={() => setSwitchRouter('app')}
+                        onClick={() => setSwitchRouter('dapp')}
                     /> :
                     <RiMenu2Line
                         size='35'
                         color='white'
-                        onClick={() => setSwitchRouter('app')}
+                        onClick={() => setSwitchRouter('dapp')}
                     />}
             </div>
             <div className={`${Styles.bnTab}`}>
