@@ -25,6 +25,7 @@ interface ObjConfig {
             name:string,
             symbol:string,
             decimal:number,
+            rpc:string[],
             scan:{
                 address:string,
                 tx:string,
@@ -72,7 +73,7 @@ const config:ObjConfig = {
             icon:"/images/chains/ton.svg",
             name:"Ton",
             symbol:"TON",
-            decimal:8,
+            decimal:9,
             scan:{
                 address:"https://tonviewer.com/",
                 tx:"https://tonviewer.com/transaction/"
@@ -105,6 +106,7 @@ const config:ObjConfig = {
             name:"",
             symbol:"",
             decimal:18,
+            rpc:[],
             scan:{
                 address:"https://etherscan.io/address/",
                 tx:"https://etherscan.io/tx/"
@@ -115,6 +117,10 @@ const config:ObjConfig = {
             name:"Ethereum",
             symbol:"ETH",
             decimal:18,
+            rpc:[
+                "https://eth.llamarpc.com",
+                "https://rpc.mevblocker.io"
+            ],
             scan:{
                 address:"https://etherscan.io/address/",
                 tx:"https://etherscan.io/tx/"
@@ -125,6 +131,10 @@ const config:ObjConfig = {
             name:"Binance Smart Chain",
             symbol:"BNB",
             decimal:18,
+            rpc:[
+                "https://binance.llamarpc.com",
+                "https://1rpc.io/bnb"
+            ],
             scan:{
                 address:"https://bscscan.io/address/",
                 tx:"https://bscscan.io/tx/"
@@ -135,6 +145,10 @@ const config:ObjConfig = {
             name:"Arbitrum One",
             symbol:"ETH",
             decimal:18,
+            rpc:[
+                "https://arbitrum.llamarpc.com",
+                "https://1rpc.io/arb"
+            ],
             scan:{
                 address:"https://arbiscan.io/address/",
                 tx:"https://arbiscan.io/tx/"
@@ -145,6 +159,10 @@ const config:ObjConfig = {
             name:"Base",
             symbol:"ETH",
             decimal:18,
+            rpc:[
+                "https://base.llamarpc.com",
+                "https://1rpc.io/base"
+            ],
             scan:{
                 address:"https://basescan.org/address/",
                 tx:"https://basescan.org/tx/"
@@ -155,6 +173,10 @@ const config:ObjConfig = {
             name:"Aavalance",
             symbol:"AVAX",
             decimal:18,
+            rpc:[
+                "https://avalanche.drpc.org",
+                "https://1rpc.io/avax/c"
+            ],
             scan:{
                 address:"https://snowtrace.io/address/",
                 tx:"https://snowtrace.io/tx/"
@@ -165,9 +187,13 @@ const config:ObjConfig = {
             name:"Polygon",
             symbol:"matic",
             decimal:18,
+            rpc:[
+                "https://polygon.llamarpc.com",
+                "https://1rpc.io/base"
+            ],
             scan:{
                 address:"https://polygonscan.com/address/",
-                tx:"https://polygonscan.com/tx/"
+                tx:"https://polygon.drpc.org"
             }
         },
         "10":{
@@ -175,6 +201,10 @@ const config:ObjConfig = {
             name:"OP Mainnet",
             symbol:"ETH",
             decimal:18,
+            rpc:[
+                "https://optimism.drpc.org",
+                "https://1rpc.io/op"
+            ],
             scan:{
                 address:"https://optimistic.etherscan.io/address/",
                 tx:"https://optimistic.etherscan.io/tx/"

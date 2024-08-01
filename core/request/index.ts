@@ -159,11 +159,11 @@ async function api_balance_ton(data:string) {
             request_router.scan.tonapi.balance+data,
             request_get_unauth()
         )
-        if(!Number(ret))
+        if(!Number(ret?.balance))
         {
             return 0 ;
         }
-        return ret;
+        return Number(ret.balance);
     }catch(e)
     {
         return 0;
@@ -202,18 +202,15 @@ async function api_balance(data:string,chain:any,decimail:number) {
     try{
         var web3;
         switch (chain){
-            case "sol":
-                return (await api_balance_sol(data)/Math.pow(10,decimail)).toFixed(3)
-            case "ton":
-                return (await api_balance_ton(data)/Math.pow(10,decimail)).toFixed(3)
-            case "btc":
-                return (await api_balance_btc(data)/Math.pow(10,decimail)).toFixed(3)
-            case "bsc":case 56:
-            web3 = new Web3(new Web3.providers.HttpProvider(config.evmProviders.bsc))
-                return await web3.eth.getBalance(data);
+            case "SOL":
+                return Number(((await api_balance_sol(data))/Math.pow(10,decimail)).toFixed(3))
+            case "TON":
+                return Number(((await api_balance_ton(data))/Math.pow(10,decimail)).toFixed(3))
+            case "BTC":
+                return Number(((await api_balance_btc(data))/Math.pow(10,decimail)).toFixed(3))
             default : 
-            web3 = new Web3(new Web3.providers.HttpProvider(config.evmProviders.arb));
-                return await web3.eth.getBalance(data);
+            web3 = new Web3(new Web3.providers.HttpProvider(chain.rpc[0]));
+                return Number(( Number(await web3.eth.getBalance(data).toString())/Math.pow(10,decimail)).toFixed(3))
         }
         
 

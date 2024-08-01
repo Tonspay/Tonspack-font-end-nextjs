@@ -170,7 +170,7 @@ export default function DocsPage() {
           <DropdownItem
           key={index}
         >
-          {("name" in item)?"null":item['name']}
+          {item['name']}
         </DropdownItem>
         ))
         }

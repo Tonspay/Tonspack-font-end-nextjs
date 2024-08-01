@@ -127,7 +127,7 @@ async function wallet_list_peer_generate(type:number,chains:any,w:any) {
         scan:data.chain.scan.address+data.address,
         img: data.chain.icon,
         name:data.chain.name,
-        bal:`${await api_balance(w,data.chain.symbol,data.chain.decimal)} ${data.chain.symbol}`
+        bal:`${await api_balance(data.address,data.chain.symbol,data.chain.decimal)} ${data.chain.symbol}`
       }
 }
 
