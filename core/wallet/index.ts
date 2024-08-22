@@ -10,6 +10,8 @@ import config from "../config"
 
 import bs58 from "bs58";
 
+import * as mpc from "./mpc"
+
 function wallet_init_data_set() {
     // console.log("🚧 This is  wallet_init_data_set")
     let init;
@@ -172,5 +174,6 @@ export {
     wallet_list_generate_action,
     wallet_init_data_set,
     wallet_action_decode,
-    wallet_action_details
+    wallet_action_details,
+    mpc
 }

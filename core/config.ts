@@ -17,7 +17,8 @@ interface ObjConfig {
             scan:{
                 address:string,
                 tx:string,
-            }
+            },
+            rpc:string[],
         },
     },
     evmsChains:{
@@ -60,7 +61,8 @@ const config:ObjConfig = {
             scan:{
                 address:"",
                 tx:""
-            }
+            },
+            rpc:[]
         },
         solana:{
             icon:"/images/chains/sol.svg",
@@ -71,7 +73,10 @@ const config:ObjConfig = {
             scan:{
                 address:"https://solscan.io/account/",
                 tx:"https://solscan.io/tx/"
-            }
+            },
+            rpc:[
+                'https://solana-mainnet.g.alchemy.com/v2/2HWIMGYhZm3HJXTVlyfVWThcSpgP9Twu'
+            ]
         },
         ton:{
             icon:"/images/chains/ton.svg",
@@ -82,7 +87,8 @@ const config:ObjConfig = {
             scan:{
                 address:"https://tonviewer.com/",
                 tx:"https://tonviewer.com/transaction/"
-            }
+            },
+            rpc:[]
         },
         tron:{
             icon:"/images/chains/tron.svg",
@@ -93,7 +99,8 @@ const config:ObjConfig = {
             scan:{
                 address:"https://tronscan.org/#/address/",
                 tx:"https://tronscan.org/#/transaction/"
-            }
+            },
+            rpc:[]
         },
         btc:{
             icon:"/images/chains/btc.svg",
@@ -104,7 +111,8 @@ const config:ObjConfig = {
             scan:{
                 address:"https://mempool.space/address/",
                 tx:"https://mempool.space/tx/"
-            }
+            },
+            rpc:[]
         },
     },
     evmsChains:{
