@@ -11,6 +11,7 @@ interface ObjConfig {
         [x:string]: {
             icon:string,
             name:string,
+            type:number,
             symbol:string,
             decimal:number,
             scan:{
@@ -23,6 +24,7 @@ interface ObjConfig {
         [x:string]: {
             icon:string,
             name:string,
+            type:number,
             symbol:string,
             decimal:number,
             rpc:string[],
@@ -52,6 +54,7 @@ const config:ObjConfig = {
         default:{
             icon:"/images/chains/eth.svg",
             name:"",
+            type:0,
             symbol:"",
             decimal:18,
             scan:{
@@ -62,6 +65,7 @@ const config:ObjConfig = {
         solana:{
             icon:"/images/chains/sol.svg",
             name:"Solana",
+            type:1,
             symbol:"SOL",
             decimal:9,
             scan:{
@@ -72,6 +76,7 @@ const config:ObjConfig = {
         ton:{
             icon:"/images/chains/ton.svg",
             name:"Ton",
+            type:2,
             symbol:"TON",
             decimal:9,
             scan:{
@@ -82,6 +87,7 @@ const config:ObjConfig = {
         tron:{
             icon:"/images/chains/tron.svg",
             name:"Tron",
+            type:5,
             symbol:"TRX",
             decimal:6,
             scan:{
@@ -92,6 +98,7 @@ const config:ObjConfig = {
         btc:{
             icon:"/images/chains/btc.svg",
             name:"Bitcoin",
+            type:3,
             symbol:"BTC",
             decimal:8,
             scan:{
@@ -104,6 +111,7 @@ const config:ObjConfig = {
         "default":{
             icon:"/images/chains/eth.svg",
             name:"",
+            type:0,
             symbol:"",
             decimal:18,
             rpc:[],
@@ -115,6 +123,7 @@ const config:ObjConfig = {
         "1":{
             icon:"/images/chains/eth.svg",
             name:"Ethereum",
+            type:0,
             symbol:"ETH",
             decimal:18,
             rpc:[
@@ -129,6 +138,7 @@ const config:ObjConfig = {
         "56":{
             icon:"/images/chains/bnb.svg",
             name:"Binance Smart Chain",
+            type:0,
             symbol:"BNB",
             decimal:18,
             rpc:[
@@ -143,6 +153,7 @@ const config:ObjConfig = {
         "42161":{
             icon:"/images/chains/arb.svg",
             name:"Arbitrum One",
+            type:0,
             symbol:"ETH",
             decimal:18,
             rpc:[
@@ -157,6 +168,7 @@ const config:ObjConfig = {
         "8453":{
             icon:"/images/chains/base.svg",
             name:"Base",
+            type:0,
             symbol:"ETH",
             decimal:18,
             rpc:[
@@ -171,6 +183,7 @@ const config:ObjConfig = {
         "43114":{
             icon:"/images/chains/avax.svg",
             name:"Aavalance",
+            type:0,
             symbol:"AVAX",
             decimal:18,
             rpc:[
@@ -185,6 +198,7 @@ const config:ObjConfig = {
         "137":{
             icon:"/images/chains/polygon.svg",
             name:"Polygon",
+            type:0,
             symbol:"matic",
             decimal:18,
             rpc:[
@@ -199,6 +213,7 @@ const config:ObjConfig = {
         "10":{
             icon:"/images/chains/op.svg",
             name:"OP Mainnet",
+            type:0,
             symbol:"ETH",
             decimal:18,
             rpc:[

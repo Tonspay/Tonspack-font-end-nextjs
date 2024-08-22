@@ -8,6 +8,8 @@ import {Avatar} from "@nextui-org/avatar"
 import {Image }from "@nextui-org/image";
 import {Chip} from "@nextui-org/chip"
 import {Divider} from"@nextui-org/divider"
+import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure} from "@nextui-org/modal";
+
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
