@@ -52,9 +52,6 @@ export default function DocsPage() {
   const [isNav, setIsNav] = useState("");
   useEffect(() => {
     const onload =async ()=>{
-      const connect = true;
-      // const connect = await wallet_connect();
-      // console.log("🚧 connect :: ",connect)
       const mpc_kp = await wallet_mpc_try_get_kp()
       if(mpc_kp)
       {

@@ -14,7 +14,7 @@ import {DatePicker } from"@nextui-org/date-picker"
 
 import {parseZonedDateTime, parseAbsoluteToLocal,parseAbsolute} from "@internationalized/date";
 
-import {wallet_connect,wallet_list_generate_action,wallet_init_data_set , wallet_action_decode,wallet_action_details} from "../../core/wallet/index";
+import {wallet_connect,wallet_list_generate_action,wallet_init_data_set , wallet_action_decode,wallet_action_details,wallet_mpc_get_kp,wallet_mpc_try_get_kp,mpc} from "../../core/wallet/index";
 
 import {api_action} from "../../core/request/index"
 
@@ -91,20 +91,21 @@ export default function DocsPage() {
 
     
     const onload =async ()=>{
-      const connect = await wallet_connect();
-      const init = await storage_get_raw_init_data()
-      // console.log("🚧 connect",connect,init)
-      if(init && init?.isTelegram)
+      const mpc_kp = await wallet_mpc_try_get_kp()
+      console.log("🚧 mpc_kp",mpc_kp)
+      const init = storage_get_raw_init_data()
+      console.log("🚧 init",init)
+      if(init && init.starData )//&& init?.isTelegram)
       {
         const a = await wallet_action_details(
             wallet_action_decode(init.starData)
           )
+        console.log("🚧 wallet_action_details",a)
         setAction(a)
-      
-        // console.log("🚧 a connect",a,connect)
-        if(a && connect)
+        if(a && mpc_kp)
         {
-          const ws = await wallet_list_generate_action(connect.wallets,a)
+          const wallets = mpc.getAddress(mpc_kp,false);
+          const ws = await wallet_list_generate_action(wallets,a)
           setData(ws)
           setIsMainPageLoading(false)
           // console.log("🚧 Disable setIsMainPageLoading(false)")
