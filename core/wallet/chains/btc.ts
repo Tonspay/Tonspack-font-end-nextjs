@@ -8,7 +8,7 @@ import * as bip32 from "bip32"
 
 import * as ecpair from "ecpair"
 
-import * as ecc from "tiny-secp256k1"
+import * as ecc from "@bitcoinerlab/secp256k1"
 
 import * as bitcoinMessage from "bitcoinjs-message"
 
