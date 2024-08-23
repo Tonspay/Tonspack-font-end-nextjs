@@ -54,15 +54,15 @@ export default function DocsPage() {
     const onload =async ()=>{
       const connect = true;
       // const connect = await wallet_connect();
-      console.log("🚧 connect :: ",connect)
+      // console.log("🚧 connect :: ",connect)
       const mpc_kp = await wallet_mpc_try_get_kp()
       if(mpc_kp)
       {
-        console.log("🚧 mpc_kp :: ",mpc_kp)
+        // console.log("🚧 mpc_kp :: ",mpc_kp)
         const kps = mpc.getKp(mpc_kp)
-        console.log("🚧 kps :: ",kps)
-        const wallets = mpc.getAddress(mpc_kp,true);
-        console.log("🚧 wallets :: ",wallets)
+        // console.log("🚧 kps :: ",kps)
+        const wallets = mpc.getAddress(mpc_kp,false);
+        // console.log("🚧 wallets :: ",wallets)
         const ws = await wallet_list_generate(wallets)
         console.log("🚧 Wallets :: ",ws)
         setData(ws)

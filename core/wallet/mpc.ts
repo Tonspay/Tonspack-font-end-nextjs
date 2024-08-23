@@ -14,7 +14,6 @@ import {objKP,objAddress} from "./type"
 
 function getKp(sk:string)
 {
-    // sk = "0x"+sk
     const master = hd.hdkey.fromMasterSeed(Buffer.from(sk,'hex'));
     const derive = master.deriveChild(derivePath)
     const evmWallet = derive.getWallet()

@@ -121,7 +121,7 @@ function wallet_get_chain_details(type:number,chains:any,w:any)
 
 async function wallet_list_peer_generate(type:number,chains:any,w:any) {
     const data = wallet_get_chain_details(type,chains,w);
-    console.log("🚧 Predraw data: ",data)
+    // console.log("🚧 Predraw data: ",data)
     return{
         title: data.chain.name,
         address:address_readable(4,4,data.address),
