@@ -2,7 +2,7 @@ import {api_connect,api_balance,api_preconnect} from "../request/index"
 
 import {miniapp_init} from "../utils/tg"
 
-import {storage_set_authkey,storage_get_raw_init_data,storage_set_raw_init_data} from "../storage/index"
+import {storage_set_authkey,storage_get_raw_init_data,storage_set_raw_init_data ,storage_get_kp,storage_set_kp} from "../storage/index"
 
 import {address_readable} from "../utils/utils"
 
@@ -168,6 +168,15 @@ async function wallet_action_details(data:any)
     return false
 }
 
+function wallet_mpc_set_kp(kp:string)
+{
+    storage_set_kp(kp)
+}
+
+function wallet_mpc_get_kp()
+{
+    return storage_get_kp()
+}
 export {
     wallet_connect,
     wallet_list_generate,
@@ -175,5 +184,7 @@ export {
     wallet_init_data_set,
     wallet_action_decode,
     wallet_action_details,
+    wallet_mpc_set_kp,
+    wallet_mpc_get_kp,
     mpc
 }

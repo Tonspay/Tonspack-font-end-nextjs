@@ -20,7 +20,8 @@ const router_storage = {
         initData:{},
         hasStarData:false,
         starData:""
-    }
+    },
+    kp:""
 }
 
 function storage_get_authkey() {
@@ -73,6 +74,16 @@ function storage_set_user_tg_data(uid:string) {
     router_storage.user_data_tg = uid
 }
 
+function storage_set_kp(sk:string)
+{
+    router_storage.kp = sk
+}
+
+function storage_get_kp()
+{
+    return router_storage.kp
+}
+
 export {
     storage_get_authkey,
     storage_set_authkey,
@@ -80,5 +91,7 @@ export {
     storage_set_uid,
     storage_get_user_tg_data,
     storage_get_raw_init_data,
-    storage_set_raw_init_data
+    storage_set_raw_init_data,
+    storage_set_kp,
+    storage_get_kp
 };
