@@ -88,5 +88,8 @@ async function signAndSendTxn(kp:objKP,tx:objActionRawData)
 
 }
 export {
-    
+    getTonWalletV4KeyPair,
+    connect,
+    sign,
+    signAndSendTxn
 }

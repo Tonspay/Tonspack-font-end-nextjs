@@ -11,14 +11,19 @@ interface objKP {
         address : string,
         privateKey : string,
     },
-    tonKp : {
-        address : string,
-        privateKey : string,
-    },
+    tonKp : any,
     btcKp : {
         address : string,
+        testnet:string,
+        publicKey:string,
         privateKey : string,
     }
+  }
+interface objAddress {
+    evm : string,
+    sol : string,
+    ton : string,
+    btc : string,
   }
 
   interface objActionRawData {
@@ -40,6 +45,7 @@ interface objTonTxn {
 
   export type {
     objKP,
+    objAddress,
     objActionRawData,
 
     objTonTxn

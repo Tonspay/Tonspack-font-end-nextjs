@@ -10,6 +10,8 @@ import { GithubIcon ,HeartFilledIcon} from "@/components/icons";
 import DefaultLayout from "@/layouts/default";
 import { useState, useEffect } from 'react'
 
+import { mpc } from "@/core/wallet";
+
 /**
  * MPC web3auth
  */
@@ -22,6 +24,7 @@ export default function IndexPage() {
   const verifier = "tonspack-mpc";
 
 const clientId = "BGhzy_MwnoMn2fP12APsIm0RCv9cove_zNeZp5PIaoIPCZGPYrnlkO2o9Pf8XPhaxQVQOKK7QQCQVf974LZxfEs"; // get from https://dashboard.web3auth.io
+
 
 const chainConfig = {
   chainId: "0x1",
@@ -102,6 +105,11 @@ const loginWithWeb3Auth = async (idToken: string) => {
 const test_btn = async () => {
 
   console.log("🐞 Web3auth privateKey : ",kp)
+  console.log("KP : ", mpc.getKp(kp))
+
+  console.log("address : ",mpc.getAddress(kp,false))
+
+  console.log("testnet : ",mpc.getAddress(kp,true))
 }
 
 

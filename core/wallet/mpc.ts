@@ -6,9 +6,13 @@ import * as hd from "ethereumjs-wallet"
 
 const derivePath = 1
 
-import {objKP} from "./type"
+import * as ton from "./chains/ton"
 
-async function getKp(sk:string)
+import * as btc from "./chains/btc"
+
+import {objKP,objAddress} from "./type"
+
+function getKp(sk:string)
 {
     sk = "0x"+sk
     const master = hd.hdkey.fromMasterSeed(Buffer.from(sk,'hex'));
@@ -26,10 +30,41 @@ async function getKp(sk:string)
             address : bs58.encode(naclKp.publicKey),
             privateKey :bs58.encode(naclKp.secretKey),
         },
+        tonKp : ton.getTonWalletV4KeyPair(
+            Buffer.from(naclKp.secretKey),0),
+        btcKp : btc.getKeyPair(
+            Buffer.from(evmWallet.getPrivateKey())
+        )
+
     } as objKP
+}
+
+function getAddress(sk:string,isTestnet:boolean)
+{
+    const kp = getKp(sk);
+    let btcAddress : string
+    if(isTestnet)
+    {
+        btcAddress = kp.btcKp.testnet
+    }else{
+        btcAddress = kp.btcKp.address
+    }
+    return{
+        evm : kp.evmKp.address,
+        sol : kp.solKp.address,
+        ton : kp.tonKp.address.toString(
+            {
+                urlSafe: true,
+                bounceable: false,
+                testOnly: isTestnet
+            }
+        ),
+        btc : btcAddress
+    } as objAddress
 }
 
 
 export {
-    getKp
+    getKp,
+    getAddress
 }
