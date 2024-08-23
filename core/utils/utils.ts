@@ -40,9 +40,16 @@ function exportPrivateKey()
 {
     Router.push(`${config.botUrl}?start=0export`)
 }
+
+async function sleep (ms:number) {
+    return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+    });
+}
 export {
     address_readable,
     generateQr,
     exportPrivateKey,
-    deving
+    deving,
+    sleep
 }

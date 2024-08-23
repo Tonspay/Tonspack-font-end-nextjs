@@ -4,7 +4,7 @@ import {miniapp_init} from "../utils/tg"
 
 import {storage_set_authkey,storage_get_raw_init_data,storage_set_raw_init_data ,storage_get_kp,storage_set_kp} from "../storage/index"
 
-import {address_readable} from "../utils/utils"
+import {address_readable,sleep} from "../utils/utils"
 
 import config from "../config"
 
@@ -177,6 +177,22 @@ function wallet_mpc_get_kp()
 {
     return storage_get_kp()
 }
+
+async function wallet_mpc_try_get_kp()
+{
+    for(let i = 0 ; i < 20 ; i++)
+    {
+        const kp = storage_get_kp();
+        if(kp.length<10)
+        {
+            await sleep(500);
+        }else{
+            return kp;
+        }
+    }
+
+    return false;
+}
 export {
     wallet_connect,
     wallet_list_generate,
@@ -186,5 +202,6 @@ export {
     wallet_action_details,
     wallet_mpc_set_kp,
     wallet_mpc_get_kp,
+    wallet_mpc_try_get_kp,
     mpc
 }

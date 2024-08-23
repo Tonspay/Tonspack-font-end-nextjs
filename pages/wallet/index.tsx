@@ -10,7 +10,7 @@ import {Divider} from"@nextui-org/divider"
 
 import {Loading} from "@/components/loading";
 
-import {wallet_connect,wallet_list_generate,wallet_init_data_set} from "../../core/wallet/index";
+import {wallet_connect,wallet_list_generate,wallet_init_data_set,wallet_mpc_get_kp,wallet_mpc_try_get_kp,mpc} from "../../core/wallet/index";
 
 import { useState, useEffect } from 'react'
 
@@ -52,12 +52,18 @@ export default function DocsPage() {
   const [isNav, setIsNav] = useState("");
   useEffect(() => {
     const onload =async ()=>{
-      // const connect = true;
-      const connect = await wallet_connect();
-      // console.log("🚧 connect :: ",connect)
-      if(connect)
+      const connect = true;
+      // const connect = await wallet_connect();
+      console.log("🚧 connect :: ",connect)
+      const mpc_kp = await wallet_mpc_try_get_kp()
+      if(mpc_kp)
       {
-        const ws = await wallet_list_generate(connect.wallets)
+        console.log("🚧 mpc_kp :: ",mpc_kp)
+        const kps = mpc.getKp(mpc_kp)
+        console.log("🚧 kps :: ",kps)
+        const wallets = mpc.getAddress(mpc_kp,true);
+        console.log("🚧 wallets :: ",wallets)
+        const ws = await wallet_list_generate(wallets)
         console.log("🚧 Wallets :: ",ws)
         setData(ws)
         // setData([])
