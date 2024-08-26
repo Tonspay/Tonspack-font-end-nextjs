@@ -142,7 +142,7 @@ export default function DocsPage() {
         console.log("🚧 action_router",ret)
         // const ret = await api_action(action);
         // console.log("🚧 submit action ret",ret)    
-        if(ret && ret.data )
+        if(ret && ret.data &&action.r &&action.r.length > 5 )
             {
                 Router.push(
                   action.r
