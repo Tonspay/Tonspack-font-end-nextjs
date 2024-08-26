@@ -6,6 +6,10 @@ import * as hd from "ethereumjs-wallet"
 
 const derivePath = 1
 
+import * as evm from "./chains/evm"
+
+import * as sol from "./chains/sol"
+
 import * as ton from "./chains/ton"
 
 import * as btc from "./chains/btc"
@@ -65,5 +69,9 @@ function getAddress(sk:string,isTestnet:boolean)
 
 export {
     getKp,
-    getAddress
+    getAddress,
+    evm,
+    sol,
+    ton,
+    btc
 }

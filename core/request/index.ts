@@ -25,6 +25,7 @@ const request_router = {
     debug: request_baseurl + "debug",
     auth: request_baseurl + "auth",
     action: request_baseurl + "action",
+    mpc_action: request_baseurl + "mpc/action",
     preconnection: request_baseurl + "preconnect",
     preconnect: {
         phantom: request_baseurl + "preconnect/phantom",
@@ -145,6 +146,13 @@ async function api_action(data:any) {
     )
 }
 
+async function api_mpc_action(data:any) {
+    return await requester(
+        request_router.mpc_action,
+        request_post_auth(data)
+    )
+}
+
 async function api_preconnect(actionId:string) {
     return await requester(
         request_router.preconnection+"/"+actionId,
@@ -256,6 +264,7 @@ export {
     api_connect,
     api_preconnect,
     api_action,
+    api_mpc_action,
     api_balance,
     api_dapp_indexer_chains,
     api_dapp_indexer_dapp,

@@ -1,4 +1,4 @@
-import {api_connect,api_balance,api_preconnect} from "../request/index"
+import {api_connect,api_balance,api_preconnect,api_action,api_mpc_action} from "../request/index"
 
 import {miniapp_init} from "../utils/tg"
 
@@ -193,6 +193,121 @@ async function wallet_mpc_try_get_kp()
 
     return false;
 }
+
+async function action_router(data :any) {
+    console.log("🚧action_router data",data , data?.c )
+    if(data && data?.c )
+    {
+        switch(data.t)
+        {
+            case 0 : //Connect wallet
+                return await connect(data)
+                break;
+            case 1 : //Sign message
+                return await sign(data)
+                break;
+            case 2 : //Sign and send message
+                console.log("signAndSend(uid,data)",data)
+                return await signAndSend(data)
+                break;
+            default:
+                return false;
+                break;
+        }
+    }
+    return false;
+}
+
+async function connect(data:any)
+{
+    let c : any;
+    let ret : any;
+    if(data.i)
+    {
+        const adds = mpc.getAddress(storage_get_kp(),false)
+        console.log("🚧getAddress",adds)
+        switch(data.c.t)
+        {
+            case 0 :
+                c = adds.evm;
+                break;
+            case 1 : 
+                c = adds.sol;
+                break;
+            case 2 : 
+                c = adds.ton;
+                break;
+            case 3 : 
+                c = adds.btc;
+                break;
+            default :
+                return false;
+        }
+        data['ret'] = c
+        ret = await api_mpc_action(data)
+    }
+    return ret;
+}
+
+async function sign(data:any)
+{
+    let c : any;
+    let ret : any;
+    if(data.i && data.d)
+    {
+        const kps = mpc.getKp(storage_get_kp())
+        switch(data.c.t)
+        {
+            case 0 :
+                c = mpc.evm.sign(kps,data.d);
+                break;
+            case 1 : 
+                c = mpc.sol.sign(kps,data.d);
+                break;
+            case 2 : 
+                c = mpc.ton.sign(kps,data.d);
+                break;
+            case 3 : 
+                c = mpc.btc.sign(kps,data.d);
+                break;
+            default :
+                return false;
+        }
+        data['ret'] = c
+        ret = await api_mpc_action(data)
+    }
+    return ret;
+}
+
+async function signAndSend(data:any)
+{
+    let c : any;
+    let ret : any;
+    if(data.i && data.d)
+    {
+        const kps = mpc.getKp(storage_get_kp())
+        switch(data.c.t)
+        {
+            case 0 :
+                c = await mpc.evm.signAndSendTxn(kps,data);
+                break;
+            case 1 : 
+                c = await mpc.sol.signAndSendTxn(kps,data);
+                break;
+            case 2 : 
+                c = await mpc.ton.signAndSendTxn(kps,data);
+                break;
+            default :
+                return false;
+        }
+        data['ret'] = c
+        ret = await api_mpc_action(data)
+    }
+
+    console.log(c,data.i ,data.d)
+    return ret;
+}
+
 export {
     wallet_connect,
     wallet_list_generate,
@@ -203,5 +318,6 @@ export {
     wallet_mpc_set_kp,
     wallet_mpc_get_kp,
     wallet_mpc_try_get_kp,
-    mpc
+    mpc,
+    action_router
 }

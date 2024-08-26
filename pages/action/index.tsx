@@ -14,7 +14,7 @@ import {DatePicker } from"@nextui-org/date-picker"
 
 import {parseZonedDateTime, parseAbsoluteToLocal,parseAbsolute} from "@internationalized/date";
 
-import {wallet_connect,wallet_list_generate_action,wallet_init_data_set , wallet_action_decode,wallet_action_details,wallet_mpc_get_kp,wallet_mpc_try_get_kp,mpc} from "../../core/wallet/index";
+import {wallet_connect,wallet_list_generate_action,wallet_init_data_set , wallet_action_decode,wallet_action_details,wallet_mpc_get_kp,wallet_mpc_try_get_kp,mpc,action_router} from "../../core/wallet/index";
 
 import {api_action} from "../../core/request/index"
 
@@ -136,10 +136,13 @@ export default function DocsPage() {
   }, [])
 
     async function button_confirm() {
-        // console.log("🚧 confirm button")
-        const ret = await api_action(action);
+        console.log("🚧 confirm button",action)
+        const ret = await action_router(action)
+
+        console.log("🚧 action_router",ret)
+        // const ret = await api_action(action);
         // console.log("🚧 submit action ret",ret)    
-        if(action.r && action.r.length>5)
+        if(ret && ret.data )
             {
                 Router.push(
                   action.r
