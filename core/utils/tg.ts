@@ -65,6 +65,7 @@ function tryCloseWebappWindows()
         miniApp.close();
     }catch(e)
     {
+        window.close()
         console.error(e)
     }
 }
