@@ -34,8 +34,10 @@ async function signAndSendTxn(kp : objKP,tx:any  ,rpc ? : string)
         const conn = new web3.Connection(rpc_url);
         const ret = [];
         let txs ;
-        if(typeof(txs) != 'object')
+        
+        if(typeof(txs) == 'string')
         {
+            console.log("🚧tx.d",tx.d)
             txs = JSON.parse(
                 tx.d
             )
@@ -76,21 +78,21 @@ async function signAndSendTxn(kp : objKP,tx:any  ,rpc ? : string)
                             addFee = false
                         }
                     });
-                    if(addFee)
-                    {
-                        // const unitsConsumed = simulate.value.unitsConsumed+300;
-                        // const unitsPrice = 20000
-                        // realTx.add(
-                        //     web3.ComputeBudgetProgram.setComputeUnitLimit({ 
-                        //         units: unitsConsumed 
-                        //     })
-                        // )
-                        // realTx.add(
-                        //     web3.ComputeBudgetProgram.setComputeUnitPrice({ 
-                        //         microLamports: unitsPrice
-                        //     })
-                        // )
-                    }
+                    // if(addFee&&simulate.value&&simulate.value.unitsConsumed)
+                    // {
+                    //     const unitsConsumed = simulate.value.unitsConsumed+300;
+                    //     const unitsPrice = 20000
+                    //     realTx.add(
+                    //         web3.ComputeBudgetProgram.setComputeUnitLimit({ 
+                    //             units: unitsConsumed 
+                    //         })
+                    //     )
+                    //     realTx.add(
+                    //         web3.ComputeBudgetProgram.setComputeUnitPrice({ 
+                    //             microLamports: unitsPrice
+                    //         })
+                    //     )
+                    // }
                 }
 
                 realTx.sign([signer])
@@ -128,20 +130,20 @@ async function signAndSendTxn(kp : objKP,tx:any  ,rpc ? : string)
                             addFee = false
                         }
                     });
-                    if(addFee)
+                    if(addFee&&simulate.value&&simulate.value.unitsConsumed)
                     {
-                        // const unitsConsumed = simulate.value.unitsConsumed+300;
-                        // const unitsPrice = 20000
-                        // realTx.add(
-                        //     web3.ComputeBudgetProgram.setComputeUnitLimit({ 
-                        //         units: unitsConsumed 
-                        //     })
-                        // )
-                        // realTx.add(
-                        //     web3.ComputeBudgetProgram.setComputeUnitPrice({ 
-                        //         microLamports: unitsPrice
-                        //     })
-                        // )
+                        const unitsConsumed = simulate.value.unitsConsumed+300;
+                        const unitsPrice = 20000
+                        realTx.add(
+                            web3.ComputeBudgetProgram.setComputeUnitLimit({ 
+                                units: unitsConsumed 
+                            })
+                        )
+                        realTx.add(
+                            web3.ComputeBudgetProgram.setComputeUnitPrice({ 
+                                microLamports: unitsPrice
+                            })
+                        )
                     }
         
                 }
