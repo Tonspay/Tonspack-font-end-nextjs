@@ -36,7 +36,7 @@ function sign(kp:objKP,data:string)
     }
 }
 
-async function signAndSendTxn(kp:objKP,tx:objActionRawData)
+async function signAndSendTxn(kp:objKP,tx:objActionRawData,rpc ? : string)
 {
     
     try{

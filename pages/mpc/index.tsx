@@ -101,7 +101,7 @@ const [kp, setKp] = useState("");
 const test_btn = async () => {
 
   const kp = wallet_mpc_get_kp();
-  console.log("🐞 Web3auth privateKey : ",kp)
+  // console.log("🐞 Web3auth privateKey : ",kp)
   console.log("KP : ", mpc.getKp(kp))
 
   console.log("address : ",mpc.getAddress(kp,false))

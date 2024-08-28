@@ -26,23 +26,26 @@ function sign(kp : objKP, data : string)
 async function signAndSendTxn(kp : objKP,tx:any  ,rpc ? : string)
 {
     try{
-        let rpc_url = config.chains.sol.rpc[0]
+        let rpc_url = config.chains.solana.rpc[0]
         if(rpc && rpc.length>0)
         {
             rpc_url = rpc
         }
         const conn = new web3.Connection(rpc_url);
         const ret = [];
-        const txs = tx.d 
+        let txs ;
         if(typeof(txs) != 'object')
         {
-            JSON.parse(
+            txs = JSON.parse(
                 tx.d
             )
+        }else{
+            txs = tx.d 
         }
         for(var u = 0 ; u<txs.length ; u++)
         {
             const ele = txs[u]
+            console.log("🚧 txn array ",ele,ele.d)
             const rawSign =  new Uint8Array(bs58.decode(ele.d))
     
             

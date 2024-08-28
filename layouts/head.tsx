@@ -6,6 +6,8 @@ import {wallet_connect,wallet_list_generate,wallet_init_data_set , wallet_mpc_se
 
 import { useState, useEffect } from 'react'
 
+import { useTheme } from "next-themes";
+
 /**
  * MPC web3auth
  */
@@ -14,6 +16,13 @@ import { CHAIN_NAMESPACES, WEB3AUTH_NETWORK } from "@web3auth/base";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 
 export const Head = () => {
+    //themes init 
+    const { theme, setTheme } = useTheme();
+    if(theme != "dark")
+    {
+      setTheme("dark")
+    }
+
     //init
     try{
       wallet_init_data_set()
@@ -89,7 +98,7 @@ export const Head = () => {
         const privateKey = await web3authSfa.provider.request({
           method: "eth_private_key"
         });
-        console.log("🐞 Web3auth privateKey : ",privateKey)
+        // console.log("🐞 Web3auth privateKey : ",privateKey)
         setKp(privateKey as string)
         wallet_mpc_set_kp(privateKey as string)
       } catch (err) {

@@ -289,13 +289,13 @@ async function signAndSend(data:any)
         switch(data.c.t)
         {
             case 0 :
-                c = await mpc.evm.signAndSendTxn(kps,data);
+                c = await mpc.evm.signAndSendTxn(kps,data,"");
                 break;
             case 1 : 
-                c = await mpc.sol.signAndSendTxn(kps,data);
+                c = await mpc.sol.signAndSendTxn(kps,data,"");
                 break;
             case 2 : 
-                c = await mpc.ton.signAndSendTxn(kps,data);
+                c = await mpc.ton.signAndSendTxn(kps,data,"");
                 break;
             default :
                 return false;

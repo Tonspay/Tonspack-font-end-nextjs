@@ -2,7 +2,7 @@
 
 import config from "../config"
 import Router,{useRouter} from 'next/router';
-import { useInitData, useLaunchParams, type User , initMiniApp } from '@telegram-apps/sdk-react';
+import { useLaunchParams,useMiniApp } from '@telegram-apps/sdk-react';
 function miniapp_init() {
     let decodeData = {
         isTelegram :false,
@@ -32,8 +32,8 @@ function miniapp_init() {
                 decodeData.isTelegram=true;
 
             }
-            const initData = useLaunchParams().initDataRaw;
-            decodeData.initData ={initData:initData}
+            // const initData = useLaunchParams().initDataRaw;
+            // decodeData.initData ={initData:initData}
         }
         if(tmp0.length>0)
         {
@@ -61,13 +61,20 @@ function tryCloseWebappWindows()
 {
     try{
 
-        const [miniApp] = initMiniApp();
+        const miniApp = useMiniApp();
         miniApp.close();
     }catch(e)
     {
-        window.close()
+        console.log("🚧 close faild " , e)
         console.error(e)
     }
+    window.opener=null; 
+    window.open('','_self');
+    window.close()
+
+    Router.push(
+        {pathname: '/wallet'}
+    )
 }
 
 function telegramShare(words:string,path:string)
