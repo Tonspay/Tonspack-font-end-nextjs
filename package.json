@@ -50,7 +50,7 @@
 		"clsx": "2.1.1",
 		"ecpair": "^2.1.0",
 		"ethereumjs-wallet": "^1.0.2",
-		"font": "link:@vercel/turbopack-next/internal/font/google/font",
+
 		"framer-motion": "~11.1.9",
 		"intl-messageformat": "^10.5.14",
 		"next": "14.2.4",
