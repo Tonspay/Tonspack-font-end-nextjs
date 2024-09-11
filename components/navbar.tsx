@@ -1,61 +1,47 @@
 import {
   Navbar as NextUINavbar,
   NavbarContent,
-  NavbarMenu,
-  NavbarMenuToggle,
   NavbarBrand,
   NavbarItem,
-  NavbarMenuItem,
 } from "@nextui-org/navbar";
-import { Button } from "@nextui-org/button";
-import { Kbd } from "@nextui-org/kbd";
 import { Link } from "@nextui-org/link";
-import { Input } from "@nextui-org/input";
-import { link as linkStyles } from "@nextui-org/theme";
 import NextLink from "next/link";
-import clsx from "clsx";
+import { RiArrowGoBackFill } from "react-icons/ri";
+import { useRouter } from "next/router";
 
 import { siteConfig } from "@/config/site";
-import { ThemeSwitch } from "@/components/theme-switch";
-import {
-  TwitterIcon,
-  GithubIcon,
-  DiscordIcon,
-  HeartFilledIcon,
-  SearchIcon,
-  Logo,
-} from "@/components/icons";
+import { TwitterIcon, GithubIcon, Logo } from "@/components/icons";
 
-import { RiArrowGoBackFill} from 'react-icons/ri'
-
-import Router,{useRouter} from "next/router"
-
-export const Navbar = (props:any) => {
-
+export const Navbar = (props: any) => {
   let isBackAble = true;
 
   const r = useRouter();
 
-  if(props?.name == "wallet" || props?.name == "dapp" || props?.name == "setting" ||  props?.name == "action"||  props?.name == "index")
-  {
-    isBackAble=false;
+  if (
+    props?.name == "wallet" ||
+    props?.name == "dapp" ||
+    props?.name == "setting" ||
+    props?.name == "action" ||
+    props?.name == "index"
+  ) {
+    isBackAble = false;
   }
 
-  function goBack()
-  {
-    r.back()
+  function goBack() {
+    r.back();
   }
+
   return (
     <NextUINavbar maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand className="gap-3 max-w-fit">
-        {
-          isBackAble?<RiArrowGoBackFill
-          size='75'
-          color='white'
-          onClick={() => goBack()}
-        />:null
-        }
+          {isBackAble ? (
+            <RiArrowGoBackFill
+              color="white"
+              size="75"
+              onClick={() => goBack()}
+            />
+          ) : null}
           <NextLink className="flex justify-start items-center gap-1" href="/">
             <Logo />
             {/* <p className="font-bold text-inherit">Tonspack</p> */}
@@ -101,7 +87,6 @@ export const Navbar = (props:any) => {
         {/* <ThemeSwitch /> */}
         {/* <NavbarMenuToggle /> */}
       </NavbarContent>
-
     </NextUINavbar>
   );
 };
