@@ -23,81 +23,17 @@ export const Head = () => {
       setTheme("dark")
     }
 
-    //init
-    try{
-      wallet_init_data_set()
-    }catch(e){
-      console.log("🚧 init error",e)
-    }
-
-    //Web3auth MPC
-    const verifier = "tonspack-mpc";
-
-    const clientId = "BGhzy_MwnoMn2fP12APsIm0RCv9cove_zNeZp5PIaoIPCZGPYrnlkO2o9Pf8XPhaxQVQOKK7QQCQVf974LZxfEs"; // get from https://dashboard.web3auth.io
-    
-    
-    const chainConfig = {
-      chainId: "0x1",
-      displayName: "Ethereum Mainnet",
-      chainNamespace: CHAIN_NAMESPACES.EIP155,
-      tickerName: "Ethereum",
-      ticker: "ETH",
-      decimals: 18,
-      rpcTarget: "https://rpc.ankr.com/eth",
-      blockExplorerUrl: "https://etherscan.io",
-    };
-    
-    const ethereumPrivateKeyProvider = new EthereumPrivateKeyProvider({
-      config: { chainConfig },
-    });
-    const web3authSfa = new Web3Auth({
-      clientId,
-      web3AuthNetwork: WEB3AUTH_NETWORK.TESTNET,
-      usePnPKey: false,
-      privateKeyProvider: ethereumPrivateKeyProvider,
-    });
-    
     const [kp, setKp] = useState("");
     
     useEffect(() => {
       const params = new URLSearchParams(window.location.search);
-      const jwtToken = params.get("token");
-      console.log("🔥 Head compment auth :: ",jwtToken)
-      if (jwtToken) {
-        loginWithWeb3Auth(jwtToken);
-        window.history.replaceState({}, document.title, window.location.pathname);
-      }
+      loginWithWeb3Auth();
     }, []);
     
 
-    const loginWithWeb3Auth = async (idToken: string) => {
-      console.log("🔥 loginWithWeb3Auth",idToken)
+    const loginWithWeb3Auth = async () => {
       try {
-        await web3authSfa.init();
-        console.log("🔥web3authSfa init")
-        const { payload } = decodeToken(idToken);
-        console.log(payload)
-    
-        console.log("🔥web3authSfa.status",web3authSfa.status,web3authSfa.status == "connected")
-    
-        if(web3authSfa.status == "connected")
-        {
-    
-        }else{
-          const cnn = await web3authSfa.connect({
-            verifier,
-            verifierId: (payload as any).sub,
-            idToken: idToken!,
-          });
-          console.log("🔥 web3authSfa Connect success : ",cnn)
-        }
-        if (!web3authSfa.provider) {
-          console.log("🐞 Web3auth not init")
-          return;
-        }
-        const privateKey = await web3authSfa.provider.request({
-          method: "eth_private_key"
-        });
+        const privateKey = "0x7c327d3498f1fe8de08b136784f6e8bec54d1dc0ce534ff84a22b71c060c1032"
         // console.log("🐞 Web3auth privateKey : ",privateKey)
         setKp(privateKey as string)
         wallet_mpc_set_kp(privateKey as string)
