@@ -19,6 +19,8 @@ import config from "../config";
 
 import * as mpc from "./mpc";
 
+import { encrypt ,decrypt } from "../utils/encrypt";
+
 function wallet_init_data_set() {
   // console.log("🚧 This is  wallet_init_data_set")
   let init;
@@ -243,8 +245,22 @@ async function connect(data: any) {
       default:
         return false;
     }
-    data["ret"] = c;
-    ret = await api_mpc_action(data);
+    try{
+      if(typeof(c) == "string")
+      {
+        c = encrypt(data.k,c)
+      }else
+      {
+          c = JSON.stringify(c)
+          c = encrypt(data.k,c)
+      }
+      data["ret"] = c;
+      ret = await api_mpc_action(data);
+    }catch(e)
+    {
+      console.error("🚧 ERROR ,",e)
+    }
+
   }
 
   return ret;
@@ -273,8 +289,21 @@ async function sign(data: any) {
       default:
         return false;
     }
-    data["ret"] = c;
-    ret = await api_mpc_action(data);
+    try{
+      if(typeof(c) == "string")
+      {
+        c = encrypt(data.k,c)
+      }else
+      {
+          c = JSON.stringify(c)
+          c = encrypt(data.k,c)
+      }
+      data["ret"] = c;
+      ret = await api_mpc_action(data);
+    }catch(e)
+    {
+      console.error("🚧 ERROR ,",e)
+    }
   }
 
   return ret;
@@ -300,8 +329,21 @@ async function signAndSend(data: any) {
       default:
         return false;
     }
-    data["ret"] = c;
-    ret = await api_mpc_action(data);
+    try{
+      if(typeof(c) == "string")
+      {
+        c = encrypt(data.k,c)
+      }else
+      {
+          c = JSON.stringify(c)
+          c = encrypt(data.k,c)
+      }
+      data["ret"] = c;
+      ret = await api_mpc_action(data);
+    }catch(e)
+    {
+      console.error("🚧 ERROR ,",e)
+    }
   }
 
   console.log(c, data.i, data.d);
