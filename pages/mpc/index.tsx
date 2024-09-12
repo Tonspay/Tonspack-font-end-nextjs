@@ -1,16 +1,13 @@
 import { Link } from "@nextui-org/link";
-import { Snippet } from "@nextui-org/snippet";
-import { Code } from "@nextui-org/code";
 import { Button } from "@nextui-org/button";
 import { button as buttonStyles } from "@nextui-org/theme";
+import { useState } from "react";
 
 import { siteConfig } from "@/config/site";
-import { title, subtitle } from "@/components/primitives";
-import { GithubIcon ,HeartFilledIcon} from "@/components/icons";
+import { title } from "@/components/primitives";
+import { GithubIcon, HeartFilledIcon } from "@/components/icons";
 import DefaultLayout from "@/layouts/default";
-import { useState, useEffect } from 'react'
-
-import { mpc ,wallet_mpc_get_kp } from "@/core/wallet";
+import { mpc, wallet_mpc_get_kp } from "@/core/wallet";
 
 /**
  * MPC web3auth
@@ -20,101 +17,96 @@ import { mpc ,wallet_mpc_get_kp } from "@/core/wallet";
 // import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 
 export default function IndexPage() {
+  //   const verifier = "tonspack-mpc";
 
-//   const verifier = "tonspack-mpc";
+  // const clientId = "BGhzy_MwnoMn2fP12APsIm0RCv9cove_zNeZp5PIaoIPCZGPYrnlkO2o9Pf8XPhaxQVQOKK7QQCQVf974LZxfEs"; // get from https://dashboard.web3auth.io
 
-// const clientId = "BGhzy_MwnoMn2fP12APsIm0RCv9cove_zNeZp5PIaoIPCZGPYrnlkO2o9Pf8XPhaxQVQOKK7QQCQVf974LZxfEs"; // get from https://dashboard.web3auth.io
+  // const chainConfig = {
+  //   chainId: "0x1",
+  //   displayName: "Ethereum Mainnet",
+  //   chainNamespace: CHAIN_NAMESPACES.EIP155,
+  //   tickerName: "Ethereum",
+  //   ticker: "ETH",
+  //   decimals: 18,
+  //   rpcTarget: "https://rpc.ankr.com/eth",
+  //   blockExplorerUrl: "https://etherscan.io",
+  // };
 
+  // const ethereumPrivateKeyProvider = new EthereumPrivateKeyProvider({
+  //   config: { chainConfig },
+  // });
+  // const web3authSfa = new Web3Auth({
+  //   clientId,
+  //   web3AuthNetwork: WEB3AUTH_NETWORK.TESTNET,
+  //   usePnPKey: false,
+  //   privateKeyProvider: ethereumPrivateKeyProvider,
+  // });
 
-// const chainConfig = {
-//   chainId: "0x1",
-//   displayName: "Ethereum Mainnet",
-//   chainNamespace: CHAIN_NAMESPACES.EIP155,
-//   tickerName: "Ethereum",
-//   ticker: "ETH",
-//   decimals: 18,
-//   rpcTarget: "https://rpc.ankr.com/eth",
-//   blockExplorerUrl: "https://etherscan.io",
-// };
+  const [kp, setKp] = useState("");
 
-// const ethereumPrivateKeyProvider = new EthereumPrivateKeyProvider({
-//   config: { chainConfig },
-// });
-// const web3authSfa = new Web3Auth({
-//   clientId,
-//   web3AuthNetwork: WEB3AUTH_NETWORK.TESTNET,
-//   usePnPKey: false,
-//   privateKeyProvider: ethereumPrivateKeyProvider,
-// });
+  // useEffect(() => {
+  //   const params = new URLSearchParams(window.location.search);
+  //   const jwtToken = params.get("token");
+  //   if (jwtToken) {
+  //     loginWithWeb3Auth(jwtToken);
+  //     window.history.replaceState({}, document.title, window.location.pathname);
+  //   }
+  // }, []);
 
-const [kp, setKp] = useState("");
+  // const loginWithWeb3Auth = async (idToken: string) => {
+  //   console.log("🔥 loginWithWeb3Auth",idToken)
+  //   try {
+  //     await web3authSfa.init();
+  //     console.log("🔥web3authSfa init")
+  //     const { payload } = decodeToken(idToken);
+  //     console.log(payload)
 
-// useEffect(() => {
-//   const params = new URLSearchParams(window.location.search);
-//   const jwtToken = params.get("token");
-//   if (jwtToken) {
-//     loginWithWeb3Auth(jwtToken);
-//     window.history.replaceState({}, document.title, window.location.pathname);
-//   }
-// }, []);
+  //     console.log("🔥web3authSfa.status",web3authSfa.status,web3authSfa.status == "connected")
 
+  //     if(web3authSfa.status == "connected")
+  //     {
 
-// const loginWithWeb3Auth = async (idToken: string) => {
-//   console.log("🔥 loginWithWeb3Auth",idToken)
-//   try {
-//     await web3authSfa.init();
-//     console.log("🔥web3authSfa init")
-//     const { payload } = decodeToken(idToken);
-//     console.log(payload)
+  //     }else{
+  //       const cnn = await web3authSfa.connect({
+  //         verifier,
+  //         verifierId: (payload as any).sub,
+  //         idToken: idToken!,
+  //       });
+  //       console.log("🔥 web3authSfa Connect success : ",cnn)
+  //     }
+  //     if (!web3authSfa.provider) {
+  //       console.log("🐞 Web3auth not init")
+  //       return;
+  //     }
+  //     const privateKey = await web3authSfa.provider.request({
+  //       method: "eth_private_key"
+  //     });
+  //     console.log("🐞 Web3auth privateKey : ",privateKey)
+  //     setKp(privateKey as string)
 
-//     console.log("🔥web3authSfa.status",web3authSfa.status,web3authSfa.status == "connected")
+  //     // setIsLoggingIn(false);
+  //     // setLoggedIn(true);
+  //   } catch (err) {
+  //     // setIsLoggingIn(false);
+  //     console.error(err);
+  //   }
+  // };
 
-//     if(web3authSfa.status == "connected")
-//     {
+  const test_btn = async () => {
+    const kp = wallet_mpc_get_kp();
 
-//     }else{
-//       const cnn = await web3authSfa.connect({
-//         verifier,
-//         verifierId: (payload as any).sub,
-//         idToken: idToken!,
-//       });
-//       console.log("🔥 web3authSfa Connect success : ",cnn)
-//     }
-//     if (!web3authSfa.provider) {
-//       console.log("🐞 Web3auth not init")
-//       return;
-//     }
-//     const privateKey = await web3authSfa.provider.request({
-//       method: "eth_private_key"
-//     });
-//     console.log("🐞 Web3auth privateKey : ",privateKey)
-//     setKp(privateKey as string)
+    // console.log("🐞 Web3auth privateKey : ",kp)
+    console.log("KP : ", mpc.getKp(kp));
 
-//     // setIsLoggingIn(false);
-//     // setLoggedIn(true);
-//   } catch (err) {
-//     // setIsLoggingIn(false);
-//     console.error(err);
-//   }
-// };
+    console.log("address : ", mpc.getAddress(kp, false));
 
-const test_btn = async () => {
-
-  const kp = wallet_mpc_get_kp();
-  // console.log("🐞 Web3auth privateKey : ",kp)
-  console.log("KP : ", mpc.getKp(kp))
-
-  console.log("address : ",mpc.getAddress(kp,false))
-
-  console.log("testnet : ",mpc.getAddress(kp,true))
-}
-
+    console.log("testnet : ", mpc.getAddress(kp, true));
+  };
 
   return (
     <DefaultLayout name="index">
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
         <div className="inline-block max-w-lg text-center justify-center">
-
           <h1 className={title({ color: "violet" })}>Tonspack&nbsp;</h1>
           <h1 className={title()}>MPC Test &nbsp;</h1>
           <br />
@@ -130,7 +122,7 @@ const test_btn = async () => {
             })}
             href={siteConfig.links.app}
           >
-             <HeartFilledIcon size={20} />
+            <HeartFilledIcon size={20} />
             Wallet
           </Link>
           <Link
@@ -143,11 +135,10 @@ const test_btn = async () => {
           </Link>
         </div>
 
-
         <div>
-        <Button color="default" className="capitalize" onClick={test_btn}>
-          Test
-        </Button>
+          <Button className="capitalize" color="default" onClick={test_btn}>
+            Test
+          </Button>
         </div>
       </section>
     </DefaultLayout>
