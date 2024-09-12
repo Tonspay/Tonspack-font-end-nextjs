@@ -11,6 +11,7 @@
 	"dependencies": {
 		"@bitcoinerlab/secp256k1": "^1.1.1",
 		"@internationalized/date": "^3.5.5",
+		"@nextui-org/accordion": "^2.0.38",
 		"@nextui-org/avatar": "^2.0.32",
 		"@nextui-org/button": "2.0.35",
 		"@nextui-org/card": "^2.0.33",
@@ -50,7 +51,6 @@
 		"clsx": "2.1.1",
 		"ecpair": "^2.1.0",
 		"ethereumjs-wallet": "^1.0.2",
-
 		"framer-motion": "~11.1.9",
 		"intl-messageformat": "^10.5.14",
 		"next": "14.2.4",

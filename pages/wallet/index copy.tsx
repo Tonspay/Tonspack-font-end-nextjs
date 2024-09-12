@@ -1,11 +1,9 @@
 import { Link } from "@nextui-org/link";
 import { Button } from "@nextui-org/button";
 import { Card, CardHeader, CardBody } from "@nextui-org/card";
-import { Accordion, AccordionItem } from "@nextui-org/accordion";
-import { Divider } from "@nextui-org/divider";
 import { Image } from "@nextui-org/image";
 import { Chip } from "@nextui-org/chip";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import Router from "next/router";
 
@@ -74,46 +72,7 @@ export default function DocsPage() {
     onload().catch(console.error);
   }, []);
 
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  function CoinBar(props: any) {
-    return (
-      <div className="flex justify-between items-center">
-        <div className="flex items-center">
-          <Image
-            alt="chain logo"
-            height={40}
-            width={40}
-            src={props.img || ""}
-          />
-          <div className="ml-2 font-semibold text-default-600">
-            <p className="text-left">
-              <span className="text-lg">{props.title}</span>
-              <span className="text-small ml-1 text-default-400">
-                {props.desc}
-              </span>
-            </p>
-            <p className="text-left font-normal">
-              <span>{props.value}</span>
-              <span className="ml-1">{props.unit}</span>
-              <span className="ml-1">{props.change}</span>
-            </p>
-          </div>
-        </div>
-        <div className="flex flex-col items-center grow">
-          <p className="text-right font-semibold w-full">{props.owns}</p>
-          <p className="ml-1 text-right w-full text-default-400">
-            ${props.ownsvalue}
-          </p>
-        </div>
-      </div>
-    );
-  }
-
+  // return returnFont()
   return (
     <DefaultLayout name={isNav}>
       {isMainPageLoading ? <Loading /> : null}
@@ -162,31 +121,25 @@ export default function DocsPage() {
                 </Chip>
               </Link>
             </CardHeader>
-            <Divider className="w-[90%] m-auto" />
-
             <CardBody
               style={{ maxWidth: "400px", width: "100%", textAlign: "center" }}
             >
-              {/* TODO: fetch data from blockchain */}
-              {isClient && (
-                <Accordion isCompact defaultExpandedKeys={["1"]}>
-                  <AccordionItem
-                    key="1"
-                    subtitle={address_readable(12, 12, item.full_address)}
-                  >
-                    <CoinBar
-                      title="BNB"
-                      img={item.img}
-                      desc="Binance Coin"
-                      value={512.2}
-                      unit="USD"
-                      change={-0.2}
-                      owns={0}
-                      ownsvalue={0.0}
-                    />
-                  </AccordionItem>
-                </Accordion>
-              )}
+              <div className="flex gap-1">
+                <div
+                  className=" text-default-400 text-small"
+                  style={{ textAlign: "center", width: "100%" }}
+                >
+                  {address_readable(12, 12, item.full_address)}
+                </div>
+              </div>
+              <div className="flex gap-1">
+                <div
+                  className="text-big"
+                  style={{ textAlign: "center", width: "100%" }}
+                >
+                  {item.bal}
+                </div>
+              </div>
             </CardBody>
           </Card>
         ))}
