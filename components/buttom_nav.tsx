@@ -11,8 +11,6 @@ import {
   RiCoinsLine,
 } from "react-icons/ri";
 
-import Styles from "@/styles/ButtomNav.module.css";
-
 export const ButtomNav = (props: any) => {
   const router = useRouter();
   // console.log(props)
@@ -44,71 +42,96 @@ export const ButtomNav = (props: any) => {
     return null;
   }
 
+  const iconSize = "30";
+  const tabList = [
+    {
+      name: "dapp",
+      title: "Index",
+      icon: (
+        <RiMenu3Line
+          color="white"
+          size={iconSize}
+          onClick={() => setSwitchRouter("dapp")}
+        />
+      ),
+      activeIcon: (
+        <RiMenu2Fill
+          color="white"
+          size={iconSize}
+          onClick={() => setSwitchRouter("dapp")}
+        />
+      ),
+    },
+    {
+      name: "wallet",
+      title: "Wallet",
+      icon: (
+        <RiWallet3Line
+          color="white"
+          size={iconSize}
+          onClick={() => setSwitchRouter("wallet")}
+        />
+      ),
+      activeIcon: (
+        <RiWallet3Fill
+          color="white"
+          size={iconSize}
+          onClick={() => setSwitchRouter("wallet")}
+        />
+      ),
+    },
+    {
+      name: "exchange",
+      title: "Exchange",
+      icon: (
+        <RiCoinsLine
+          color="white"
+          size={iconSize}
+          onClick={() => setSwitchRouter("exchange")}
+        />
+      ),
+      activeIcon: (
+        <RiCoinsFill
+          color="white"
+          size={iconSize}
+          onClick={() => setSwitchRouter("exchange")}
+        />
+      ),
+    },
+    {
+      name: "setting",
+      title: "Setting",
+      icon: (
+        <RiSettings5Line
+          color="white"
+          size={iconSize}
+          onClick={() => setSwitchRouter("setting")}
+        />
+      ),
+      activeIcon: (
+        <RiSettings5Fill
+          color="white"
+          size={iconSize}
+          onClick={() => setSwitchRouter("setting")}
+        />
+      ),
+    },
+  ];
+
   return (
     <>
       <div className="fixed bottom-0 left-0 w-full h-14 bg-primary-color flex justify-around items-center z-50 backdrop-blur-sm">
-        <div className={`${Styles.bnTab}`}>
-          {name == "dapp" ? (
-            <RiMenu2Fill
-              color="white"
-              size="35"
-              onClick={() => setSwitchRouter("dapp")}
-            />
-          ) : (
-            <RiMenu3Line
-              color="white"
-              size="35"
-              onClick={() => setSwitchRouter("dapp")}
-            />
-          )}
-        </div>
-        <div className={`${Styles.bnTab}`}>
-          {name == "wallet" ? (
-            <RiWallet3Fill
-              color="white"
-              size="35"
-              onClick={() => setSwitchRouter("wallet")}
-            />
-          ) : (
-            <RiWallet3Line
-              color="white"
-              size="35"
-              onClick={() => setSwitchRouter("wallet")}
-            />
-          )}
-        </div>
-
-        <div className={`${Styles.bnTab}`}>
-          {name == "setting" ? (
-            <RiSettings5Fill
-              color="white"
-              size="35"
-              onClick={() => setSwitchRouter("setting")}
-            />
-          ) : (
-            <RiSettings5Line
-              color="white"
-              size="35"
-              onClick={() => setSwitchRouter("setting")}
-            />
-          )}
-        </div>
-
-        <div className={`${Styles.bnTab}`}>
-          {name == "exchange" ? (
-            <RiCoinsFill
-              color="white"
-              size="35"
-              onClick={() => setSwitchRouter("exchange")}
-            />
-          ) : (
-            <RiCoinsLine
-              color="white"
-              size="35"
-              onClick={() => setSwitchRouter("exchange")}
-            />
-          )}
-        </div>
+        {tabList.map((tab) => (
+          <div
+            key={tab.name}
+            className="flex flex-col justify-center items-center"
+          >
+            {name == tab.name ? tab.activeIcon : tab.icon}
+            <p className="text-white text-center text-xs font-bold mx-2">
+              {tab.title}
+            </p>
+          </div>
+        ))}
       </div>
     </>
   );
