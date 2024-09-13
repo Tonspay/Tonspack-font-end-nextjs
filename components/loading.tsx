@@ -17,6 +17,12 @@ export const Loading = () => {
         <hr />
         <hr />
       </div>
+      <span className="loadingText"       style={{
+        position: "absolute",
+        marginLeft: "20%",
+        marginTop:"80%",
+      }}
+      >Initializing</span>
     </div>
   );
 };
