@@ -49,7 +49,7 @@ export default function SettingPage() {
           </div>
         </div>
         {/* Setting Card1 */}
-        <div className="flex bg-black rounded-md p-3 mt-4">
+        <div className="flex bg-gray-900 rounded-md p-3 mt-4">
           <div className="min-w-10">
             <Image
               alt="chain logo"
@@ -68,7 +68,7 @@ export default function SettingPage() {
           </div>
         </div>
         {/* Setting Card2 */}
-        <div className="flex bg-black rounded-md p-3 mt-2">
+        <div className="flex bg-gray-900 rounded-md p-3 mt-2">
           <div className="min-w-10">
             <Image
               alt="chain logo"
@@ -87,7 +87,7 @@ export default function SettingPage() {
 
         {/* Setting Column2 */}
         <h2 className="text-white text-sm mt-8">SERVICE</h2>
-        <div className="flex bg-black rounded-md p-3 mt-2">
+        <div className="flex bg-gray-900 rounded-md p-3 mt-2">
           <div className="min-w-10">
             <Image
               alt="chain logo"
@@ -105,7 +105,7 @@ export default function SettingPage() {
 
         <h2 className="text-white text-sm mt-8">Settings</h2>
         {[1, 2, 3].map((item, index) => (
-          <div key={index} className="flex bg-black rounded-md p-3 mt-2">
+          <div key={index} className="flex bg-gray-900 rounded-md p-3 mt-2">
             <div className="min-w-10">
               <Image
                 alt="chain logo"
