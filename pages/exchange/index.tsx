@@ -5,12 +5,6 @@ import { TbTransferVertical } from "react-icons/tb";
 import { Tabs, Tab } from "@nextui-org/tabs";
 import { Button } from "@nextui-org/button";
 
-import {
-  wallet_list_generate,
-  wallet_mpc_try_get_kp,
-  mpc,
-} from "../../core/wallet/index";
-
 import { Loading } from "@/components/loading";
 import DefaultLayout from "@/layouts/default";
 
@@ -24,52 +18,20 @@ type walletCard = {
   bal: string;
 };
 
-export default function DocsPage() {
-  // let list : walletCard[];
-  let list: walletCard[];
-
-  list = [];
-  const [data, setData] = useState([
-    {
-      title: "pending",
-      address: "",
-      full_address: "",
-      scan: "",
-      img: "",
-      name: "",
-      bal: "",
-    },
-  ]);
-
+export default function ExchangePage() {
   const [isMainPageLoading, setIsMainPageLoading] = useState(true);
 
   const [isNav, setIsNav] = useState("");
 
   useEffect(() => {
     const onload = async () => {
-      const mpc_kp = await wallet_mpc_try_get_kp();
-
-      if (mpc_kp) {
-        // console.log("🚧 mpc_kp :: ",mpc_kp)
-        const kps = mpc.getKp(mpc_kp);
-        // console.log("🚧 kps :: ",kps)
-        const wallets = mpc.getAddress(mpc_kp, false);
-        // console.log("🚧 wallets :: ",wallets)
-        const ws = await wallet_list_generate(wallets);
-
-        console.log("🚧 Wallets :: ", ws);
-        setData(ws);
-        // setData([])
-        setIsMainPageLoading(false);
-        setIsNav("wallet");
-      }
-      // console.log("🚧 hook test")
+      setIsMainPageLoading(false);
+      setIsNav("exchange");
     };
 
     onload().catch(console.error);
   }, []);
 
-  // return returnFont()
   return (
     <DefaultLayout name={isNav}>
       {isMainPageLoading ? <Loading /> : null}

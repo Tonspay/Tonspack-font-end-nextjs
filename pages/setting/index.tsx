@@ -15,7 +15,7 @@ type walletCard = {
   bal: string;
 };
 
-export default function DocsPage() {
+export default function SettingPage() {
   const [isMainPageLoading, setIsMainPageLoading] = useState(true);
 
   const [isNav, setIsNav] = useState("");

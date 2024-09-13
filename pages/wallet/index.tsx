@@ -18,7 +18,6 @@ import {
 
 import { Loading } from "@/components/loading";
 import DefaultLayout from "@/layouts/default";
-import { subtitle } from "@/components/primitives";
 
 type walletCard = {
   title: string;
@@ -174,9 +173,10 @@ export default function DocsPage() {
                   <AccordionItem
                     key="1"
                     classNames={{
-                      subtitle:"text-xs"
+                      subtitle: "text-xs",
                     }}
                     subtitle={address_readable(12, 12, item.full_address)}
+                    textValue="Wallet Details"
                   >
                     <CoinBar
                       change={-0.2}
