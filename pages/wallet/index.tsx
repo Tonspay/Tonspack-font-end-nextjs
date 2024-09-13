@@ -91,14 +91,14 @@ export default function DocsPage() {
             src={props.img || ""}
             width={40}
           />
-          <div className="ml-2 font-semibold text-default-600">
-            <p className="text-left">
+          <div className="ml-2 text-default-600">
+            <p className="text-left font-semibold ">
               <span className="text-lg">{props.title}</span>
               <span className="text-small ml-1 text-default-400">
                 {props.desc}
               </span>
             </p>
-            <p className="text-left font-normal">
+            <p className="text-left text-sm">
               <span>{props.value}</span>
               <span className="ml-1">{props.unit}</span>
               <span className="ml-1">{props.change}</span>
