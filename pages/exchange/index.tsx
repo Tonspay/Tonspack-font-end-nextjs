@@ -3,6 +3,7 @@ import { Image } from "@nextui-org/image";
 import { IoIosArrowForward } from "react-icons/io";
 import { TbTransferVertical } from "react-icons/tb";
 import { Tabs, Tab } from "@nextui-org/tabs";
+import { Button } from "@nextui-org/button";
 
 import {
   wallet_list_generate,
@@ -134,6 +135,12 @@ export default function DocsPage() {
           Network fee: 0.00015 ETH (excluded)
         </div>
       </section>
+
+      <div className="absolute bottom-0 right-0 w-full p-4">
+        <Button className="w-full" color="primary">
+          Confirm
+        </Button>
+      </div>
     </DefaultLayout>
   );
 }
