@@ -1,13 +1,9 @@
-import { Link } from "@nextui-org/link";
-import { Button } from "@nextui-org/button";
-import { Card, CardHeader, CardBody } from "@nextui-org/card";
-import { Image } from "@nextui-org/image";
-import { Chip } from "@nextui-org/chip";
 import { useState, useEffect } from "react";
-import { Toaster } from "react-hot-toast";
-import Router from "next/router";
+import { Image } from "@nextui-org/image";
+import { IoIosArrowForward } from "react-icons/io";
+import { TbTransferVertical } from "react-icons/tb";
+import { Tabs, Tab } from "@nextui-org/tabs";
 
-import { deving, address_readable } from "../../core/utils/utils";
 import {
   wallet_list_generate,
   wallet_mpc_try_get_kp,
@@ -76,84 +72,66 @@ export default function DocsPage() {
   return (
     <DefaultLayout name={isNav}>
       {isMainPageLoading ? <Loading /> : null}
-      <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-        <Toaster />
-        {/* <div className="inline-block max-w-lg text-center justify-center">
-          <h1 className={title()}>Wallets</h1>
-        </div> */}
+      <section className="bg-white flex flex-col rounded-lg shadow-md p-4 w-full space-y-4">
+        <div className="flex justify-between items-center text-gray-500">
+          <p className="text-sm">I have USDT</p>
+          <p>Send</p>
+        </div>
+        <div className="flex justify-between items-center text-black">
+          <div className="flex items-center space-x-2">
+            <Image
+              alt="chain logo"
+              height={40}
+              src="/images/chains/btc.svg"
+              width={40}
+            />
+            <div className="font-semibold">
+              <p>Tether</p>
+              <p>0</p>
+            </div>
+          </div>
 
-        {data.map((item, index) => (
-          <Card
-            key={index}
-            isPressable
-            radius="lg"
-            shadow="sm"
-            style={{ maxWidth: "400px", width: "100%" }}
-            onPress={() => {
-              console.log("Card details router");
-              Router.push({ pathname: "/wallet_details", query: item });
-            }}
-          >
-            <CardHeader className="justify-between">
-              <div className="flex gap-5">
-                <Image
-                  alt="chain logo"
-                  height={40}
-                  radius="sm"
-                  src={item.img}
-                  width={40}
-                />
-                <div className="flex flex-col gap-1 items-start justify-center">
-                  <h4 className="text-small font-semibold leading-none text-default-600">
-                    {item.name}
-                  </h4>
-                </div>
-              </div>
-              <Link isExternal href={item.scan}>
-                <Chip
-                  className="text-tiny text-white"
-                  color="default"
-                  radius="lg"
-                  size="sm"
-                  variant="flat"
-                >
-                  Copy
-                </Chip>
-              </Link>
-            </CardHeader>
-            <CardBody
-              style={{ maxWidth: "400px", width: "100%", textAlign: "center" }}
-            >
-              <div className="flex gap-1">
-                <div
-                  className=" text-default-400 text-small"
-                  style={{ textAlign: "center", width: "100%" }}
-                >
-                  {address_readable(12, 12, item.full_address)}
-                </div>
-              </div>
-              <div className="flex gap-1">
-                <div
-                  className="text-big"
-                  style={{ textAlign: "center", width: "100%" }}
-                >
-                  {item.bal}
-                </div>
-              </div>
-            </CardBody>
-          </Card>
-        ))}
+          <IoIosArrowForward className="text-gray-500" />
+          <p>7.130127</p>
+        </div>
 
-        <div style={{ maxWidth: "400px", width: "100%", textAlign: "center" }}>
-          <Button
-            color="primary"
-            style={{ maxWidth: "400px", width: "100%", textAlign: "center" }}
-            onClick={deving}
-          >
-            Managment
-          </Button>
+        <div className="flex justify-center items-center text-gray-500">
+          <TbTransferVertical />
+          <div className="mx-2 border rounded-md px-2 py-1 text-sm">
+            1 USDT = 0.0000167 BTC
+          </div>
+        </div>
 
-          {/* <Button color="primary" onClick={()=>{Router.push("test")}} style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}}>Test</Button> */}
+        <div className="flex justify-between items-center text-gray-500">
+          <p className="text-sm">I want BTC</p>
+          <p>Receive</p>
+        </div>
+        <div className="flex justify-between items-center">
+          <div className="flex items-center space-x-2">
+            <Image
+              alt="chain logo"
+              height={40}
+              src="/images/chains/btc.svg"
+              width={40}
+            />
+            <div className="font-semibold text-black">
+              <p>Bitcoin</p>
+              <p>0</p>
+            </div>
+          </div>
+
+          <IoIosArrowForward className="text-gray-500" />
+          <p className="text-gray-500">0.0001191</p>
+        </div>
+
+        <Tabs fullWidth radius="md">
+          <Tab key="25" title="25%" />
+          <Tab key="50" title="50%" />
+          <Tab key="100" title="100%" />
+        </Tabs>
+
+        <div className="text-center text-gray-500 text-xs">
+          Network fee: 0.00015 ETH (excluded)
         </div>
       </section>
     </DefaultLayout>
