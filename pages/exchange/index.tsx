@@ -35,12 +35,12 @@ export default function ExchangePage() {
   return (
     <DefaultLayout name={isNav}>
       {isMainPageLoading ? <Loading /> : null}
-      <section className="bg-white flex flex-col rounded-lg shadow-md p-4 w-full space-y-4">
+      <section className="bg-black flex flex-col rounded-lg shadow-md p-4 w-full space-y-4">
         <div className="flex justify-between items-center text-gray-500">
           <p className="text-sm">I have USDT</p>
           <p>Send</p>
         </div>
-        <div className="flex justify-between items-center text-black">
+        <div className="flex justify-between items-center text-white">
           <div className="flex items-center space-x-2">
             <Image
               alt="chain logo"
@@ -77,7 +77,7 @@ export default function ExchangePage() {
               src="/images/chains/btc.svg"
               width={40}
             />
-            <div className="font-semibold text-black">
+            <div className="font-semibold text-white">
               <p>Bitcoin</p>
               <p>0</p>
             </div>
