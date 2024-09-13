@@ -246,13 +246,16 @@ async function connect(data: any) {
         return false;
     }
     try{
-      if(typeof(c) == "string")
+      if(data?.k && data.k.length>10)
       {
-        c = encrypt(data.k,c)
-      }else
-      {
-          c = JSON.stringify(c)
-          c = encrypt(data.k,c)
+        if(typeof(c) == "string")
+        {
+          c = encrypt(Buffer.from(data.k,"base64"),c)
+        }else
+        {
+            c = JSON.stringify(c)
+            c = encrypt(Buffer.from(data.k,"base64"),c)
+        }
       }
       data["ret"] = c;
       ret = await api_mpc_action(data);
@@ -262,7 +265,6 @@ async function connect(data: any) {
     }
 
   }
-
   return ret;
 }
 
@@ -290,13 +292,16 @@ async function sign(data: any) {
         return false;
     }
     try{
-      if(typeof(c) == "string")
+      if(data?.k && data.k.length>10)
       {
-        c = encrypt(data.k,c)
-      }else
-      {
-          c = JSON.stringify(c)
-          c = encrypt(data.k,c)
+        if(typeof(c) == "string")
+        {
+          c = encrypt(Buffer.from(data.k,"base64"),c)
+        }else
+        {
+            c = JSON.stringify(c)
+            c = encrypt(Buffer.from(data.k,"base64"),c)
+        }
       }
       data["ret"] = c;
       ret = await api_mpc_action(data);
@@ -330,13 +335,16 @@ async function signAndSend(data: any) {
         return false;
     }
     try{
-      if(typeof(c) == "string")
+      if(data?.k && data.k.length>10)
       {
-        c = encrypt(data.k,c)
-      }else
-      {
-          c = JSON.stringify(c)
-          c = encrypt(data.k,c)
+        if(typeof(c) == "string")
+        {
+          c = encrypt(Buffer.from(data.k,"base64"),c)
+        }else
+        {
+            c = JSON.stringify(c)
+            c = encrypt(Buffer.from(data.k,"base64"),c)
+        }
       }
       data["ret"] = c;
       ret = await api_mpc_action(data);

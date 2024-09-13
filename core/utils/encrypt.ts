@@ -1,6 +1,11 @@
 import nacl from "tweetnacl"
 
 function encrypt(pubKey:Uint8Array, msg:string) {
+    console.log(
+        "🚧 encrypt : ",
+        pubKey,
+        msg
+    )
     try{
       let ephemKeys = nacl.box.keyPair()
       let msgArr = Buffer.from(msg)
@@ -17,6 +22,7 @@ function encrypt(pubKey:Uint8Array, msg:string) {
       return {nonce: nonce64, ephemPubKey: pubKey64, encrypted: encrypted64}
     }catch(e)
     {
+        console.log("🐞 Encryption error",e)
       return false;
     }
   }
