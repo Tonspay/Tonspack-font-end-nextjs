@@ -15,7 +15,6 @@ export const ButtomNav = (props: any) => {
   const router = useRouter();
   // console.log(props)
   const name = props.name;
-
   const [activeTabs, setActiveTabs] = useState(props.name);
   const [switchRouter, setSwitchRouter] = useState(props.name);
 
@@ -30,25 +29,17 @@ export const ButtomNav = (props: any) => {
       case "dapp":
         router.push("/dapp");
         break;
-      case "exchange":
-        router.push("/exchange");
-        break;
       default:
         // router.push('/')
         break;
     }
   }, [switchRouter, router]);
-  if (
-    name === "" ||
-    name == "index" ||
-    name == "action" ||
-    name == "exchange"
-  ) {
+  if (name === "" || name == "index" || name == "action") {
     return null;
   }
 
   return (
-    <div className="fixed bottom-0 left-0 w-full h-14 bg-primary-color flex justify-around items-center z-50 backdrop-blur-sm">
+    <div className={`${Styles.bottomNav}`}>
       <div className={`${Styles.bnTab}`}>
         {name == "dapp" ? (
           <RiMenu2Fill
@@ -95,22 +86,6 @@ export const ButtomNav = (props: any) => {
           />
         )}
       </div>
-
-      {/* <div className={`${Styles.bnTab}`}>
-        {name == "exchange" ? (
-          <RiCoinsFill
-            color="white"
-            size="35"
-            onClick={() => setSwitchRouter("exchange")}
-          />
-        ) : (
-          <RiCoinsLine
-            color="white"
-            size="35"
-            onClick={() => setSwitchRouter("exchange")}
-          />
-        )}
-      </div> */}
     </div>
   );
 };

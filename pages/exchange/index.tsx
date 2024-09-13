@@ -98,7 +98,7 @@ export default function ExchangePage() {
         </div>
       </section>
 
-      <div className="absolute bottom-0 right-0 w-full p-4">
+      <div className="absolute bottom-14 right-0 w-full p-4">
         <Button className="w-full" color="primary">
           Confirm
         </Button>

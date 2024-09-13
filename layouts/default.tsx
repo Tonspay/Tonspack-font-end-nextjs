@@ -1,4 +1,3 @@
-import { Link } from "@nextui-org/link";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 
@@ -34,17 +33,7 @@ export default function DefaultLayout({
       <main className="container mx-auto max-w-7xl px-6 flex-grow pt-16 relative">
         {children}
       </main>
-      <footer className="w-full flex items-center justify-center py-3 pb-14">
-        <Link
-          isExternal
-          className="flex items-center gap-1 text-current"
-          href="https://tonspack.com/"
-          title="Tonspack wallet"
-        >
-          <span className="text-default-600">Powered by</span>
-          <p className="text-primary">Tonpack team</p>
-        </Link>
-      </footer>
+
       {
         <ButtomNav name={activeTabs} />
 

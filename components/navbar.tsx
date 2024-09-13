@@ -22,7 +22,8 @@ export const Navbar = (props: any) => {
     props?.name == "dapp" ||
     props?.name == "setting" ||
     props?.name == "action" ||
-    props?.name == "index"
+    props?.name == "index" ||
+    props?.name == "exchange"
   ) {
     isBackAble = false;
   }

@@ -19,6 +19,7 @@ import {
   api_dapp_indexer_dapp,
   api_dapp_indexer_baseurl,
 } from "@/core/request/index";
+import Footer from "@/components/footer";
 
 type walletCard = {
   title: string;
@@ -180,6 +181,7 @@ export default function DocsPage() {
           ))}
         </div>
       </section>
+      <Footer />
     </DefaultLayout>
   );
 }

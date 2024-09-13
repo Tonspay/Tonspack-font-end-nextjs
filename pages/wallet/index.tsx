@@ -18,6 +18,7 @@ import {
 
 import { Loading } from "@/components/loading";
 import DefaultLayout from "@/layouts/default";
+import Footer from "@/components/footer";
 
 type walletCard = {
   title: string;
@@ -207,6 +208,7 @@ export default function DocsPage() {
           {/* <Button color="primary" onClick={()=>{Router.push("test")}} style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}}>Test</Button> */}
         </div>
       </section>
+      <Footer />
     </DefaultLayout>
   );
 }

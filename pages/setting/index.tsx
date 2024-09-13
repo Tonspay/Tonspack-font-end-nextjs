@@ -5,6 +5,7 @@ import { IoIosArrowForward } from "react-icons/io";
 
 import { Loading } from "@/components/loading";
 import DefaultLayout from "@/layouts/default";
+import Footer from "@/components/footer";
 
 type walletCard = {
   title: string;
@@ -120,6 +121,7 @@ export default function SettingPage() {
           </div>
         ))}
       </section>
+      <Footer />
     </DefaultLayout>
   );
 }
