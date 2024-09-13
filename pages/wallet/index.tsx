@@ -5,7 +5,7 @@ import { Accordion, AccordionItem } from "@nextui-org/accordion";
 import { Divider } from "@nextui-org/divider";
 import { Image } from "@nextui-org/image";
 import { Chip } from "@nextui-org/chip";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import Router from "next/router";
 
@@ -18,6 +18,7 @@ import {
 
 import { Loading } from "@/components/loading";
 import DefaultLayout from "@/layouts/default";
+import { subtitle } from "@/components/primitives";
 
 type walletCard = {
   title: string;
@@ -87,8 +88,8 @@ export default function DocsPage() {
           <Image
             alt="chain logo"
             height={40}
-            width={40}
             src={props.img || ""}
+            width={40}
           />
           <div className="ml-2 font-semibold text-default-600">
             <p className="text-left">
@@ -145,7 +146,7 @@ export default function DocsPage() {
                   width={40}
                 />
                 <div className="flex flex-col gap-1 items-start justify-center">
-                  <h4 className="text-small font-semibold leading-none text-default-600">
+                  <h4 className="text-lg font-semibold leading-none text-default-600">
                     {item.name}
                   </h4>
                 </div>
@@ -172,17 +173,20 @@ export default function DocsPage() {
                 <Accordion isCompact defaultExpandedKeys={["1"]}>
                   <AccordionItem
                     key="1"
+                    classNames={{
+                      subtitle:"text-xs"
+                    }}
                     subtitle={address_readable(12, 12, item.full_address)}
                   >
                     <CoinBar
-                      title="BNB"
-                      img={item.img}
-                      desc="Binance Coin"
-                      value={512.2}
-                      unit="USD"
                       change={-0.2}
+                      desc="Binance Coin"
+                      img={item.img}
                       owns={0}
                       ownsvalue={0.0}
+                      title="BNB"
+                      unit="USD"
+                      value={512.2}
                     />
                   </AccordionItem>
                 </Accordion>
