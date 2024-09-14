@@ -11,16 +11,23 @@ export const Loading = () => {
         height: "100%",
       }}
     >
-      <div className="load" style={{ marginTop: "-20%" }}>
+      {/* <div className="load" style={{ marginTop: "-20%" }}>
         <hr />
         <hr />
         <hr />
         <hr />
-      </div>
+      </div> */}
+
+      <span className="loaderIcon"      style={{
+        position: "absolute",
+        marginLeft: "40%",
+        marginTop:"30%",
+      }}></span>
+
       <span className="loadingText"       style={{
         position: "absolute",
-        marginLeft: "20%",
-        marginTop:"80%",
+        marginLeft: "15%",
+        marginTop:"60%",
       }}
       >Initializing</span>
     </div>
