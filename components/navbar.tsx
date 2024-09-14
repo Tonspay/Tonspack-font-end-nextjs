@@ -13,19 +13,19 @@ import { siteConfig } from "@/config/site";
 import { TwitterIcon, GithubIcon, Logo } from "@/components/icons";
 
 export const Navbar = (props: any) => {
-  let isBackAble = true;
+  let isBackAble = false;
 
   const r = useRouter();
 
   if (
-    props?.name == "wallet" ||
-    props?.name == "dapp" ||
-    props?.name == "setting" ||
-    props?.name == "action" ||
-    props?.name == "index" ||
-    props?.name == "exchange"
+    // props?.name == "wallet" ||
+    // props?.name == "dapp" ||
+    // props?.name == "setting" ||
+    // props?.name == "action" ||
+    // props?.name == "index" ||
+    props?.name == "wallet_details"
   ) {
-    isBackAble = false;
+    isBackAble = true;
   }
 
   function goBack() {
