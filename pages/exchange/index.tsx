@@ -8,6 +8,9 @@ import { Button } from "@nextui-org/button";
 import { Loading } from "@/components/loading";
 import DefaultLayout from "@/layouts/default";
 
+import { deving } from "../../core/utils/utils";
+import { Toaster } from "react-hot-toast";
+
 type walletCard = {
   title: string;
   full_address: string;
@@ -35,9 +38,10 @@ export default function ExchangePage() {
   return (
     <DefaultLayout name={isNav}>
       {isMainPageLoading ? <Loading /> : null}
-      <section className="bg-black flex flex-col rounded-lg shadow-md p-4 w-full space-y-4">
+      <Toaster />
+      <section className="bg-black flex flex-col rounded-lg shadow-md p-4 w-full space-y-4" onClick={deving}>
         <div className="flex justify-between items-center text-gray-500">
-          <p className="text-sm">I have USDT</p>
+          <p className="text-sm">USDT</p>
           <p>Send</p>
         </div>
         <div className="flex justify-between items-center text-white">
@@ -45,7 +49,7 @@ export default function ExchangePage() {
             <Image
               alt="chain logo"
               height={40}
-              src="/images/chains/btc.svg"
+              src="/images/chains/usdt.svg"
               width={40}
             />
             <div className="font-semibold">
@@ -55,7 +59,7 @@ export default function ExchangePage() {
           </div>
 
           <IoIosArrowForward className="text-gray-500" />
-          <p>7.130127</p>
+          <p>0</p>
         </div>
 
         <div className="flex justify-center items-center text-gray-500">
@@ -66,7 +70,7 @@ export default function ExchangePage() {
         </div>
 
         <div className="flex justify-between items-center text-gray-500">
-          <p className="text-sm">I want BTC</p>
+          <p className="text-sm">BTC</p>
           <p>Receive</p>
         </div>
         <div className="flex justify-between items-center">
@@ -84,7 +88,7 @@ export default function ExchangePage() {
           </div>
 
           <IoIosArrowForward className="text-gray-500" />
-          <p className="text-gray-500">0.0001191</p>
+          <p className="text-gray-500">0</p>
         </div>
 
         <Tabs fullWidth radius="md">
@@ -94,7 +98,7 @@ export default function ExchangePage() {
         </Tabs>
 
         <div className="text-center text-gray-500 text-xs">
-          Network fee: 0.00015 ETH (excluded)
+          Network fee: 0.00015 BTC (excluded)
         </div>
       </section>
 
