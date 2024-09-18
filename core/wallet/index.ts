@@ -132,6 +132,22 @@ async function wallet_list_peer_generate(type: number, chains: any, w: any) {
   const data = wallet_get_chain_details(type, chains, w);
 
   // console.log("🚧 Predraw data: ",data)
+  let tokens = JSON.parse(
+    JSON.stringify(
+      data.chain.tokens
+    )
+  )
+  let bal =`${await api_balance(data.address, data.chain.symbol, data.chain.decimal)}`// ${data.chain.symbol}`;
+  tokens.unshift(
+    {
+      icon: data.chain.icon,
+      name: data.chain.name,
+      symbol:data.chain.symbol,
+      decimal: data.chain.decimal,
+      address: "0",
+      bal: bal
+    }
+  )
   return {
     title: data.chain.name,
     address: address_readable(4, 4, data.address),
@@ -139,7 +155,8 @@ async function wallet_list_peer_generate(type: number, chains: any, w: any) {
     scan: data.chain.scan.address + data.address,
     img: data.chain.icon,
     name: data.chain.name,
-    bal: `${await api_balance(data.address, data.chain.symbol, data.chain.decimal)} ${data.chain.symbol}`,
+    bal: bal,
+    tokens:tokens
   };
 }
 

@@ -19,6 +19,13 @@ interface ObjConfig {
         tx: string;
       };
       rpc: string[];
+      tokens : {
+        icon: string;
+        name: string;
+        address: "";
+        symbol: string;
+        decimal: number;
+      }[];
     };
   };
   evmsChains: {
@@ -33,6 +40,13 @@ interface ObjConfig {
         address: string;
         tx: string;
       };
+      tokens : {
+        icon: string;
+        name: string;
+        address: "";
+        symbol: string;
+        decimal: number;
+      }[];
     };
   };
   defaultChains: {
@@ -64,6 +78,7 @@ const config: ObjConfig = {
         tx: "",
       },
       rpc: [],
+      tokens : []
     },
     solana: {
       icon: "/images/chains/sol.svg",
@@ -78,6 +93,22 @@ const config: ObjConfig = {
       rpc: [
         "https://solana-mainnet.g.alchemy.com/v2/2HWIMGYhZm3HJXTVlyfVWThcSpgP9Twu",
       ],
+      tokens : [
+        {
+          icon: "/images/chains/usdt.svg",
+          name: "Tether USD",
+          symbol: "USDT",
+          decimal: 8,
+          address: "",
+        },
+        {
+          icon: "/images/chains/eth.svg",
+          name: "Ethereum",
+          symbol: "ETH",
+          decimal: 8,
+          address: "",
+        },
+      ]
     },
     ton: {
       icon: "/images/chains/ton.svg",
@@ -90,6 +121,15 @@ const config: ObjConfig = {
         tx: "https://tonviewer.com/transaction/",
       },
       rpc: [],
+      tokens : [
+        {
+          icon: "/images/chains/usdt.svg",
+          name: "Tether USD",
+          symbol: "USDT",
+          decimal: 8,
+          address: "",
+        },
+      ]
     },
     tron: {
       icon: "/images/chains/tron.svg",
@@ -102,6 +142,15 @@ const config: ObjConfig = {
         tx: "https://tronscan.org/#/transaction/",
       },
       rpc: [],
+      tokens : [
+        {
+          icon: "/images/chains/usdt.svg",
+          name: "Tether USD",
+          symbol: "USDT",
+          decimal: 8,
+          address: "",
+        }
+      ]
     },
     btc: {
       icon: "/images/chains/btc.svg",
@@ -114,6 +163,8 @@ const config: ObjConfig = {
         tx: "https://mempool.space/tx/",
       },
       rpc: [],
+      tokens : [
+      ]
     },
   },
   evmsChains: {
@@ -128,6 +179,8 @@ const config: ObjConfig = {
         address: "https://etherscan.io/address/",
         tx: "https://etherscan.io/tx/",
       },
+      tokens : [
+      ]
     },
     "1": {
       icon: "/images/chains/eth.svg",
@@ -140,6 +193,15 @@ const config: ObjConfig = {
         address: "https://etherscan.io/address/",
         tx: "https://etherscan.io/tx/",
       },
+      tokens : [
+        {
+          icon: "/images/chains/usdt.svg",
+          name: "Tether USD",
+          symbol: "USDT",
+          decimal: 8,
+          address: "",
+        }
+      ]
     },
     "56": {
       icon: "/images/chains/bnb.svg",
@@ -152,6 +214,15 @@ const config: ObjConfig = {
         address: "https://bscscan.io/address/",
         tx: "https://bscscan.io/tx/",
       },
+      tokens : [
+        {
+          icon: "/images/chains/usdt.svg",
+          name: "Tether USD",
+          symbol: "USDT",
+          decimal: 8,
+          address: "",
+        }
+      ]
     },
     "42161": {
       icon: "/images/chains/arb.svg",
@@ -164,6 +235,15 @@ const config: ObjConfig = {
         address: "https://arbiscan.io/address/",
         tx: "https://arbiscan.io/tx/",
       },
+      tokens : [
+        {
+          icon: "/images/chains/usdt.svg",
+          name: "Tether USD",
+          symbol: "USDT",
+          decimal: 8,
+          address: "",
+        }
+      ]
     },
     "8453": {
       icon: "/images/chains/base.svg",
@@ -176,6 +256,15 @@ const config: ObjConfig = {
         address: "https://basescan.org/address/",
         tx: "https://basescan.org/tx/",
       },
+      tokens : [
+        {
+          icon: "/images/chains/usdt.svg",
+          name: "Tether USD",
+          symbol: "USDT",
+          decimal: 8,
+          address: "",
+        }
+      ]
     },
     "43114": {
       icon: "/images/chains/avax.svg",
@@ -188,6 +277,15 @@ const config: ObjConfig = {
         address: "https://snowtrace.io/address/",
         tx: "https://snowtrace.io/tx/",
       },
+      tokens : [
+        {
+          icon: "/images/chains/usdt.svg",
+          name: "Tether USD",
+          symbol: "USDT",
+          decimal: 8,
+          address: "",
+        }
+      ]
     },
     "137": {
       icon: "/images/chains/polygon.svg",
@@ -200,6 +298,15 @@ const config: ObjConfig = {
         address: "https://polygonscan.com/address/",
         tx: "https://polygon.drpc.org",
       },
+      tokens : [
+        {
+          icon: "/images/chains/usdt.svg",
+          name: "Tether USD",
+          symbol: "USDT",
+          decimal: 8,
+          address: "",
+        }
+      ]
     },
     "10": {
       icon: "/images/chains/op.svg",
@@ -212,6 +319,15 @@ const config: ObjConfig = {
         address: "https://optimistic.etherscan.io/address/",
         tx: "https://optimistic.etherscan.io/tx/",
       },
+      tokens : [
+        {
+          icon: "/images/chains/usdt.svg",
+          name: "Tether USD",
+          symbol: "USDT",
+          decimal: 8,
+          address: "",
+        }
+      ]
     },
   },
   defaultChains: [

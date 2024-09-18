@@ -22,6 +22,7 @@ type walletCard = {
   img: string;
   name: string;
   bal: string;
+  tokens : [];
 };
 export default function DocsPage() {
   const router = useRouter();

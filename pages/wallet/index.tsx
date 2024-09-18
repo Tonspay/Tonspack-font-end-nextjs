@@ -44,6 +44,16 @@ export default function DocsPage() {
       img: "",
       name: "",
       bal: "",
+      tokens:[
+        {
+          icon: "",
+          name: "",
+          symbol:"",
+          decimal: 8,
+          address:"",
+          bal: "",
+        }
+      ],
     },
   ]);
 
@@ -169,7 +179,22 @@ export default function DocsPage() {
               style={{ maxWidth: "400px", width: "100%", textAlign: "center" }}
             >
               {/* TODO: fetch data from blockchain */}
-              {isClient && (
+              {
+                // <Accordion isCompact defaultExpandedKeys={["1"]}>
+                //   <AccordionItem
+                //     key="1"
+                //     classNames={{
+                //       subtitle: "text-xs",
+                //     }}
+                //     subtitle={address_readable(12, 12, item.full_address)}
+                //     textValue="Wallet Details"
+                //   >
+                     
+                //   </AccordionItem>
+                // </Accordion>
+              }
+              {
+              isClient && (
                 <Accordion isCompact defaultExpandedKeys={["1"]}>
                   <AccordionItem
                     key="1"
@@ -179,19 +204,40 @@ export default function DocsPage() {
                     subtitle={address_readable(12, 12, item.full_address)}
                     textValue="Wallet Details"
                   >
+                   {/* <div style={{padding:"10px"}}>
                     <CoinBar
-                      change={-0.2}
-                      desc="Binance Coin"
-                      img={item.img}
-                      owns={0}
-                      ownsvalue={0.0}
-                      title="BNB"
-                      unit="USD"
-                      value={512.2}
-                    />
+                        change={-0.2}
+                        desc="Binance Coin"
+                        img={item.img}
+                        owns={0}
+                        ownsvalue={0.0}
+                        title="BNB"
+                        unit="USD"
+                        value={512.2}
+                      />
+                    </div> */}
+                    {
+                                      item.tokens.map(
+                                        (tk, tki) => (
+                                          <div style={{padding:"10px"}}>
+                                          <CoinBar
+                                              change={""}
+                                              desc={tk.name}
+                                              img={tk.icon}
+                                              owns={tk.bal}
+                                              ownsvalue={tk.bal}
+                                              title={tk.symbol}
+                                              unit={""}
+                                              value={"price"}
+                                            />
+                                          </div>  
+                                        )
+                                      )
+                    }
                   </AccordionItem>
                 </Accordion>
-              )}
+              )
+              }
             </CardBody>
           </Card>
         ))}
