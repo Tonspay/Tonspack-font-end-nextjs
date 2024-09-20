@@ -109,7 +109,7 @@ export default function DocsPage() {
               </span>
             </p>
             <p className="text-left text-sm">
-              <span>{props.value}</span>
+              <span>${props.value}</span>
               <span className="ml-1">{props.unit}</span>
               <span className="ml-1">{props.change}</span>
             </p>
@@ -228,7 +228,7 @@ export default function DocsPage() {
                                               ownsvalue={tk.bal}
                                               title={tk.symbol}
                                               unit={""}
-                                              value={"price"}
+                                              value={tk.price}
                                             />
                                           </div>  
                                         )

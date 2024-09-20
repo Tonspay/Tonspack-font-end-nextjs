@@ -25,6 +25,7 @@ interface ObjConfig {
         address: "";
         symbol: string;
         decimal: number;
+        price:number
       }[];
     };
   };
@@ -46,6 +47,7 @@ interface ObjConfig {
         address: "";
         symbol: string;
         decimal: number;
+        price:number
       }[];
     };
   };
@@ -100,6 +102,7 @@ const config: ObjConfig = {
           symbol: "USDT",
           decimal: 8,
           address: "",
+          price:0,
         },
         {
           icon: "/images/chains/eth.svg",
@@ -107,6 +110,7 @@ const config: ObjConfig = {
           symbol: "ETH",
           decimal: 8,
           address: "",
+          price:0,
         },
       ]
     },
@@ -128,6 +132,7 @@ const config: ObjConfig = {
           symbol: "USDT",
           decimal: 8,
           address: "",
+          price:1,
         },
       ]
     },
@@ -149,6 +154,7 @@ const config: ObjConfig = {
           symbol: "USDT",
           decimal: 8,
           address: "",
+          price:1,
         }
       ]
     },
@@ -200,6 +206,7 @@ const config: ObjConfig = {
           symbol: "USDT",
           decimal: 8,
           address: "",
+          price:1,
         }
       ]
     },
@@ -221,6 +228,7 @@ const config: ObjConfig = {
           symbol: "USDT",
           decimal: 8,
           address: "",
+          price:1,
         }
       ]
     },
@@ -242,6 +250,7 @@ const config: ObjConfig = {
           symbol: "USDT",
           decimal: 8,
           address: "",
+          price:1,
         }
       ]
     },
@@ -263,6 +272,7 @@ const config: ObjConfig = {
           symbol: "USDT",
           decimal: 8,
           address: "",
+          price:1,
         }
       ]
     },
@@ -284,6 +294,7 @@ const config: ObjConfig = {
           symbol: "USDT",
           decimal: 8,
           address: "",
+          price:1,
         }
       ]
     },
@@ -305,6 +316,7 @@ const config: ObjConfig = {
           symbol: "USDT",
           decimal: 8,
           address: "",
+          price:1,
         }
       ]
     },
@@ -326,6 +338,7 @@ const config: ObjConfig = {
           symbol: "USDT",
           decimal: 8,
           address: "",
+          price:1,
         }
       ]
     },

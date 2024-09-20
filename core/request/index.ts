@@ -53,6 +53,9 @@ const request_router = {
     chians: dapp_indexer_baseurl + "chains.json",
     dapp: dapp_indexer_baseurl + "dapp.json",
   },
+  token_price : {
+    aggregator: request_baseurl +"tokenPrice/aggregator"
+  }
 };
 
 async function requester(url: string, requestOptions: any) {
@@ -192,7 +195,7 @@ async function api_balance_btc(data: string) {
   }
 }
 
-async function api_balance(data: string, chain: any, decimail: number) {
+async function api_balance(data: string, chain: any, decimail: number , token:string) {
   try {
     var web3;
 
@@ -254,6 +257,19 @@ async function api_dapp_indexer_dapp() {
   }
 }
 
+async function api_price_oracle() {
+  try {
+    return await requester(
+      request_router.token_price.aggregator,
+      request_get_unauth(),
+    );
+  } catch (e) {
+    console.error(e);
+
+    return 0;
+  }
+}
+
 export {
   api_auth,
   api_connect,
@@ -263,5 +279,6 @@ export {
   api_balance,
   api_dapp_indexer_chains,
   api_dapp_indexer_dapp,
+  api_price_oracle,
   dapp_indexer_baseurl as api_dapp_indexer_baseurl,
 };
