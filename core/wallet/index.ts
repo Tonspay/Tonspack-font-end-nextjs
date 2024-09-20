@@ -5,6 +5,7 @@ import {
   api_balance,
   api_preconnect,
   api_mpc_action,
+  api_price_oracle,
 } from "../request/index";
 import { miniapp_init } from "../utils/tg";
 import {
@@ -18,8 +19,6 @@ import { address_readable, sleep } from "../utils/utils";
 import config from "../config";
 
 import * as mpc from "./mpc";
-
-import { encrypt ,decrypt } from "../utils/encrypt";
 
 function wallet_init_data_set() {
   // console.log("🚧 This is  wallet_init_data_set")
@@ -60,23 +59,29 @@ async function wallet_connect() {
 }
 
 async function wallet_list_generate(ws: any) {
+  const oracle = await api_price_oracle()
+  console.log("🚧  oracle :: ",oracle)
+
   const ret = [];
 
   for (let i = 0; i < config.defaultChains.length; i++) {
     let item = config.defaultChains[i];
 
-    ret.push(await wallet_list_peer_generate(item.t, item.c, ws));
+    ret.push(await wallet_list_peer_generate(item.t, item.c, ws,oracle));
   }
 
   return ret;
 }
 
 async function wallet_list_generate_action(ws: any, action: any) {
+  const oracle = await api_price_oracle()
+  console.log("🚧  oracle :: ",oracle)
+
   if (action && action.c) {
-    return wallet_list_peer_generate(parseInt(action.c.t), action.c.i, ws);
+    return wallet_list_peer_generate(parseInt(action.c.t), action.c.i, ws,oracle);
   }
 
-  return await wallet_list_peer_generate(0, 1, ws);
+  return await wallet_list_peer_generate(0, 1, ws,oracle);
 }
 
 function wallet_get_chain_details(type: number, chains: any, w: any) {
@@ -130,10 +135,50 @@ function wallet_get_chain_details(type: number, chains: any, w: any) {
   }
 }
 
-async function wallet_list_peer_generate(type: number, chains: any, w: any) {
+async function wallet_list_peer_generate(type: number, chains: any, w: any,oracle:any) {
   const data = wallet_get_chain_details(type, chains, w);
-
   // console.log("🚧 Predraw data: ",data)
+  let tokens = JSON.parse(
+    JSON.stringify(
+      data.chain.tokens
+    )
+  )
+
+  let bal =`${await api_balance(data.address, data.chain.symbol, data.chain.decimal,"")}`// ${data.chain.symbol}`;
+  console.log(bal)
+  if(!bal)
+  {
+    bal = "0"
+  }
+  tokens.unshift(
+    {
+      icon: data.chain.icon,
+      name: data.chain.name,
+      symbol:data.chain.symbol,
+      decimal: data.chain.decimal,
+      address: "0",
+      price:0,
+      bal: bal
+    }
+  )
+  if(oracle && oracle?.code==200 && oracle?.data && oracle.data?.price)
+  for(let i =0 ; i < tokens.length ; i++)
+  {
+    if(!tokens[i].bal)
+    {
+      tokens[i].bal = "0"
+    }
+    let ele = tokens[i]
+    for(let u = 0 ; u < oracle.data.price.length ; u++)
+    {
+      let ps = oracle.data.price[u];
+      if(ele.symbol == ps.name.toUpperCase())
+        {
+          //Match
+          tokens[i].price = ps.price
+        }
+    }
+  }
   return {
     title: data.chain.name,
     address: address_readable(4, 4, data.address),
@@ -141,7 +186,8 @@ async function wallet_list_peer_generate(type: number, chains: any, w: any) {
     scan: data.chain.scan.address + data.address,
     img: data.chain.icon,
     name: data.chain.name,
-    bal: `${await api_balance(data.address, data.chain.symbol, data.chain.decimal)} ${data.chain.symbol}`,
+    bal: bal,
+    tokens:tokens
   };
 }
 
@@ -245,26 +291,10 @@ async function connect(data: any) {
       default:
         return false;
     }
-    try{
-      if(data?.k && data.k.length>10)
-      {
-        if(typeof(c) == "string")
-        {
-          c = encrypt(Buffer.from(data.k,"base64"),c)
-        }else
-        {
-            c = JSON.stringify(c)
-            c = encrypt(Buffer.from(data.k,"base64"),c)
-        }
-      }
-      data["ret"] = c;
-      ret = await api_mpc_action(data);
-    }catch(e)
-    {
-      console.error("🚧 ERROR ,",e)
-    }
-
+    data["ret"] = c;
+    ret = await api_mpc_action(data);
   }
+
   return ret;
 }
 
@@ -291,24 +321,8 @@ async function sign(data: any) {
       default:
         return false;
     }
-    try{
-      if(data?.k && data.k.length>10)
-      {
-        if(typeof(c) == "string")
-        {
-          c = encrypt(Buffer.from(data.k,"base64"),c)
-        }else
-        {
-            c = JSON.stringify(c)
-            c = encrypt(Buffer.from(data.k,"base64"),c)
-        }
-      }
-      data["ret"] = c;
-      ret = await api_mpc_action(data);
-    }catch(e)
-    {
-      console.error("🚧 ERROR ,",e)
-    }
+    data["ret"] = c;
+    ret = await api_mpc_action(data);
   }
 
   return ret;
@@ -334,24 +348,8 @@ async function signAndSend(data: any) {
       default:
         return false;
     }
-    try{
-      if(data?.k && data.k.length>10)
-      {
-        if(typeof(c) == "string")
-        {
-          c = encrypt(Buffer.from(data.k,"base64"),c)
-        }else
-        {
-            c = JSON.stringify(c)
-            c = encrypt(Buffer.from(data.k,"base64"),c)
-        }
-      }
-      data["ret"] = c;
-      ret = await api_mpc_action(data);
-    }catch(e)
-    {
-      console.error("🚧 ERROR ,",e)
-    }
+    data["ret"] = c;
+    ret = await api_mpc_action(data);
   }
 
   console.log(c, data.i, data.d);

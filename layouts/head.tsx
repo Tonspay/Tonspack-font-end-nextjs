@@ -6,9 +6,10 @@ import { useTheme } from "next-themes";
 /**
  * MPC web3auth
  */
-import { Web3Auth, decodeToken } from "@web3auth/single-factor-auth";
-import { CHAIN_NAMESPACES, WEB3AUTH_NETWORK } from "@web3auth/base";
-import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
+
+import { wallet_mpc_set_kp } from "../core/wallet/index";
+
+import { siteConfig } from "@/config/site";
 
 import { wallet_init_data_set, wallet_mpc_set_kp } from "../core/wallet/index";
 

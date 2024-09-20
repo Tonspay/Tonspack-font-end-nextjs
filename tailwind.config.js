@@ -9,7 +9,11 @@ module.exports = {
     './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontSize:{
+        xxs: '0.625rem',
+      },
+    },
   },
   darkMode: "class",
   plugins: [nextui()],

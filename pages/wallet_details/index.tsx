@@ -22,6 +22,7 @@ type walletCard = {
   img: string;
   name: string;
   bal: string;
+  tokens : [];
 };
 export default function DocsPage() {
   const router = useRouter();
@@ -43,7 +44,7 @@ export default function DocsPage() {
 
   // return returnFont()
   return (
-    <DefaultLayout name="">
+    <DefaultLayout name="wallet_details">
       {isMainPageLoading ? <Loading /> : null}
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
         <Toaster />

@@ -1,6 +1,8 @@
 import { Link } from "@nextui-org/link";
 import { Button } from "@nextui-org/button";
 import { Card, CardHeader, CardBody } from "@nextui-org/card";
+import { Accordion, AccordionItem } from "@nextui-org/accordion";
+import { Divider } from "@nextui-org/divider";
 import { Image } from "@nextui-org/image";
 import { Chip } from "@nextui-org/chip";
 import { useState, useEffect } from "react";
@@ -16,6 +18,7 @@ import {
 
 import { Loading } from "@/components/loading";
 import DefaultLayout from "@/layouts/default";
+import Footer from "@/components/footer";
 
 type walletCard = {
   title: string;
@@ -41,6 +44,16 @@ export default function DocsPage() {
       img: "",
       name: "",
       bal: "",
+      tokens:[
+        {
+          icon: "",
+          name: "",
+          symbol:"",
+          decimal: 8,
+          address:"",
+          bal: "",
+        }
+      ],
     },
   ]);
 
@@ -72,7 +85,46 @@ export default function DocsPage() {
     onload().catch(console.error);
   }, []);
 
-  // return returnFont()
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  function CoinBar(props: any) {
+    return (
+      <div className="flex justify-between items-center">
+        <div className="flex items-center">
+          <Image
+            alt="chain logo"
+            height={40}
+            src={props.img || ""}
+            width={40}
+          />
+          <div className="ml-2 text-default-600">
+            <p className="text-left font-semibold ">
+              <span className="text-lg">{props.title}</span>
+              <span className="text-small ml-1 text-default-400">
+                {props.desc}
+              </span>
+            </p>
+            <p className="text-left text-sm">
+              <span>${props.value}</span>
+              <span className="ml-1">{props.unit}</span>
+              <span className="ml-1">{props.change}</span>
+            </p>
+          </div>
+        </div>
+        <div className="flex flex-col items-center grow">
+          <p className="text-right font-semibold w-full">{props.owns}</p>
+          <p className="ml-1 text-right w-full text-default-400">
+            ${props.ownsvalue}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <DefaultLayout name={isNav}>
       {isMainPageLoading ? <Loading /> : null}
@@ -104,7 +156,7 @@ export default function DocsPage() {
                   width={40}
                 />
                 <div className="flex flex-col gap-1 items-start justify-center">
-                  <h4 className="text-small font-semibold leading-none text-default-600">
+                  <h4 className="text-lg font-semibold leading-none text-default-600">
                     {item.name}
                   </h4>
                 </div>
@@ -121,25 +173,71 @@ export default function DocsPage() {
                 </Chip>
               </Link>
             </CardHeader>
+            <Divider className="w-[90%] m-auto" />
+
             <CardBody
               style={{ maxWidth: "400px", width: "100%", textAlign: "center" }}
             >
-              <div className="flex gap-1">
-                <div
-                  className=" text-default-400 text-small"
-                  style={{ textAlign: "center", width: "100%" }}
-                >
-                  {address_readable(12, 12, item.full_address)}
-                </div>
-              </div>
-              <div className="flex gap-1">
-                <div
-                  className="text-big"
-                  style={{ textAlign: "center", width: "100%" }}
-                >
-                  {item.bal}
-                </div>
-              </div>
+              {/* TODO: fetch data from blockchain */}
+              {
+                // <Accordion isCompact defaultExpandedKeys={["1"]}>
+                //   <AccordionItem
+                //     key="1"
+                //     classNames={{
+                //       subtitle: "text-xs",
+                //     }}
+                //     subtitle={address_readable(12, 12, item.full_address)}
+                //     textValue="Wallet Details"
+                //   >
+                     
+                //   </AccordionItem>
+                // </Accordion>
+              }
+              {
+              isClient && (
+                <Accordion isCompact defaultExpandedKeys={["1"]}>
+                  <AccordionItem
+                    key="1"
+                    classNames={{
+                      subtitle: "text-xs",
+                    }}
+                    subtitle={address_readable(12, 12, item.full_address)}
+                    textValue="Wallet Details"
+                  >
+                   {/* <div style={{padding:"10px"}}>
+                    <CoinBar
+                        change={-0.2}
+                        desc="Binance Coin"
+                        img={item.img}
+                        owns={0}
+                        ownsvalue={0.0}
+                        title="BNB"
+                        unit="USD"
+                        value={512.2}
+                      />
+                    </div> */}
+                    {
+                                      item.tokens.map(
+                                        (tk, tki) => (
+                                          <div style={{padding:"10px"}}>
+                                          <CoinBar
+                                              change={""}
+                                              desc={tk.name}
+                                              img={tk.icon}
+                                              owns={tk.bal}
+                                              ownsvalue={tk.bal}
+                                              title={tk.symbol}
+                                              unit={""}
+                                              value={tk.price}
+                                            />
+                                          </div>  
+                                        )
+                                      )
+                    }
+                  </AccordionItem>
+                </Accordion>
+              )
+              }
             </CardBody>
           </Card>
         ))}
@@ -156,6 +254,7 @@ export default function DocsPage() {
           {/* <Button color="primary" onClick={()=>{Router.push("test")}} style={{maxWidth:"400px",width:"100%" ,textAlign:"center"}}>Test</Button> */}
         </div>
       </section>
+      <Footer />
     </DefaultLayout>
   );
 }
