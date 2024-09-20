@@ -31,7 +31,11 @@ export default function DocsPage() {
   let list: walletCard[];
 
   list = [];
-  list.push(router.query as walletCard);
+  if(router.query && typeof(router.query) == "string")
+  {
+    list.push(JSON.parse(router.query) as walletCard);
+  }
+
   const [isMainPageLoading, setIsMainPageLoading] = useState(true);
 
   useEffect(() => {

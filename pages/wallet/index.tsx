@@ -51,6 +51,7 @@ export default function DocsPage() {
           symbol:"",
           decimal: 8,
           address:"",
+          price:0,
           bal: "",
         }
       ],
@@ -143,7 +144,7 @@ export default function DocsPage() {
             style={{ maxWidth: "400px", width: "100%" }}
             onPress={() => {
               console.log("Card details router");
-              Router.push({ pathname: "/wallet_details", query: item });
+              Router.push({ pathname: "/wallet_details", query: JSON.stringify(item) });
             }}
           >
             <CardHeader className="justify-between">
