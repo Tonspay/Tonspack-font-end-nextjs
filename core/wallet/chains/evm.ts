@@ -3,6 +3,17 @@ import * as Web3 from "web3";
 import { objKP } from "../type";
 import config from "../../config";
 
+function randomKey()
+{
+  return Web3.eth.accounts.create();
+}
+
+function getKeyPairFromSec(sec:string)
+{
+  return Web3.eth.accounts.privateKeyToAccount(sec)
+}
+
+
 function connect(kp: objKP) {
   return kp.evmKp.address;
 }
@@ -89,4 +100,4 @@ function getWeb3(cid: string) {
   return false;
 }
 
-export { connect, sign, signAndSendTxn };
+export { connect, sign, signAndSendTxn ,randomKey , getKeyPairFromSec};
