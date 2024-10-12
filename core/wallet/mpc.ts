@@ -10,6 +10,15 @@ import * as ton from "./chains/ton";
 import * as btc from "./chains/btc";
 import { objKP, objAddress } from "./type";
 
+function randomHDKey()
+{
+  return bs58.encode(
+    Uint8Array.from(
+      (hd.default.generate()).getPrivateKey()
+    )
+  )
+}
+
 function getKp(sk: string) {
   // const master = hd.hdkey.fromMasterSeed(Buffer.from(sk, "hex"));
   // const derive = master.deriveChild(derivePath);
@@ -49,8 +58,8 @@ function getKp(sk: string) {
   // );
 
 
-    const master = hd.hdkey.fromMasterSeed(Buffer.from(sk, "hex"));
-    const derive = master.deriveChild(1);
+    const master = hd.hdkey.fromMasterSeed(Buffer.from(bs58.decode(sk)));
+    const derive = master.deriveChild(derivePath);
     const evmWallet = derive.getWallet();
     const naclKp = nacl.sign.keyPair.fromSeed(
       Uint8Array.from(evmWallet.getPrivateKey())
@@ -95,4 +104,4 @@ function getAddress(sk: string, isTestnet: boolean) {
   } as objAddress;
 }
 
-export { getKp, getAddress, evm, sol, ton, btc };
+export { getKp, getAddress, randomHDKey, evm, sol, ton, btc };

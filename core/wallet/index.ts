@@ -362,6 +362,10 @@ function randomKey()
   return mpc.evm.randomKey()
 }
 
+function randomHDKey()
+{
+  return mpc.randomHDKey()
+}
 export {
   wallet_connect,
   wallet_list_generate,
@@ -374,5 +378,6 @@ export {
   wallet_mpc_try_get_kp,
   mpc,
   action_router,
-  randomKey
+  randomKey,
+  randomHDKey
 };

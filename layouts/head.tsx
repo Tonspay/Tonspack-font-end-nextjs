@@ -7,7 +7,7 @@ import { initCloudStorage  } from "@telegram-apps/sdk-react";
  * MPC web3auth
  */
 
-import { wallet_init_data_set, wallet_mpc_set_kp ,randomKey} from "../core/wallet/index";
+import { wallet_init_data_set, wallet_mpc_set_kp ,randomHDKey} from "../core/wallet/index";
 
 import { siteConfig } from "@/config/site";
 
@@ -39,24 +39,25 @@ export const Head = () => {
 
         //PrivateKey check
         const cloudStorage = initCloudStorage();
-        console.log("🔥 cloudStorage init",cloudStorage)
+        // console.log("🔥 cloudStorage init",cloudStorage)
       
+        // await cloudStorage.set('rawPrivateKey',"")
         
         let value = await cloudStorage.get('rawPrivateKey')
-        console.log("get storage",value);
+        // console.log("get storage",value);
 
         if(!value || value?.length <10)
         {
           //Not been init
-          let kp = randomKey()
-          console.log("new keypair",kp.privateKey)
-          await cloudStorage.set('rawPrivateKey',kp.privateKey)
-          privateKey = kp.privateKey;
+          let kp = randomHDKey()
+          // console.log("new keypair",kp)
+          await cloudStorage.set('rawPrivateKey',kp)
+          privateKey = kp;
         }else{
           privateKey = value
         }
 
-      console.log("🐞 Cloud Storage privateKey : ",privateKey)
+      // console.log("🐞 Cloud Storage privateKey : ",privateKey)
       setKp(privateKey as string);
       wallet_mpc_set_kp(privateKey as string);
     } catch (err) {
